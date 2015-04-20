@@ -27,24 +27,19 @@ import javax.validation.constraints.Size;
 
 /**
  *
- * @author 58lalo53
+ * @author Eduardo
  */
 @Entity
 @Table(name = "TRANSACTIONS", catalog = "", schema = "BANKING")
 @NamedQueries({
     @NamedQuery(name = "Transactions.findAll", query = "SELECT t FROM Transactions t"),
-    @NamedQuery(name = "Transactions.findById", query = "SELECT t FROM Transactions t WHERE t.id = :id"),
     @NamedQuery(name = "Transactions.findByTimeStamp", query = "SELECT t FROM Transactions t WHERE t.timeStamp = :timeStamp"),
     @NamedQuery(name = "Transactions.findByAmount", query = "SELECT t FROM Transactions t WHERE t.amount = :amount"),
     @NamedQuery(name = "Transactions.findByBalance", query = "SELECT t FROM Transactions t WHERE t.balance = :balance"),
-    @NamedQuery(name = "Transactions.findByDescription", query = "SELECT t FROM Transactions t WHERE t.description = :description")})
+    @NamedQuery(name = "Transactions.findByDescription", query = "SELECT t FROM Transactions t WHERE t.description = :description"),
+    @NamedQuery(name = "Transactions.findById", query = "SELECT t FROM Transactions t WHERE t.id = :id")})
 public class Transactions implements Serializable {
     private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "ID")
-    private Integer id;
     @Column(name = "TIME_STAMP")
     @Temporal(TemporalType.TIMESTAMP)
     private Date timeStamp;
@@ -60,7 +55,12 @@ public class Transactions implements Serializable {
     @Size(max = 100)
     @Column(name = "DESCRIPTION")
     private String description;
-    @JoinColumn(name = "ACC_ID", referencedColumnName = "ACC_NUM")
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "ID")
+    private Integer id;
+    @JoinColumn(name = "ACC_ID", referencedColumnName = "ID")
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private Account accId;
 
@@ -71,24 +71,22 @@ public class Transactions implements Serializable {
         this.id = id;
     }
 
-    public Transactions(Integer id, BigDecimal amount, BigDecimal balance) {
+    public Transactions(int id, BigDecimal amount, BigDecimal balance) {
         this.id = id;
         this.amount = amount;
         this.balance = balance;
     }
     
-    public Transactions(BigDecimal amount, Account accId, String description){
+    public Transactions(Account accId, BigDecimal amount, String description){
+        this.accId=accId;
         this.amount = amount;
-        this.accId = accId;
         this.description = description;
     }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
+    public Transactions(Account accId, BigDecimal amount, BigDecimal balance, String description){
+        this.accId = accId;
+        this.amount = amount;
+        this.balance = balance;
+        this.description = description;
     }
 
     public Date getTimeStamp() {
@@ -99,12 +97,12 @@ public class Transactions implements Serializable {
         this.timeStamp = timeStamp;
     }
 
-    public BigDecimal getAmmount() {
+    public BigDecimal getAmount() {
         return amount;
     }
 
-    public void setAmmount(BigDecimal ammount) {
-        this.amount = ammount;
+    public void setAmount(BigDecimal amount) {
+        this.amount = amount;
     }
 
     public BigDecimal getBalance() {
@@ -121,6 +119,14 @@ public class Transactions implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public Account getAccId() {

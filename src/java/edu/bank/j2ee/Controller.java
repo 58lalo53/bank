@@ -21,8 +21,8 @@ public class Controller extends HttpServlet {
 
    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-            String action=request.getParameter("action");
+            throws ServletException, IOException {}
+/*            String action=request.getParameter("action");
 		if(action==null)
 			action="login";
 		String destination;
@@ -213,7 +213,7 @@ public class Controller extends HttpServlet {
             return "transaction";
         }
         
-        	private String login(HttpServletRequest request) throws ServletException{
+        private String login(HttpServletRequest request) throws ServletException{
             if (request.getMethod().equals("GET")) return "login";
             String username = request.getParameter("username");
             String password = request.getParameter("password");
@@ -237,7 +237,7 @@ public class Controller extends HttpServlet {
             request.getSession().removeAttribute("cust");
             return "home";
         }
-        
+ */       
         private EntityManager getEM() {
             EntityManagerFactory emf = (EntityManagerFactory)getServletContext().getAttribute("emf");
             return emf.createEntityManager();

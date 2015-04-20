@@ -1,5 +1,6 @@
 
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -11,15 +12,12 @@
         <h1>... Bank</h1>
         <c:choose>
             <c:when test = "${sessionScope.cust.username!= null}">
-                                    <li>
-        <ul><a href="eindex?action=accounts">Accounts</a></ul>
-        <ul><a href="eindex?action=transactions">Transactions</a></ul>
-        <ul><a href="eindex?action=logout">Logout</a></ul>
-                    </li>
+                <%@include file="loginMenu.jspf" %>
             </c:when>
         </c:choose>
         <h3>Hello ${sessionScope.cust.toString()}</h3>
-        <p>Your Account Number is ${sessionScope.account.getAccNum()}</p>
-        <a href="eindex?action=home">Return to Home Page</a>
+        <p>Your Account Number is <c:out value="${sessionScope.acc.getAccNum()}">${sessionScope.acc.getAccNum()}</c:out></p>
+        <a href="/bank/home">Return to Home Page</a>
+        <p>${sessionScope.account.getBalance()}</p>
     </body>
 </html>

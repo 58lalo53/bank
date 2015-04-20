@@ -2,25 +2,11 @@
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
     <description>Banking System</description>
     <display-name>... Bank</display-name>
-     <listener>
+    <listener>
         <description>ServletContextListener</description>
-        <listener-class>edu.bank.j2ee.ContextListener</listener-class>
+        <listener-class>edu.bank.j2ee.EMListener</listener-class>
     </listener>
-    <servlet>
-        <servlet-name>Controller</servlet-name>
-        <servlet-class>edu.bank.j2ee.Controller</servlet-class>
-        <multipart-config>
-            <max-file-size>204800</max-file-size>
-        </multipart-config>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>Controller</servlet-name>
-        <url-pattern>/eindex</url-pattern>
-    </servlet-mapping>
     <session-config>
         <session-timeout>10</session-timeout>
     </session-config>
-    <welcome-file-list>
-        <welcome-file>eindex</welcome-file>
-    </welcome-file-list>
 </web-app>

@@ -108,9 +108,6 @@ public class Customer implements Serializable {
     private String password;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "custId", fetch = FetchType.EAGER)
     private List<Account> accountList;
-    @JoinColumn(name = "ACC_NUM", referencedColumnName = "ACC_NUM")
-    @ManyToOne(fetch = FetchType.EAGER)
-    private Account accNum;
 
     public Customer() {
     }
@@ -266,13 +263,6 @@ public class Customer implements Serializable {
         this.accountList = accountList;
     }
 
-    public Account getAccNum() {
-        return accNum;
-    }
-
-    public void setAccNum(Account accNum) {
-        this.accNum = accNum;
-    }
 
     @Override
     public int hashCode() {

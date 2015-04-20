@@ -14,22 +14,17 @@
     </head>
     <body>
         <h1>Welcome to ... Bank</h1>
+        <h3>${flash}</h3>
                     <p>
                 <c:choose>
                     <c:when test="${sessionScope.cust.username != null}">
-                    <li>
-        <ul><a href="eindex?action=accounts">Accounts</a></ul>
-        <ul><a href="eindex?action=doDeposit">Deposit</a></ul>
-        <ul><a href="eindex?action=withdraw">Withdraw</a></ul>
-        <ul><a href="eindex?action=transactions">Transactions</a></ul>
-        <ul><a href="eindex?action=logout">Logout</a></ul>
-                    </li>
+                        <%@include file ="loginMenu.jspf" %>
                     </c:when>
                     <c:otherwise>
     <li>
-        <ul><a href="eindex?action=home">Home</a></ul>
-        <ul><a href="eindex?action=login">Login</a></ul>
-        <ul><a href="eindex?action=register">Register</a></ul>
+        <ul><a href="/bank/home">Home</a></ul>
+        <ul><a href="/bank/login">Login</a></ul>
+        <ul><a href="/bank/register">Register</a></ul>
 
     </li>
                     </c:otherwise>

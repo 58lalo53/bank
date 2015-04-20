@@ -16,16 +16,11 @@
         <h1>... Bank</h1>
         <c:choose>
             <c:when test="${sessionScope.cust.username!=null}">
-                    <li>
-        <ul><a href="eindex?action=accounts">Accounts</a></ul>
-        <ul><a href="eindex?action=transactions">Transactions</a></ul>
-        <ul><a href="eindex?action=logout">Logout</a></ul>
-                    </li>                
+                <%@include file="loginMenu.jspf" %>
             </c:when>
         </c:choose>
         <h3>${flash}</h3>
-        <form method="POST" action="eindex">
-            <input type="hidden" name="action" value="newAcc">
+        <form method="POST" action="/bank/newAcc">
             <table>
                 <tr>
 
@@ -38,9 +33,10 @@
                         </select></td>
                 </tr>
                 <tr>
-                    <td>Description (optional): </td><td><textarea name="content" rows="3" cols="80" ></textarea>
+                    <td>Description (optional): </td><td><textarea name="description" rows="3" cols="80" ></textarea>
                 </tr>
                 <tr>
+                    
                     <td><input type="submit" value="Create Account"></td>
                 </tr>
             </table>

@@ -13,7 +13,7 @@
     </head>
     <body>
         <h3>${flash}</h3>
-        <form method="POST" action="eindex">
+        <form method="POST" action="/bank/register">
             <table>
                 <tr>
                     <td>First Name: </td><td><input type="text" name="fname" /></td>
@@ -101,7 +101,7 @@
                     <td>Password: </td><td><input type="password" name="password" /></td>
                 </tr>
                 <tr>
-                    <td>Confirm Password: </td><td><input type="hidden" name="action" value="register"/><input type="password" name="password2" /></td>
+                    <td>Confirm Password: </td><td><input type="password" name="password2" /></td>
                 </tr>
                 <tr>
                     <td><input type="submit" value="Register" /></td>

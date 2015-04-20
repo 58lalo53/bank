@@ -43,17 +43,21 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "Account.findByBeginBal", query = "SELECT a FROM Account a WHERE a.beginBal = :beginBal"),
     @NamedQuery(name = "Account.findByCreditLim", query = "SELECT a FROM Account a WHERE a.creditLim = :creditLim")})
 public class Account implements Serializable {
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "ACC_NUM")
+    private int accNum;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "ID")
+    private Integer id;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "accId", fetch = FetchType.EAGER)
     private List<Transactions> transactionsList;
     @Column(name = "TIME_STAMP")
     @Temporal(TemporalType.TIMESTAMP)
     private Date timeStamp = CurDate.now();
     private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "ACC_NUM")
-    private Integer accNum;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 15)
@@ -72,17 +76,22 @@ public class Account implements Serializable {
     @JoinColumn(name = "CUST_ID", referencedColumnName = "ID")
     @ManyToOne(fetch = FetchType.EAGER)
     private Customer custId;
-    @OneToMany(mappedBy = "accNum", fetch = FetchType.EAGER)
-    private List<Customer> customerList;
 
     public Account() {
     }
 
-    public Account(Integer accNum) {
+    public Account(int accNum) {
         this.accNum = accNum;
     }
+    
+    public Account(int accNum, String type, String description, Customer custId){
+        this.accNum = accNum;
+        this.type = type;
+        this.description = description;
+        this.custId = custId;
+    }
 
-    public Account(Integer accNum, String type) {
+    public Account(int accNum, String type) {
         this.accNum = accNum;
         this.type = type;
     }
@@ -96,14 +105,6 @@ public class Account implements Serializable {
         this.type = type;
     }
 
-    public Integer getAccNum() {
-        return accNum;
-    }
-    
-
-    public void setAccNum(Integer accNum) {
-        this.accNum = accNum;
-    }
 
     public String getType() {
         return type;
@@ -153,18 +154,11 @@ public class Account implements Serializable {
         this.custId = custId;
     }
 
-    public List<Customer> getCustomerList() {
-        return customerList;
-    }
-
-    public void setCustomerList(List<Customer> customerList) {
-        this.customerList = customerList;
-    }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (accNum != null ? accNum.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
@@ -175,7 +169,7 @@ public class Account implements Serializable {
             return false;
         }
         Account other = (Account) object;
-        if ((this.accNum == null && other.accNum != null) || (this.accNum != null && !this.accNum.equals(other.accNum))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -201,5 +195,30 @@ public class Account implements Serializable {
     public void setTransactionsList(List<Transactions> transactionsList) {
         this.transactionsList = transactionsList;
     }
+
+    public Account(Integer id, int accNum) {
+        this.id = id;
+        this.accNum = accNum;
+    }
+
+    public void setAccNum(int accNum) {
+        this.accNum = accNum;
+    }
+    
+    public int getAccNum(){
+        return accNum;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+
+
+ 
     
 }

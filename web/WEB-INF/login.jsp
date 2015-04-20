@@ -14,13 +14,13 @@
     <body>
         <p>
             <li>
-                <ul><a href="eindex?action=home">Home</a></ul>
-                <ul><a href="eindex?action=login">Login</a></ul>
-                <ul><a href="eindex?action=register">Register</a></ul>
+                <ul><a href="/bank/home">Home</a></ul>
+                <ul><a href="/bank/login">Login</a></ul>
+                <ul><a href="/bank/register">Register</a></ul>
             </li>
         </p>
         <h3>${flash}</h3>
-        <form method="POST" action="eindex">
+        <form method="POST" action="/bank/">
                 
                 <table>
                     <tr>
@@ -32,7 +32,7 @@
                         <td><input type="password" name="password"/></td>
                     </tr>
                     <tr>
-                        <td colspan="2" align="center"><input type="hidden" name="action" value="login"/><input type="submit" value="Login"/></td>
+                        <td colspan="2" align="center"><input type="submit" value="Login"/></td>
                     </tr>
                 </table>
             </form>
