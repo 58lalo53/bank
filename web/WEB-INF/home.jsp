@@ -10,11 +10,16 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/style.css" />
         <title>... Bank</title>
     </head>
     <body>
-        <h1>Welcome to ... Bank</h1>
+        <div id="warpper">
+            <div id="header">
+                <h1>Welcome to ... Bank</h1>
+            </div>
         <h3>${flash}</h3>
+            <div id="nav">
                     <p>
                 <c:choose>
                     <c:when test="${sessionScope.cust.username != null}">
@@ -30,7 +35,8 @@
                     </c:otherwise>
                 </c:choose>
             </p>
-
+            </div>
     <h3>Welcome ${sessionScope.cust.toString()}</h3>
+    </div>
     </body>
 </html>

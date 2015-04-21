@@ -9,17 +9,23 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/style.css" />
         <title>... Bank</title>
     </head>
     <body>
-        
-        <h1>... Bank</h1>
+        <div id="warpper">
+            <div id ="header">
+                <h1>... Bank</h1>
+            </div>
+           
         <h2>${flash}</h2>
+        <div id="nav">
         <c:choose>
             <c:when test = "${sessionScope.cust.username!= null}">
                 <%@include file="loginMenu.jspf"%>
             </c:when>
         </c:choose>
+        </div>
         <h3>${flash}</h3>
         <p>To open a new Account <a href="/bank/newAcc">click here</a>.</p>
                     <c:forEach var="acc" items="${accounts}">
@@ -39,5 +45,6 @@
                     </c:choose>
             </p> 
                 </c:forEach>
+        </div>
                     </body>
 </html>

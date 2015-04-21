@@ -9,12 +9,15 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <link rel="stylesheet" type="text/css" href="<c:url value="/style.css"/>" />
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/style.css" />
         <title>... Bank</title>
         
     </head>
     <body>
         <div id="warpper">
+            <div id="header">
+                <h1>Welcome to ... Bank</h1>
+            </div>
         <div id="nav">
         <p>
             <li>
@@ -26,7 +29,7 @@
     </div>
        
         <h3>${flash}</h3>
-        <form method="POST" action="/bank/">
+        <form method="POST" action="/bank/login">
                 
                 <table>
                     <tr>
