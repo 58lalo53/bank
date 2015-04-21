@@ -23,7 +23,7 @@
                         <c:choose>
                             <c:when test="${sessionScope.cust.username!=null}">
                             <tr><td><input type="radio" name="accId" value="${acc.id}"/></td><td>${acc.accNum}<br/>
-                                    Balance: <input type="text" name="balance" value="$${acc.balance}" readonly/><br/></td></tr>
+                                    Balance: <input type="text" name="balance" value="${acc.balance}" readonly/><br/></td></tr>
                             </c:when>
                             <c:otherwise>
                                 <tr><td><input type="radio"/>No accounts available</td></tr>

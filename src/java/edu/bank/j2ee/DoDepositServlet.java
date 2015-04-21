@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -40,12 +41,13 @@ public class DoDepositServlet extends HttpServlet {
         Account acc = new Account();
         BigDecimal balance = acc.getBalance();
         String description = request.getParameter("description");
-        //BigDecimal newBal = balance.add(amount);
+        BigDecimal newBal = balance.add(amount);
         Transactions trans = new Transactions(acc ,amount ,balance ,description);
         
         EntityManager em = getEM();
-        
+
         try{
+            
             em.getTransaction().begin();
             em.persist(trans);
             em.merge(trans);
@@ -54,7 +56,7 @@ public class DoDepositServlet extends HttpServlet {
             q.setParameter("id", cust.getId());
             List<Account> accs = q.getResultList();
         */
-            request.setAttribute("trans", trans);
+            //request.setAttribute("trans", trans);
             request.getRequestDispatcher("/bank/deposit").forward(request, response);
             return;
         } catch(Exception e){
@@ -64,6 +66,15 @@ public class DoDepositServlet extends HttpServlet {
         }
         
         request.getRequestDispatcher(destination).forward(request, response);
+    }
+    
+    public void insertTrans(int accId, BigDecimal amount, BigDecimal newBal, String description){
+        Query query = getEM().createNativeQuery("INSERT INTO TRANSACTIONS (acc_Id, amount, balance, description) "+" VALUES(?,?,?,?)");
+        query.setParameter(1, accId);
+        query.setParameter(2, amount);
+        query.setParameter(3, newBal);
+        query.setParameter(4, description);
+        query.executeUpdate();
     }
     
     private EntityManager getEM(){

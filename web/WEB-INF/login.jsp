@@ -9,9 +9,13 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <link rel="stylesheet" type="text/css" href="<c:url value="/style.css"/>" />
         <title>... Bank</title>
+        
     </head>
     <body>
+        <div id="warpper">
+        <div id="nav">
         <p>
             <li>
                 <ul><a href="/bank/home">Home</a></ul>
@@ -19,6 +23,8 @@
                 <ul><a href="/bank/register">Register</a></ul>
             </li>
         </p>
+    </div>
+       
         <h3>${flash}</h3>
         <form method="POST" action="/bank/">
                 
@@ -36,5 +42,6 @@
                     </tr>
                 </table>
             </form>
+        </div>
     </body>
 </html>
