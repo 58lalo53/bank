@@ -36,7 +36,7 @@
                 </c:choose>
             </p>
             </div>
-    <h3>Welcome ${sessionScope.cust.toString()}</h3>
+        <h3>Welcome ${sessionScope.cust.fname}&nbsp${sessionScope.cust.lname}</h3>
     </div>
     </body>
 </html>

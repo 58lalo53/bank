@@ -5,6 +5,7 @@
 --%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -29,13 +30,16 @@
         <h3>${flash}</h3>
         <p>To open a new Account <a href="/bank/newAcc">click here</a>.</p>
                     <c:forEach var="acc" items="${accounts}">
-                        <p>
+                        <div class="account">
+                        
                             <c:choose>
                             <c:when test= "${sessionScope.cust.username!= null}">
-                        ${acc.type}<br/>
-                        Created on:&nbsp${acc.timeStamp}<br/>
-                        Account Number:&nbsp${acc.accNum}<br/>
-                        Balance:&nbsp$${acc.balance}
+                                <a href="/bank/transactions">
+                                    <span class="accNum">Account Number:&nbsp<c:out value="${acc.accNum}"></c:out></span></a><br/>
+                                <span class="accType">${acc.type}</span><br/>
+                                <span class="balance">Balance:&nbsp$${acc.getBalance()}</span><br/>
+                                <span class="joinDate">Opened on:&nbsp<fmt:formatDate type ="both" dateStyle="long" timeStyle="long" value="${acc.timeStamp}"/></span>
+                                
                             </c:when>    
                             
                         <c:otherwise>
@@ -43,7 +47,8 @@
         You don't have any opened accounts. To open one <a href="/bank/newAcc">click here</a>.
                         </c:otherwise>
                     </c:choose>
-            </p> 
+            
+                        </div>
                 </c:forEach>
         </div>
                     </body>

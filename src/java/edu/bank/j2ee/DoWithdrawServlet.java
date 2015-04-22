@@ -6,12 +6,10 @@
 package edu.bank.j2ee;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -23,61 +21,55 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Eduardo
  */
-@WebServlet(name = "DoDepositServlet", urlPatterns = {"/doDeposit"})
-public class DoDepositServlet extends HttpServlet {
+@WebServlet(name = "DoWithdrawServlet", urlPatterns = {"/doWithdraw"})
+public class DoWithdrawServlet extends HttpServlet {
 
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String destination = "/WEB-INF/doDeposit.jsp";
         
+        String destination = "/WEB-INF/doWithdraw.jsp";
         
-        if(request.getMethod().equals("GET")){
+        if (request.getMethod().equals("GET")){
             request.getRequestDispatcher(destination).forward(request, response);
             return;
         }
+        
         Customer cust = (Customer)request.getSession().getAttribute("cust");
-        Account accs = (Account)request.getSession().getAttribute("accs");
-        BigDecimal amount = new BigDecimal(request.getParameter("amount"));
-        int accId = Integer.parseInt(request.getParameter("accId"));
         EntityManager em = getEM();
+        int accId = Integer.parseInt(request.getParameter("accId"));
         Query q = em.createQuery("SELECT a FROM Account a WHERE a.id = :id");
         q.setParameter("id", accId);
         Account acc = (Account)q.getSingleResult();
-        
-        BigDecimal balance = acc.getBalance();
         String description = request.getParameter("description");
-        BigDecimal newBal = balance.add(amount);
+        BigDecimal amount = new BigDecimal(request.getParameter("amount"));
+        BigDecimal balance = acc.getBalance();
+        BigDecimal newBal = balance.subtract(amount);
+        Transactions trans = new Transactions(acc, amount, newBal, description);
         acc.setBalance(newBal);
         acc.setBeginBal(balance);
-        Transactions trans = new Transactions(acc ,amount ,newBal ,description);
-           
+        
         try{
-            
             em.getTransaction().begin();
             em.persist(trans);
             em.merge(trans);
             em.getTransaction().commit();
             request.setAttribute("trans", trans);
-                      
             request.setAttribute("acc", acc);
-            response.sendRedirect("/bank/deposit");
+            response.sendRedirect("/bank/withdraw");
             return;
-        } catch(Exception e){
+        }catch(Exception e){
             request.setAttribute("flash", e.getMessage());
-          }finally{
-            request.setAttribute("accounts", accs);
         }
-        
-        request.getRequestDispatcher(destination).forward(request, response);
-    }
-    
-    public void insertTrans(int accId, BigDecimal amount, BigDecimal newBal, String description){
-        Query query = getEM().createNativeQuery("INSERT INTO TRANSACTIONS (acc_Id, amount, balance, description) "+" VALUES(?,?,?,?)");
-        query.setParameter(1, accId);
-        query.setParameter(2, amount);
-        query.setParameter(3, newBal);
-        query.setParameter(4, description);
-        query.executeUpdate();
+        request.getRequestDispatcher(destination).forward(request,response);
     }
     
     private EntityManager getEM(){
@@ -85,21 +77,40 @@ public class DoDepositServlet extends HttpServlet {
         return emf.createEntityManager();
     }
 
-   
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    /**
+     * Handles the HTTP <code>GET</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }
 
-
+    /**
+     * Handles the HTTP <code>POST</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }
 
-   
+    /**
+     * Returns a short description of the servlet.
+     *
+     * @return a String containing servlet description
+     */
     @Override
     public String getServletInfo() {
         return "Short description";

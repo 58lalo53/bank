@@ -14,7 +14,7 @@ public class EMListener implements ServletContextListener {
 
     @Override
     public void contextInitialized(ServletContextEvent sce) {
-EntityManagerFactory emf = Persistence.createEntityManagerFactory("BankPU");
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("BankPU");
         sce.getServletContext().setAttribute("emf", emf);    
     }
     @Override

@@ -12,6 +12,7 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
+        <h1>... Bank</h1>
+        <p>You have successfully withdrawn ${trans.amount}</p>
     </body>
 </html>

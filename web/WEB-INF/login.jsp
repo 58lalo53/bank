@@ -18,9 +18,10 @@
             <div id="header">
                 <h1>Welcome to ... Bank</h1>
             </div>
+            <div id="body">
         <div id="nav">
         <p>
-            <li>
+        <li>
                 <ul><a href="/bank/home">Home</a></ul>
                 <ul><a href="/bank/login">Login</a></ul>
                 <ul><a href="/bank/register">Register</a></ul>
@@ -31,7 +32,7 @@
         <h3>${flash}</h3>
         <form method="POST" action="/bank/login">
                 
-                <table>
+            <table class="center">
                     <tr>
                         <td>User Name: </td>
                         <td><input type="text" name="username"/></td>
@@ -45,6 +46,7 @@
                     </tr>
                 </table>
             </form>
+            </div>
         </div>
     </body>
 </html>

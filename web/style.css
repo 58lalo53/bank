@@ -1,7 +1,22 @@
 
-body {
+html, body {
+    margin: 0;
     background-color: #ffffff;
     font-family: Verdana, Arial, sans-serif;
+    height: 100%;
+}
+#body {
+    margin-top: 0.5em;
+    background: white;
+    padding: 1em;
+}
+
+table.center {
+    margin-left: auto;
+    margin-right: auto;
+    border-collapse: collapse;
+    border: 1px solid black;
+    background-color: #cccccc;
 }
 
 #warpper {
@@ -24,7 +39,8 @@ body {
     float: left;
     width: 150px;
     font-weight: bold;
-    letter-spacing: 0.2em;
+    
+    color: #000000;
 }
 
 #nav ul {
@@ -42,7 +58,7 @@ body {
 }
 
 #nav a:link {
-    color: #ffffff;
+    color: #000000;
 }
 
 #nav a:visited{
@@ -52,5 +68,21 @@ body {
 #nav a:hover{
     color: #EAEAEA;
     background-color: #869DC7; 
+}
+
+.account {
+    margin: 18px;
+    border: 1px solid #990000;
+    padding: 8px;
+    background: #dddddd;
+    border-radius: .5em;
+    box-shadow: 10px 10px 5px #888888;
+}
+
+.accNum{
+    font-weight: bold;
+}
+.joinDate {
+    font-size: smaller;
 }
 

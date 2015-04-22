@@ -21,6 +21,7 @@
         </c:when>
     </c:choose>
         <h3>${flash}</h3>
+           You successfully deposited ${trans.amount}
         
     </body>
 </html>

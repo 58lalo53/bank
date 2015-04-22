@@ -11,7 +11,6 @@ import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -61,7 +60,7 @@ public class Transactions implements Serializable {
     @Column(name = "ID")
     private Integer id;
     @JoinColumn(name = "ACC_ID", referencedColumnName = "ID")
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    @ManyToOne(optional = false)
     private Account accId;
 
     public Transactions() {
@@ -71,16 +70,10 @@ public class Transactions implements Serializable {
         this.id = id;
     }
 
-    public Transactions(int id, BigDecimal amount, BigDecimal balance) {
+    public Transactions(Integer id, BigDecimal amount, BigDecimal balance) {
         this.id = id;
         this.amount = amount;
         this.balance = balance;
-    }
-    
-    public Transactions(Account accId, BigDecimal amount, String description){
-        this.accId=accId;
-        this.amount = amount;
-        this.description = description;
     }
     public Transactions(Account accId, BigDecimal amount, BigDecimal balance, String description){
         this.accId = accId;

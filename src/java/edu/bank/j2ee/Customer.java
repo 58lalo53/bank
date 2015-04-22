@@ -11,12 +11,9 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -26,13 +23,12 @@ import javax.validation.constraints.Size;
 
 /**
  *
- * @author 58lalo53
+ * @author Eduardo
  */
 @Entity
 @Table(name = "CUSTOMER", catalog = "", schema = "BANKING")
 @NamedQueries({
     @NamedQuery(name = "Customer.findAll", query = "SELECT c FROM Customer c"),
-    @NamedQuery(name = "Customer.findById", query = "SELECT c FROM Customer c WHERE c.id = :id"),
     @NamedQuery(name = "Customer.findByFname", query = "SELECT c FROM Customer c WHERE c.fname = :fname"),
     @NamedQuery(name = "Customer.findByLname", query = "SELECT c FROM Customer c WHERE c.lname = :lname"),
     @NamedQuery(name = "Customer.findByMname", query = "SELECT c FROM Customer c WHERE c.mname = :mname"),
@@ -43,30 +39,26 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "Customer.findByPhone", query = "SELECT c FROM Customer c WHERE c.phone = :phone"),
     @NamedQuery(name = "Customer.findByEmail", query = "SELECT c FROM Customer c WHERE c.email = :email"),
     @NamedQuery(name = "Customer.findByUsername", query = "SELECT c FROM Customer c WHERE c.username = :username"),
-    @NamedQuery(name = "Customer.findByPassword", query = "SELECT c FROM Customer c WHERE c.password = :password")})
+    @NamedQuery(name = "Customer.findByPassword", query = "SELECT c FROM Customer c WHERE c.password = :password"),
+    @NamedQuery(name = "Customer.findById", query = "SELECT c FROM Customer c WHERE c.id = :id")})
 public class Customer implements Serializable {
     private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "ID")
-    private Integer id;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 100)
+    @Size(min = 1, max = 50)
     @Column(name = "FNAME")
     private String fname;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 100)
+    @Size(min = 1, max = 50)
     @Column(name = "LNAME")
     private String lname;
-    @Size(max = 100)
+    @Size(max = 50)
     @Column(name = "MNAME")
     private String mname;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 100)
+    @Size(min = 1, max = 150)
     @Column(name = "STREET")
     private String street;
     @Basic(optional = false)
@@ -93,7 +85,7 @@ public class Customer implements Serializable {
     // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 50)
+    @Size(min = 1, max = 150)
     @Column(name = "EMAIL")
     private String email;
     @Basic(optional = false)
@@ -103,10 +95,15 @@ public class Customer implements Serializable {
     private String username;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 10)
+    @Size(min = 1, max = 15)
     @Column(name = "PASSWORD")
     private String password;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "custId", fetch = FetchType.EAGER)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "ID")
+    private Integer id;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "custId")
     private List<Account> accountList;
 
     public Customer() {
@@ -130,22 +127,7 @@ public class Customer implements Serializable {
         this.password = password;
     }
     
-    public Customer(String fname, String lname, String street, String city, String state, String zip, String phone, String email, String username, String password) {
-        this.id = id;
-        this.fname = fname;
-        this.lname = lname;
-        this.street = street;
-        this.city = city;
-        this.state = state;
-        this.zip = zip;
-        this.phone = phone;
-        this.email = email;
-        this.username = username;
-        this.password = password;
-    }
-    
-        public Customer(String fname, String lname, String mname, String street, String city, String state, String zip, String phone, String email, String username, String password) {
-        this.id = id;
+    public Customer(String fname, String lname, String mname, String street, String city, String state, String zip, String phone, String email, String username, String password) {
         this.fname = fname;
         this.lname = lname;
         this.mname = mname;
@@ -158,13 +140,18 @@ public class Customer implements Serializable {
         this.username = username;
         this.password = password;
     }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
+    
+    public Customer(String fname, String lname, String street, String city, String state, String zip, String phone, String email, String username, String password) {
+        this.fname = fname;
+        this.lname = lname;
+        this.street = street;
+        this.city = city;
+        this.state = state;
+        this.zip = zip;
+        this.phone = phone;
+        this.email = email;
+        this.username = username;
+        this.password = password;
     }
 
     public String getFname() {
@@ -255,6 +242,14 @@ public class Customer implements Serializable {
         this.password = password;
     }
 
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
     public List<Account> getAccountList() {
         return accountList;
     }
@@ -262,7 +257,6 @@ public class Customer implements Serializable {
     public void setAccountList(List<Account> accountList) {
         this.accountList = accountList;
     }
-
 
     @Override
     public int hashCode() {
@@ -286,8 +280,7 @@ public class Customer implements Serializable {
 
     @Override
     public String toString() {
-            return fname + " " + lname;
-
-   }
+        return "edu.bank.j2ee.Customer[ id=" + id + " ]";
+    }
     
 }

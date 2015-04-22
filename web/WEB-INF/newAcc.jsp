@@ -10,6 +10,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <a href="newAcc.jsp"></a>
         <title>... Bank Register</title>
     </head>
     <body>

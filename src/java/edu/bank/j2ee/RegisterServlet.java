@@ -58,7 +58,8 @@ public class RegisterServlet extends HttpServlet {
                         request.getRequestDispatcher(destination).forward(request,response);
                         return;
 		}
-                Customer cust;
+                
+                 Customer cust;
 		if (!mname.equals("null"))
                     cust = new Customer(fname, lname, mname, street, city, state, zip, phone, email, username, password);
                 else
