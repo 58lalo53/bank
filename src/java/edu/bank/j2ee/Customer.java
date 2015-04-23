@@ -11,6 +11,7 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -23,7 +24,7 @@ import javax.validation.constraints.Size;
 
 /**
  *
- * @author Eduardo
+ * @author eduardo
  */
 @Entity
 @Table(name = "CUSTOMER", catalog = "", schema = "BANKING")
@@ -103,7 +104,7 @@ public class Customer implements Serializable {
     @Basic(optional = false)
     @Column(name = "ID")
     private Integer id;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "custId")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "custId", fetch = FetchType.EAGER)
     private List<Account> accountList;
 
     public Customer() {

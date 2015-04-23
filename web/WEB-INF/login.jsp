@@ -18,6 +18,7 @@
             <div id="header">
                 <h1>Welcome to ... Bank</h1>
             </div>
+            <h3><c:out value="${flash}"/></h3>
             <div id="body">
         <div id="nav">
         <p>
@@ -29,7 +30,7 @@
         </p>
     </div>
        
-        <h3>${flash}</h3>
+        
         <form method="POST" action="/bank/login">
                 
             <table class="center">

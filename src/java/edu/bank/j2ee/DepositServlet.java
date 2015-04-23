@@ -31,7 +31,16 @@ public class DepositServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getRequestDispatcher("/WEB-INF/deposit.jsp").forward(request,response);
+        Customer cust = (Customer)request.getSession().getAttribute("cust");
+        Transactions trans = (Transactions)request.getAttribute("trans");
+        
+        if (cust!=null){
+            request.getRequestDispatcher("/WEB-INF/deposit.jsp").forward(request,response);
+            
+        }else{
+            request.setAttribute("flash", "You are not logged in");
+            request.getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

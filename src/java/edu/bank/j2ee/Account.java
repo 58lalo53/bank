@@ -13,6 +13,7 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -29,7 +30,7 @@ import javax.validation.constraints.Size;
 
 /**
  *
- * @author Eduardo
+ * @author eduardo
  */
 @Entity
 @Table(name = "ACCOUNT", catalog = "", schema = "BANKING")
@@ -73,9 +74,9 @@ public class Account implements Serializable {
     @Column(name = "ID")
     private Integer id;
     @JoinColumn(name = "CUST_ID", referencedColumnName = "ID")
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private Customer custId;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "accId")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "accId", fetch = FetchType.EAGER)
     private List<Transactions> transactionsList;
 
     public Account() {

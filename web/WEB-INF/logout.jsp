@@ -1,5 +1,5 @@
 <%
     session.removeAttribute("cust");
     session.invalidate();
-    response.sendRedirect("eindex");
+    response.sendRedirect("/bank");
 %>

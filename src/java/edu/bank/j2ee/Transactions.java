@@ -11,6 +11,7 @@ import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -26,7 +27,7 @@ import javax.validation.constraints.Size;
 
 /**
  *
- * @author Eduardo
+ * @author eduardo
  */
 @Entity
 @Table(name = "TRANSACTIONS", catalog = "", schema = "BANKING")
@@ -60,7 +61,7 @@ public class Transactions implements Serializable {
     @Column(name = "ID")
     private Integer id;
     @JoinColumn(name = "ACC_ID", referencedColumnName = "ID")
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private Account accId;
 
     public Transactions() {
@@ -75,11 +76,12 @@ public class Transactions implements Serializable {
         this.amount = amount;
         this.balance = balance;
     }
+    
     public Transactions(Account accId, BigDecimal amount, BigDecimal balance, String description){
-        this.accId = accId;
-        this.amount = amount;
-        this.balance = balance;
-        this.description = description;
+    this.accId = accId;
+    this.amount = amount;
+    this.balance = balance;
+    this.description = description;
     }
 
     public Date getTimeStamp() {

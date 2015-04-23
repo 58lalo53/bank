@@ -44,30 +44,35 @@ public class DoWithdrawServlet extends HttpServlet {
         }
         
         Customer cust = (Customer)request.getSession().getAttribute("cust");
-        EntityManager em = getEM();
+        Account accs = (Account)request.getSession().getAttribute("accs");
+        
+
+        BigDecimal amount = new BigDecimal(request.getParameter("amount"));
         int accId = Integer.parseInt(request.getParameter("accId"));
+        EntityManager em = getEM();
         Query q = em.createQuery("SELECT a FROM Account a WHERE a.id = :id");
         q.setParameter("id", accId);
         Account acc = (Account)q.getSingleResult();
-        String description = request.getParameter("description");
-        BigDecimal amount = new BigDecimal(request.getParameter("amount"));
         BigDecimal balance = acc.getBalance();
+        String description = request.getParameter("description");
         BigDecimal newBal = balance.subtract(amount);
-        Transactions trans = new Transactions(acc, amount, newBal, description);
         acc.setBalance(newBal);
         acc.setBeginBal(balance);
+        Transactions trans = new Transactions(acc ,amount ,newBal ,description);
+        request.setAttribute("trans", trans);
         
         try{
             em.getTransaction().begin();
             em.persist(trans);
             em.merge(trans);
             em.getTransaction().commit();
-            request.setAttribute("trans", trans);
-            request.setAttribute("acc", acc);
-            response.sendRedirect("/bank/withdraw");
+            request.getSession().setAttribute("trans", trans);
+            request.getRequestDispatcher("/WEB-INF/withdraw.jsp").forward(request, response);
             return;
         }catch(Exception e){
             request.setAttribute("flash", e.getMessage());
+        }finally{
+            request.setAttribute("accounts", accs);
         }
         request.getRequestDispatcher(destination).forward(request,response);
     }

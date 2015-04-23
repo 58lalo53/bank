@@ -29,13 +29,18 @@ public class DoDepositServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String destination = "/WEB-INF/doDeposit.jsp";
-        
-        
-        if(request.getMethod().equals("GET")){
-            request.getRequestDispatcher(destination).forward(request, response);
-            return;
-        }
         Customer cust = (Customer)request.getSession().getAttribute("cust");
+        
+        if (cust!=null){
+            if(request.getMethod().equals("GET")){
+                request.getRequestDispatcher(destination).forward(request, response);
+                return;
+            }
+        }else{
+            request.setAttribute("flash", "You are not logged in.");
+            response.sendRedirect("/bank/login");
+            }
+        
         Account accs = (Account)request.getSession().getAttribute("accs");
         BigDecimal amount = new BigDecimal(request.getParameter("amount"));
         int accId = Integer.parseInt(request.getParameter("accId"));
@@ -43,24 +48,21 @@ public class DoDepositServlet extends HttpServlet {
         Query q = em.createQuery("SELECT a FROM Account a WHERE a.id = :id");
         q.setParameter("id", accId);
         Account acc = (Account)q.getSingleResult();
-        
         BigDecimal balance = acc.getBalance();
         String description = request.getParameter("description");
         BigDecimal newBal = balance.add(amount);
         acc.setBalance(newBal);
         acc.setBeginBal(balance);
         Transactions trans = new Transactions(acc ,amount ,newBal ,description);
-           
+        request.setAttribute("trans", trans);
         try{
             
             em.getTransaction().begin();
             em.persist(trans);
             em.merge(trans);
             em.getTransaction().commit();
-            request.setAttribute("trans", trans);
-                      
-            request.setAttribute("acc", acc);
-            response.sendRedirect("/bank/deposit");
+            request.setAttribute("trans", trans);    
+            request.getRequestDispatcher("/WEB-INF/deposit.jsp").forward(request, response);
             return;
         } catch(Exception e){
             request.setAttribute("flash", e.getMessage());

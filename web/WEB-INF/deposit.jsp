@@ -5,7 +5,6 @@
 --%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -21,7 +20,15 @@
         </c:when>
     </c:choose>
         <h3>${flash}</h3>
-           You successfully deposited ${trans.amount}
+        <c:choose>
+            <c:when test="${trans!=null}">
+                You successfully deposited $<c:out value="${trans.getAmount()}"/>
+            </c:when>
+            <c:otherwise>
+                To make a deposit, click <a href="/bank/doDeposit">here</a>
+            </c:otherwise>
+        </c:choose>
+        
         
     </body>
 </html>
