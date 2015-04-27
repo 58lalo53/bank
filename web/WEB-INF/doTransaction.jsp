@@ -1,13 +1,18 @@
-<%@page contentType="text/html" pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%-- 
+    Document   : doTransaction
+    Created on : Apr 27, 2015, 12:19:17 PM
+    Author     : Eduardo
+--%>
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
-        <link rel="stylesheet" type="text/css" href="/bank/style.css"/>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>... Bank</title>
+        <title>JSP Page</title>
     </head>
     <body>
+            <body>
         <div id="wrapper">
             <div id="header">
                 <h1>... Bank</h1>
@@ -20,9 +25,12 @@
                     </c:when>
                 </c:choose>
             </div>
-        <form method="POST" action="/bank/doDeposit">
+        <form method="POST" action="/bank/doTransaction">
             <table>
-                <tr><td>Type: </td><td><input type="text" name="type" value="deposit" readonly></td></tr>
+                            <tr><td>Type: </td><td><select name="type">
+                                        <option value="deposit">Deposit</option>
+                                        <option value="withdraw">Withdraw</option>
+                        </select> </td></tr>
                 <tr><td>Select Account: </td><td><select name="accId">
                     <c:forEach var="acc" items="${accounts}">
                         <c:choose>
@@ -41,5 +49,6 @@
             </table>
         </form>
         </div>
+    </body>
     </body>
 </html>

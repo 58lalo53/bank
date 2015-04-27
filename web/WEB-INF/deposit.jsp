@@ -16,7 +16,7 @@
         <h1>... Bank</h1>
     <c:choose>
         <c:when test="${sessionScope.cust.username!=null}">
-            <%@include file = "loginMenu.jspf" %>
+            <c:import url = "loginMenu.jspf" />
         </c:when>
     </c:choose>
         <h3>${flash}</h3>

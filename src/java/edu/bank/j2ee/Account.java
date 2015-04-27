@@ -53,17 +53,17 @@ public class Account implements Serializable {
     private String type;
     @Size(max = 100)
     @Column(name = "DESCRIPTION")
-    private String description;
+    private String description="";
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "BALANCE")
-    private BigDecimal balance;
+    private BigDecimal balance = BigDecimal.ZERO;
     @Column(name = "BEGIN_BAL")
     private BigDecimal beginBal;
     @Column(name = "CREDIT_LIM")
     private BigDecimal creditLim;
     @Column(name = "TIME_STAMP")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date timeStamp;
+    private Date timeStamp = CurDate.now();
     @Basic(optional = false)
     @NotNull
     @Column(name = "ACC_NUM")

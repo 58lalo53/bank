@@ -1,13 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package edu.bank.j2ee;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.math.BigDecimal;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
@@ -21,51 +16,33 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Eduardo
  */
-@WebServlet(name = "DoWithdrawServlet", urlPatterns = {"/doWithdraw"})
-public class DoWithdrawServlet extends HttpServlet {
+@WebServlet(name = "TransactionsServlet", urlPatterns = {"/transactions"})
+public class TransactionsServlet extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String destination = "/WEB-INF/transactions.jsp";
         
-        String destination = "/WEB-INF/doWithdraw.jsp";
-        
-        if (request.getMethod().equals("GET")){
-            request.getRequestDispatcher(destination).forward(request, response);
-            return;
-        }
-        
-       
-        Account accs = (Account)request.getSession().getAttribute("accs");
-        
-        String type = request.getParameter("type");
-        BigDecimal amount = new BigDecimal(request.getParameter("amount"));
+        Customer cust = (Customer)request.getSession().getAttribute("cust");
+                
         int accId = Integer.parseInt(request.getParameter("accId"));
         EntityManager em = getEM();
-        Query q = em.createQuery("SELECT a FROM Account a WHERE a.id = :id");
-        q.setParameter("id", accId);
-        Account acc = (Account)q.getSingleResult();
-        BigDecimal balance = acc.getBalance();
-        String description = request.getParameter("description");
-        BigDecimal newBal = balance.subtract(amount);
-        acc.setBalance(newBal);
-        acc.setBeginBal(balance);
-        Transactions trans = new Transactions(acc,amount,type,newBal,description);
-        request.setAttribute("trans", trans);
+        
         
         try{
-            em.getTransaction().begin();
-            em.persist(trans);
-            em.merge(trans);
-            em.getTransaction().commit();
+            Query q1 = em.createQuery("SELECT a FROM Account a WHERE a.id = :id");
+            q1.setParameter("id", accId);
+            Account acc1 = (Account)q1.getSingleResult();
+            Query q2 = em.createQuery("SELECT t FROM Transactions t WHERE t.accId = :id ORDER BY t.timeStamp DESC");
+            q2.setParameter("id", acc1);
+            List<Transactions> trans = q2.getResultList();
+            //request.setAttribute("acc", acc1.getId());
             request.getSession().setAttribute("trans", trans);
-            request.getRequestDispatcher("/WEB-INF/withdraw.jsp").forward(request, response);
-            return;
         }catch(Exception e){
             request.setAttribute("flash", e.getMessage());
-        }finally{
-            request.setAttribute("accounts", accs);
         }
-        request.getRequestDispatcher(destination).forward(request,response);
+        
+        request.getRequestDispatcher(destination).forward(request, response);
     }
     
     private EntityManager getEM(){

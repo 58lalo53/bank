@@ -15,13 +15,14 @@
     <body>
         <h1>... Bank</h1>
         <h3>${flash}</h3>
+        <c:choose>
         <c:when test="${sessionScope.cust.username!=null}">
             <c:import url="loginMenu.jspf"/>
         </c:when>
-        
-        <c:choose>
+        </c:choose>
+            <c:choose>
             <c:when test="${trans!=null}">
-                <p>You have successfully withdrawn ${trans.amount}</p>
+                <p>You have successfully withdrawn $<c:out value="${trans.amount}"/></p>
             </c:when>
             <c:otherwise>
                 <p>To make a withdrawal click <a href="/bank/doWithdraw">here</a>

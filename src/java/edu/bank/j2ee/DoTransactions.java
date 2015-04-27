@@ -6,7 +6,6 @@
 package edu.bank.j2ee;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.math.BigDecimal;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -21,21 +20,36 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Eduardo
  */
-@WebServlet(name = "DoWithdrawServlet", urlPatterns = {"/doWithdraw"})
-public class DoWithdrawServlet extends HttpServlet {
+@WebServlet(name = "DoTransactions", urlPatterns = {"/doTransaction"})
+public class DoTransactions extends HttpServlet {
 
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+                
         
-        String destination = "/WEB-INF/doWithdraw.jsp";
-        
-        if (request.getMethod().equals("GET")){
-            request.getRequestDispatcher(destination).forward(request, response);
-            return;
-        }
-        
-       
+        String destination = "/WEB-INF/doTransaction.jsp";
+        Customer cust = (Customer)request.getSession().getAttribute("cust");
         Account accs = (Account)request.getSession().getAttribute("accs");
+        
+        if (cust!=null){
+            if(request.getMethod().equals("GET")){
+                request.setAttribute("accounts", accs);
+                request.getRequestDispatcher(destination).forward(request, response);
+                return;
+            }
+        }else{
+            request.setAttribute("flash", "You are not logged in.");
+            response.sendRedirect("/bank/login");
+            }
         
         String type = request.getParameter("type");
         BigDecimal amount = new BigDecimal(request.getParameter("amount"));
@@ -46,29 +60,35 @@ public class DoWithdrawServlet extends HttpServlet {
         Account acc = (Account)q.getSingleResult();
         BigDecimal balance = acc.getBalance();
         String description = request.getParameter("description");
-        BigDecimal newBal = balance.subtract(amount);
+        BigDecimal newBal;
+        if(type.equals("deposit")){
+            newBal = balance.add(amount);
+        }else{
+           newBal = balance.subtract(amount);
+        }
         acc.setBalance(newBal);
         acc.setBeginBal(balance);
-        Transactions trans = new Transactions(acc,amount,type,newBal,description);
+        Transactions trans = new Transactions(acc ,amount ,type ,newBal ,description);
         request.setAttribute("trans", trans);
-        
         try{
+            
             em.getTransaction().begin();
             em.persist(trans);
             em.merge(trans);
             em.getTransaction().commit();
-            request.getSession().setAttribute("trans", trans);
-            request.getRequestDispatcher("/WEB-INF/withdraw.jsp").forward(request, response);
+            request.setAttribute("trans", trans);    
+            request.getRequestDispatcher("/WEB-INF/deposit.jsp").forward(request, response);
             return;
-        }catch(Exception e){
+        } catch(Exception e){
             request.setAttribute("flash", e.getMessage());
-        }finally{
+          }finally{
             request.setAttribute("accounts", accs);
         }
-        request.getRequestDispatcher(destination).forward(request,response);
+        
+        request.getRequestDispatcher(destination).forward(request, response);
+        
     }
-    
-    private EntityManager getEM(){
+    EntityManager getEM(){
         EntityManagerFactory emf = (EntityManagerFactory)getServletContext().getAttribute("emf");
         return emf.createEntityManager();
     }

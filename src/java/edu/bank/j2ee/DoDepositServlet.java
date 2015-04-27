@@ -42,6 +42,7 @@ public class DoDepositServlet extends HttpServlet {
             }
         
         Account accs = (Account)request.getSession().getAttribute("accs");
+        String type = request.getParameter("type");
         BigDecimal amount = new BigDecimal(request.getParameter("amount"));
         int accId = Integer.parseInt(request.getParameter("accId"));
         EntityManager em = getEM();
@@ -53,7 +54,7 @@ public class DoDepositServlet extends HttpServlet {
         BigDecimal newBal = balance.add(amount);
         acc.setBalance(newBal);
         acc.setBeginBal(balance);
-        Transactions trans = new Transactions(acc ,amount ,newBal ,description);
+        Transactions trans = new Transactions(acc ,amount ,type ,newBal ,description);
         request.setAttribute("trans", trans);
         try{
             
@@ -72,15 +73,7 @@ public class DoDepositServlet extends HttpServlet {
         
         request.getRequestDispatcher(destination).forward(request, response);
     }
-    
-    public void insertTrans(int accId, BigDecimal amount, BigDecimal newBal, String description){
-        Query query = getEM().createNativeQuery("INSERT INTO TRANSACTIONS (acc_Id, amount, balance, description) "+" VALUES(?,?,?,?)");
-        query.setParameter(1, accId);
-        query.setParameter(2, amount);
-        query.setParameter(3, newBal);
-        query.setParameter(4, description);
-        query.executeUpdate();
-    }
+
     
     private EntityManager getEM(){
         EntityManagerFactory emf = (EntityManagerFactory)getServletContext().getAttribute("emf");

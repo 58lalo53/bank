@@ -1,10 +1,8 @@
-<%-- any content can be specified here e.g.: --%>
-<%@ page pageEncoding="UTF-8" %>
-                    <li>
-                        <ul><a href="/bank/home">Home</a></ul>
-                        <ul><a href="/bank/accounts">Accounts</a></ul>
-                        <ul><a href="/bank/doDeposit">Deposit</a></ul>
-                        <ul><a href="/bank/doWithdraw">Withdraw</a></ul>
-                        <ul><a href="/bank/transactions">Transactions</a></ul>
-                        <ul><a href="/bank/logout">Logout</a></ul>
-                    </li>
+<li>
+    <ul><a href="/bank/home">Home</a></ul>
+    <ul><a href="/bank/accounts">Accounts</a></ul>
+    <ul><a href="/bank/doTransaction">Make Transaction</a></ul>
+    <ul><a href="/bank/doDeposit?type=deposit">Deposit</a></ul>
+    <ul><a href="/bank/doWithdraw?type=withdraw">Withdraw</a></ul>
+    <ul><a href="/bank/logout">Logout</a></ul>
+</li>

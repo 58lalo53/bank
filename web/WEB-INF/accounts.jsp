@@ -34,7 +34,7 @@
                         
                             <c:choose>
                             <c:when test= "${sessionScope.cust.username!= null}">
-                                <a href="/bank/transactions">
+                                <a href="/bank/transactions?accId=${acc.id}">
                                     <span class="accNum">Account Number:&nbsp<c:out value="${acc.accNum}"></c:out></span></a><br/>
                                 <span class="accType">${acc.type}</span><br/>
                                 <span class="balance">Balance:&nbsp$${acc.getBalance()}</span><br/>

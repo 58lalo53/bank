@@ -14,6 +14,7 @@
     </head>
     <body>
         <h1>... Bank</h1>
+        <h3>${flash}</h3>
         <c:choose>
             <c:when test="${sessionScope.cust.username!=null}">
                 <%@include file="loginMenu.jspf" %>
@@ -21,8 +22,8 @@
         </c:choose>
                 <form method="POST" action="/bank/doWithdraw">
                     <table>
-                        <tr>
-                            <td>Select account: </td><td><select name="accId">
+                        <tr><td>Type: </td><td><input type="text" name="type" value="withdraw" readonly></td></tr>
+                        <tr><td>Select account: </td><td><select name="accId">
                                     
                                     <c:forEach var="acc" items="${accounts}">
                                         <c:choose>

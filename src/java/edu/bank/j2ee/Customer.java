@@ -281,7 +281,7 @@ public class Customer implements Serializable {
 
     @Override
     public String toString() {
-        return "edu.bank.j2ee.Customer[ id=" + id + " ]";
+        return fname + " " +lname;
     }
     
 }

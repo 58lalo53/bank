@@ -11,7 +11,6 @@ import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -27,13 +26,14 @@ import javax.validation.constraints.Size;
 
 /**
  *
- * @author eduardo
+ * @author Eduardo
  */
 @Entity
 @Table(name = "TRANSACTIONS", catalog = "", schema = "BANKING")
 @NamedQueries({
     @NamedQuery(name = "Transactions.findAll", query = "SELECT t FROM Transactions t"),
     @NamedQuery(name = "Transactions.findByTimeStamp", query = "SELECT t FROM Transactions t WHERE t.timeStamp = :timeStamp"),
+    @NamedQuery(name = "Transactions.findByType", query = "SELECT t FROM Transactions t WHERE t.type = :type"),
     @NamedQuery(name = "Transactions.findByAmount", query = "SELECT t FROM Transactions t WHERE t.amount = :amount"),
     @NamedQuery(name = "Transactions.findByBalance", query = "SELECT t FROM Transactions t WHERE t.balance = :balance"),
     @NamedQuery(name = "Transactions.findByDescription", query = "SELECT t FROM Transactions t WHERE t.description = :description"),
@@ -42,7 +42,12 @@ public class Transactions implements Serializable {
     private static final long serialVersionUID = 1L;
     @Column(name = "TIME_STAMP")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date timeStamp;
+    private Date timeStamp = CurDate.now();
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 10)
+    @Column(name = "TYPE")
+    private String type;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Basic(optional = false)
     @NotNull
@@ -54,14 +59,14 @@ public class Transactions implements Serializable {
     private BigDecimal balance;
     @Size(max = 100)
     @Column(name = "DESCRIPTION")
-    private String description;
+    private String description="";
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "ID")
     private Integer id;
     @JoinColumn(name = "ACC_ID", referencedColumnName = "ID")
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    @ManyToOne(optional = false)
     private Account accId;
 
     public Transactions() {
@@ -71,17 +76,19 @@ public class Transactions implements Serializable {
         this.id = id;
     }
 
-    public Transactions(Integer id, BigDecimal amount, BigDecimal balance) {
+    public Transactions(Integer id, String type, BigDecimal amount, BigDecimal balance) {
         this.id = id;
+        this.type = type;
         this.amount = amount;
         this.balance = balance;
     }
     
-    public Transactions(Account accId, BigDecimal amount, BigDecimal balance, String description){
-    this.accId = accId;
-    this.amount = amount;
-    this.balance = balance;
-    this.description = description;
+    public Transactions(Account accId, BigDecimal amount, String type, BigDecimal balance, String description){
+        this.accId = accId;
+        this.amount = amount;
+        this.type = type;
+        this.balance = balance;
+        this.description = description;
     }
 
     public Date getTimeStamp() {
@@ -90,6 +97,14 @@ public class Transactions implements Serializable {
 
     public void setTimeStamp(Date timeStamp) {
         this.timeStamp = timeStamp;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public BigDecimal getAmount() {
