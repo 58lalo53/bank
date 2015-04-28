@@ -22,7 +22,7 @@
             </div>
         <form method="POST" action="/bank/doDeposit">
             <table>
-                <tr><td>Type: </td><td><input type="text" name="type" value="deposit" readonly></td></tr>
+                <input type="hidden" name="type" value="deposit">
                 <tr><td>Select Account: </td><td><select name="accId">
                     <c:forEach var="acc" items="${accounts}">
                         <c:choose>
@@ -35,7 +35,7 @@
                         </c:choose>
                     </c:forEach>
                     </td></tr>
-                <tr><td>Amount: </td><td><input type="text" name="amount"></td></tr>
+                <tr><td>Amount: </td><td><input type="text" name="amount">${aflash}</td></tr>
                 <tr><td>Description: </td><td><textarea name="description" rows="3" cols="80"></textarea></td></tr>
                 <tr><td><input type="submit" value="Make Deposit"></td></tr>
             </table>

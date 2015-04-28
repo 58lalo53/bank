@@ -38,13 +38,28 @@ public class DoWithdrawServlet extends HttpServlet {
         Account accs = (Account)request.getSession().getAttribute("accs");
         
         String type = request.getParameter("type");
-        BigDecimal amount = new BigDecimal(request.getParameter("amount"));
+        BigDecimal amount;
+        try{
+            amount = new BigDecimal(request.getParameter("amount"));
+        } catch(NumberFormatException nfe){
+            request.setAttribute("aflash", "Please enter the amount to withdraw");
+            request.getRequestDispatcher(destination).forward(request, response);
+            return;
+        }
+            
         int accId = Integer.parseInt(request.getParameter("accId"));
         EntityManager em = getEM();
         Query q = em.createQuery("SELECT a FROM Account a WHERE a.id = :id");
         q.setParameter("id", accId);
         Account acc = (Account)q.getSingleResult();
         BigDecimal balance = acc.getBalance();
+        
+        
+        if (amount.compareTo(balance)==1){
+            request.setAttribute("flash", "You do not have sufficient funds.");
+            request.getRequestDispatcher(destination).forward(request, response);
+            return;
+        }
         String description = request.getParameter("description");
         BigDecimal newBal = balance.subtract(amount);
         acc.setBalance(newBal);

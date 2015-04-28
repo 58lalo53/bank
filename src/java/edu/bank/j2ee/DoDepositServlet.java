@@ -43,7 +43,14 @@ public class DoDepositServlet extends HttpServlet {
         
         Account accs = (Account)request.getSession().getAttribute("accs");
         String type = request.getParameter("type");
-        BigDecimal amount = new BigDecimal(request.getParameter("amount"));
+        BigDecimal amount;
+        try{
+            amount = new BigDecimal(request.getParameter("amount"));
+        } catch(NumberFormatException nfe){
+            request.setAttribute("aflash", "Please enter the amount to deposit");
+            request.getRequestDispatcher(destination).forward(request, response);
+            return;
+        }
         int accId = Integer.parseInt(request.getParameter("accId"));
         EntityManager em = getEM();
         Query q = em.createQuery("SELECT a FROM Account a WHERE a.id = :id");
@@ -55,7 +62,6 @@ public class DoDepositServlet extends HttpServlet {
         acc.setBalance(newBal);
         acc.setBeginBal(balance);
         Transactions trans = new Transactions(acc ,amount ,type ,newBal ,description);
-        request.setAttribute("trans", trans);
         try{
             
             em.getTransaction().begin();

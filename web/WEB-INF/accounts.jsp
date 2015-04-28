@@ -37,7 +37,7 @@
                                 <a href="/bank/transactions?accId=${acc.id}">
                                     <span class="accNum">Account Number:&nbsp<c:out value="${acc.accNum}"></c:out></span></a><br/>
                                 <span class="accType">${acc.type}</span><br/>
-                                <span class="balance">Balance:&nbsp$${acc.getBalance()}</span><br/>
+                                <span class="balance">Balance:&nbsp$${acc.balance}</span><br/>
                                 <span class="joinDate">Opened on:&nbsp<fmt:formatDate type ="both" dateStyle="long" timeStyle="long" value="${acc.timeStamp}"/></span>
                                 
                             </c:when>    
