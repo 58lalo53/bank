@@ -37,6 +37,7 @@
             </p>
             </div>
         <h3>Welcome ${sessionScope.cust.fname}&nbsp${sessionScope.cust.lname}</h3>
+        <p><a href="/bank/editCust">Edit personal info.</a></p>
     </div>
     </body>
 </html>
