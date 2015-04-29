@@ -9,8 +9,17 @@ table, td, th {
     border: 1px solid black;
 }
 
+tr.even {
+    background-color: #ff0000;
+    color: white;
+}
+
 table.main {
     width: 100%;
+}
+
+.flash {
+    color:#cc3300;
 }
 
 th {
