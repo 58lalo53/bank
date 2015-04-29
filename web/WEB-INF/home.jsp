@@ -1,8 +1,3 @@
-<%-- 
-    Document   : index
-    Created on : Apr 1, 2015, 1:05:33 PM
-    Author     : 58lalo53
---%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -14,11 +9,11 @@
         <title>... Bank</title>
     </head>
     <body>
-        <div id="warpper">
+        <div id="wrapper">
             <div id="header">
                 <h1>Welcome to ... Bank</h1>
             </div>
-        <h3>${flash}</h3>
+        <h5 class="flash">${flash}</h5>
             <div id="nav">
                     <p>
                 <c:choose>

@@ -51,18 +51,33 @@ public class EditCustServlet extends HttpServlet {
             
         }
         
-        Customer cust = new Customer(fname, mname, lname, street, city, state, zip, phone, email, username, password);
-        
-        EntityManager em = getEM();
+        Customer cust = (Customer)request.getSession().getAttribute("cust");
+                 cust.setStreet(street);
+                 cust.setCity(city);
+                 cust.setState(state);
+                 cust.setZip(zip);
+                 cust.setPhone(phone);
+                 cust.setEmail(email);
+        /*if (!mname.equals("null"))
+            cust = new Customer(fname, lname, mname, street, city, state, zip, phone, email, username, password);
+        else
+            cust = new Customer(fname,lname,street,city,state,zip,phone,email,username,password);
+        */EntityManager em = getEM();
+		
         
         try{
             em.getTransaction().begin();
             em.merge(cust);
             em.getTransaction().commit();
+            request.getSession().setAttribute("cust", cust);
+            request.setAttribute("flash", "Your info has been updated");
+            request.getRequestDispatcher("/WEB-INF/home.jsp").forward(request, response);
+            return;
         } catch (Exception e){
             request.setAttribute("flash", e.getMessage());
         }
-            
+        request.getRequestDispatcher(destination).forward(request, response);
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

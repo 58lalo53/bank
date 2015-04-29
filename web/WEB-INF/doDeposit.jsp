@@ -20,8 +20,9 @@
                     </c:when>
                 </c:choose>
             </div>
+            <div id="content">
         <form method="POST" action="/bank/doDeposit">
-            <table>
+            <table class="center">
                 <input type="hidden" name="type" value="deposit">
                 <tr><td>Select Account: </td><td><select name="accId">
                     <c:forEach var="acc" items="${accounts}">
@@ -37,9 +38,10 @@
                     </td></tr>
                 <tr><td>Amount: </td><td><input type="text" name="amount">${aflash}</td></tr>
                 <tr><td>Description: </td><td><textarea name="description" rows="3" cols="80"></textarea></td></tr>
-                <tr><td><input type="submit" value="Make Deposit"></td></tr>
+                <tr><td colspan="2" align='center'><input type="submit" value="Make Deposit"></td></tr>
             </table>
         </form>
+            </div>
         </div>
     </body>
 </html>

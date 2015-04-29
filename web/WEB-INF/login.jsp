@@ -14,12 +14,12 @@
         
     </head>
     <body>
-        <div id="warpper">
+        <div id="wrapper">
             <div id="header">
                 <h1>Welcome to ... Bank</h1>
             </div>
             <h3><c:out value="${flash}"/></h3>
-            <div id="body">
+            
         <div id="nav">
         <p>
         <li>
@@ -30,7 +30,7 @@
         </p>
     </div>
        
-        
+        <div id="content">
         <form method="POST" action="/bank/login">
                 
             <table class="center">
@@ -47,7 +47,8 @@
                     </tr>
                 </table>
             </form>
-            </div>
+        </div>
+            
         </div>
     </body>
 </html>

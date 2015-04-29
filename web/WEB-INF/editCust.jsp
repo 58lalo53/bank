@@ -95,6 +95,9 @@
                     <td>Confirm Password: </td><td><input type="password" name="password2" value="<c:out value="${sessionScope.cust.getPassword()}"/>"></td>
                 </tr>
                 <tr>
+                <input type="hidden" name="fname" value="<c:out value="${sessionScope.cust.getFname()}"/>">
+                <input type="hidden" name="lname" value="<c:out value="${sessionScope.cust.getLname()}"/>">
+                <input type="hidden" name="mname" value="<c:out value="${sessionScope.cust.getMname()}"/>">
                     <td><input type="submit" value="Make Changes"</td>
                 </tr>
             </table>

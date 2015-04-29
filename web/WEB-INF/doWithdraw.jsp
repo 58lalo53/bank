@@ -37,7 +37,7 @@
                     </td></tr>
                 <tr><td>Amount: </td><td><input type="text" name="amount" >${aflash}</td></tr>
                 <tr><td>Description: </td><td><textarea name="description" rows="3" cols="80"></textarea></td></tr>
-                <tr><td><input type="submit" value="Make Withdraw"></td></tr>
+                <tr><td colspan="2" align='center'><input type="submit" value="Make Withdraw"></td></tr>
             </table>
         </form>
         </div>

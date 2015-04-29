@@ -1,9 +1,3 @@
-<%-- 
-    Document   : transactions
-    Created on : Apr 24, 2015, 12:08:23 PM
-    Author     : Eduardo
---%>
-
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
 <!DOCTYPE html>
@@ -27,10 +21,15 @@
             </c:choose>
         </div>
         <h5>${flash}</h5>
-        <table>
+        <div id="content">
+        <table class="main">
             <th>Date</th><th>Type</th><th>Amount</th><th>Balance</th><th>Description</th>
-        <c:forEach var="trans" items="${trans}">    <tr><td>${trans.getTimeStamp()}</td><td>${trans.type}</td><td>${trans.amount}</td><td>${trans.balance}</td><td>${trans.description}</td></tr></c:forEach>
+        <c:forEach var="trans" items="${trans}" varStatus="loopStatus">    <tr class="${loopStatus.index % 2 == 0 ? "even" : "odd"}">
+                <td>${trans.getTimeStamp()}</td><td>${trans.type}</td><td class="money">${trans.amount}</td><td class="money">${trans.balance}</td><td>${trans.description}</td>
+            </tr>
+        </c:forEach>
         </table>
+        </div>
         </div>
     </body>
 </html>
