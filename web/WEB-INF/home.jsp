@@ -9,7 +9,7 @@
         <title>... Bank</title>
     </head>
     <body>
-        <div id="wrapper">
+        
             <div id="header">
                 <h1>Welcome to ... Bank</h1>
             </div>

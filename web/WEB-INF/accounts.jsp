@@ -28,6 +28,7 @@
         </c:choose>
         </div>
         <h3>${flash}</h3>
+        <div id="content">
         <p>To open a new Account <a href="/bank/newAcc">click here</a>.</p>
                     <c:forEach var="acc" items="${accounts}">
                         <div class="account">
@@ -50,6 +51,7 @@
             
                         </div>
                 </c:forEach>
+        </div>
         </div>
                     </body>
 </html>
