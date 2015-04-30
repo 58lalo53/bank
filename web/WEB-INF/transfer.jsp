@@ -8,10 +8,19 @@
         <title>... Bank</title>
     </head>
     <body>
-        <h1>... Bank</h1>
-        <h4>${flash}
-        <h3>Thank You</h3>
-        <c:import url="/WEB-INF/loginMenu.jspf"/>
-        <p>You have successfully transfered <c:out value="${trans1.amount}"/> from acc #<c:out value="${facc.accNum}"/> to acc #<c:out value="${tacc.accNum}"/></p>
+        <div id="wrapper">
+            <div id="header">
+                <h1>... Bank</h1>
+            </div>
+            <div id="nav">
+                <c:import url="/WEB-INF/loginMenu.jspf"/>
+            </div>
+            <div id="content">
+                <h3>Thank You</h3>
+                <div class="flash">${flash}</div>
+            <p>You have successfully transfered <c:out value="${trans1.amount}"/> from acc #<c:out value="${facc.accNum}"/> to acc #<c:out value="${tacc.accNum}"/></p>
+        
+            </div>
+        </div>
     </body>
 </html>

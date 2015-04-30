@@ -6,18 +6,29 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/style.css"/>
         <title>... Bank</title>
     </head>
     <body>
-        <h1>... Bank</h1>
-        <c:choose>
+        <div id="header">
+            <h1>... Bank</h1>
+        </div>
+        <div id="wrapper">
+        <div id="nav">
+            <c:choose>
             <c:when test = "${sessionScope.cust.username!= null}">
                 <%@include file="loginMenu.jspf" %>
             </c:when>
         </c:choose>
+        </div>
+        
+            <div id="content">
         <h3>Hello ${sessionScope.cust.toString()}</h3>
         <p>Your Account Number is <c:out value="${sessionScope.acc.getAccNum()}">${sessionScope.acc.getAccNum()}</c:out></p>
         <a href="/bank/home">Return to Home Page</a>
         <p>${sessionScope.account.getBalance()}</p>
+        </div>
+        </div>
     </body>
+
 </html>

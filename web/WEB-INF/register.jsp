@@ -18,13 +18,14 @@
             <div id="header">
                 <h1>... Bank</h1>
             </div>
-            <div class="flash">
-                <h3>${flash}</h3>
-            </div>
+            
             <div id="nav">
-                <c:import url="loginMenu.jspf"/>
+                <c:import url="noLoginMenu.jspf"/>
             </div>
             <div id="content">
+                <div class="flash">
+                <h3>${flash}</h3>
+            </div>
         <form method="POST" action="/bank/register">
             <table class="center">
                 <tr>

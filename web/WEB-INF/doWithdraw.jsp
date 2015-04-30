@@ -12,7 +12,7 @@
             <div id="header">
                 <h1>... Bank</h1>
             </div>
-            <h3>${flash}</h3>
+            
             <div id="nav">
                 <c:choose>
                     <c:when test="${sessionScope.cust.username!=null}">
@@ -20,8 +20,12 @@
                     </c:when>
                 </c:choose>
             </div>
+            <div id="content">
+                <h3>Make a Withdraw</h3>
+                <h4 class="flash">${flash}</h4>
+            
         <form method="POST" action="/bank/doWithdraw">
-            <table>
+            <table class="center">
                 <input type="hidden" name="type" value="withdraw">
                 <tr><td>Select Account: </td><td><select name="accId">
                     <c:forEach var="acc" items="${accounts}">
@@ -40,6 +44,7 @@
                 <tr><td colspan="2" align='center'><input type="submit" value="Make Withdraw"></td></tr>
             </table>
         </form>
+            </div>
         </div>
     </body>
 </html>

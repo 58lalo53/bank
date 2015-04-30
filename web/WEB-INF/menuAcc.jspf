@@ -1,0 +1,16 @@
+<li>
+  
+    <ul><a href="/bank/home">Home</a></ul>
+</li>
+    <li>
+        <a href="/bank/accounts">Accounts</a></ul>
+    <ul>
+            <li><a class="nav sub" href="/bank/newAcc">Open a new Account</a></li>
+            <li><a class="sub" href="/bank/closeAcc">Close an Account</a></li>
+        </ul>
+    </li>
+    <ul><a href="/bank/doDeposit?type=deposit">Deposit</a></ul>
+    <ul><a href="/bank/doWithdraw?type=withdraw">Withdraw</a></ul>
+    <ul><a href="/bank/doTransfer">Transfer</a></ul>
+    <ul><a href="/bank/logout">Logout</a></ul>
+</li>

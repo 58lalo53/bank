@@ -12,14 +12,15 @@
             <div id="header">
                 <h1>... Bank</h1>
             </div>
-            <div class="flash">    
-                <h4>${flash}</h4>
-            </div>
+            
             <div id="nav">
                 <c:import url="loginMenu.jspf"/>
             </div>
-        <h3>Make a Transfer</h3>
         <div id="content">
+            <div class="flash">    
+                <h4>${flash}</h4>
+            </div>
+            <h3>Make a Transfer</h3>
         <form method="POST" action="/bank/doTransfer">
             <table class="center">
                 <tr><td>From: </td><td><select name="facc">

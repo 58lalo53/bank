@@ -18,19 +18,17 @@
             <div id="header">
                 <h1>Welcome to ... Bank</h1>
             </div>
-            <h3><c:out value="${flash}"/></h3>
-            
         <div id="nav">
-        <p>
         <li>
                 <ul><a href="/bank/home">Home</a></ul>
                 <ul><a href="/bank/login">Login</a></ul>
                 <ul><a href="/bank/register">Register</a></ul>
             </li>
-        </p>
+       
     </div>
        
         <div id="content">
+            <h4 class="flash"><c:out value="${flash}"/></h4>
         <form method="POST" action="/bank/login">
                 
             <table class="center">

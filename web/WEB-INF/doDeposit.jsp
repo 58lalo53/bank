@@ -12,7 +12,6 @@
             <div id="header">
                 <h1>... Bank</h1>
             </div>
-            <h3>${flash}</h3>
             <div id="nav">
                 <c:choose>
                     <c:when test="${sessionScope.cust.username!=null}">
@@ -21,6 +20,9 @@
                 </c:choose>
             </div>
             <div id="content">
+                <h3>Make a Deposit</h3>
+                <h4>${flash}</h4>
+
         <form method="POST" action="/bank/doDeposit">
             <table class="center">
                 <input type="hidden" name="type" value="deposit">

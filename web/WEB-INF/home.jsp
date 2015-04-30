@@ -9,30 +9,36 @@
         <title>... Bank</title>
     </head>
     <body>
-        
+        <div id="wrapper">
             <div id="header">
                 <h1>Welcome to ... Bank</h1>
             </div>
-        <h5 class="flash">${flash}</h5>
-            <div id="nav">
-                    <p>
+        
+        
+           
+                    
                 <c:choose>
                     <c:when test="${sessionScope.cust.username != null}">
+                        <div id="nav">
                         <%@include file ="loginMenu.jspf" %>
+                        </div>
+                        <div id="content">
+                            <h5 class="flash">${flash}</h5>
+                            <h3>Welcome ${sessionScope.cust.fname}&nbsp${sessionScope.cust.lname}</h3>
+                            <a href="/bank/editCust">Edit personal info.</a>
+                        </div>
                     </c:when>
                     <c:otherwise>
-    <li>
-        <ul><a href="/bank/home">Home</a></ul>
-        <ul><a href="/bank/login">Login</a></ul>
-        <ul><a href="/bank/register">Register</a></ul>
-
-    </li>
+                        <div id="nav">
+                        <c:import url="noLoginMenu.jspf"/>
+                        </div>
+                        <div id="content">
+                            <h3>Welcome to ... Bank</h3>
+                            <p>To start using our amazing bank, please <a href="/bank/login">login</a> or <a href="/bank/register">register</a></p>
+                        </div>
                     </c:otherwise>
                 </c:choose>
-            </p>
-            </div>
-        <h3>Welcome ${sessionScope.cust.fname}&nbsp${sessionScope.cust.lname}</h3>
-        <p><a href="/bank/editCust">Edit personal info.</a></p>
+
     </div>
     </body>
 </html>
