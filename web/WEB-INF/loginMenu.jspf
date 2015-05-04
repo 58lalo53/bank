@@ -1,3 +1,4 @@
+<div id="nav">
 <li>
     <ul><a href="/bank/home">Home</a></ul>
     <ul><a href="/bank/accounts">Accounts</a></ul>
@@ -6,3 +7,4 @@
     <ul><a href="/bank/doTransfer">Transfer</a></ul>
     <ul><a href="/bank/logout">Logout</a></ul>
 </li>
+</div>

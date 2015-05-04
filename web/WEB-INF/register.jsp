@@ -20,11 +20,11 @@
             </div>
             
             <div id="nav">
-                <c:import url="noLoginMenu.jspf"/>
+                <%@include file="noLoginMenu.jspf"%>
             </div>
             <div id="content">
                 <div class="flash">
-                <h3>${flash}</h3>
+                <h4>${flash}</h4>
             </div>
         <form method="POST" action="/bank/register">
             <table class="center">

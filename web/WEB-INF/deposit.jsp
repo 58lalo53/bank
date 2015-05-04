@@ -15,7 +15,7 @@
             <div id="nav">
                 <c:choose>
                     <c:when test="${sessionScope.cust.username!=null}">
-                        <c:import url = "loginMenu.jspf" />
+                        <%@include file="loginMenu.jspf" %>
                     </c:when>
                 </c:choose>
             </div>

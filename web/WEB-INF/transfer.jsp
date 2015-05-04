@@ -13,13 +13,14 @@
                 <h1>... Bank</h1>
             </div>
             <div id="nav">
-                <c:import url="/WEB-INF/loginMenu.jspf"/>
+                <%@include file="loginMenu.jspf"%>
             </div>
             <div id="content">
                 <h3>Thank You</h3>
                 <div class="flash">${flash}</div>
-            <p>You have successfully transfered <c:out value="${trans1.amount}"/> from acc #<c:out value="${facc.accNum}"/> to acc #<c:out value="${tacc.accNum}"/></p>
-        
+            <p>You have successfully transfered <c:out value="${trans1.amount}"/> from acc #<c:out value="${facc.accNum}"/> to acc #<c:out value="${tacc.accNum}"/><br/>
+                Click <a href="/bank/home">here</a> to go home.
+                
             </div>
         </div>
     </body>

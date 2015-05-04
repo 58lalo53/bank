@@ -14,11 +14,9 @@
             </div>
         <h3>Transactions</h3>
         <div id="nav">
-            <c:choose>
-                <c:when test="${sessionScope.cust.username!=null}">
-                    <c:import url = "/WEB-INF/loginMenu.jspf"/>
-                </c:when>
-            </c:choose>
+            
+                    <%@include file = "loginMenu.jspf"%>
+                
         </div>
         <h5>${flash}</h5>
         <div id="content">

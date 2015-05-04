@@ -24,7 +24,7 @@
                         </div>
                         <div id="content">
                             <h5 class="flash">${flash}</h5>
-                            <h3>Welcome ${sessionScope.cust.fname}&nbsp${sessionScope.cust.lname}</h3>
+                            <h3>Welcome ${sessionScope.cust.toString()}</h3>
                             <a href="/bank/editCust">Edit personal info.</a>
                         </div>
                     </c:when>

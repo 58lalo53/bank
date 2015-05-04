@@ -8,8 +8,16 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>... Bank</h1>
-        <h4>${flash}</h4>
+        <div id="wrapper">
+            <div id="header">
+                <h1>... Bank</h1>
+            </div>
+            <div id="nav">
+                <%@include file="loginMenu.jspf" %>
+            </div>
+            <div id="content">
+                <h4 class="flash">${flash}</h4>
+                   
         
         <form method="POST" action="/bank/editCust">
             <table>
@@ -103,5 +111,7 @@
             </table>
             
         </form>
-    </body>
+            </div>
+        </div>
+        </body>
 </html>

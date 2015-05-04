@@ -10,16 +10,18 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/style.css"/>
         <title>... Bank</title>
     </head>
     <body>
-        <h1>... Bank</h1>
+        <div id="wrapper">
+            <div id="header">
+                <h1>... Bank</h1>
+            </div>
         <h3>${flash}</h3>
-        <c:choose>
-        <c:when test="${sessionScope.cust.username!=null}">
-            <c:import url="loginMenu.jspf"/>
-        </c:when>
-        </c:choose>
+
+            <%@include file="loginMenu.jspf"%>
+
             <c:choose>
             <c:when test="${trans!=null}">
                 <p>You have successfully withdrawn $<c:out value="${trans.amount}"/></p>
@@ -28,6 +30,6 @@
                 <p>To make a withdrawal click <a href="/bank/doWithdraw">here</a>
             </c:otherwise>
         </c:choose>
-        
+        </div>
     </body>
 </html>

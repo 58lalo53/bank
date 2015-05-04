@@ -18,14 +18,8 @@
             <div id="header">
                 <h1>Welcome to ... Bank</h1>
             </div>
-        <div id="nav">
-        <li>
-                <ul><a href="/bank/home">Home</a></ul>
-                <ul><a href="/bank/login">Login</a></ul>
-                <ul><a href="/bank/register">Register</a></ul>
-            </li>
-       
-    </div>
+
+                <%@include file = "noLoginMenu.jspf" %>
        
         <div id="content">
             <h4 class="flash"><c:out value="${flash}"/></h4>
@@ -46,6 +40,7 @@
                 </table>
             </form>
         </div>
+            <%@include file="footer.jspf" %>
             
         </div>
     </body>

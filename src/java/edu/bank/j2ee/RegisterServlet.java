@@ -71,7 +71,7 @@ public class RegisterServlet extends HttpServlet {
 			em.merge(cust);
 			em.getTransaction().commit();
 			request.getSession().setAttribute("cust", cust);
-			request.getRequestDispatcher("/bank/home").forward(request, response);
+			request.getRequestDispatcher("/WEB-INF/home.jsp").forward(request, response);
                         return;
 		}catch(Exception e){
 			request.setAttribute("flash", e.getMessage());

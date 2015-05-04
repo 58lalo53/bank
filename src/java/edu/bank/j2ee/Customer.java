@@ -20,6 +20,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 /**
@@ -43,6 +44,8 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "Customer.findByPassword", query = "SELECT c FROM Customer c WHERE c.password = :password"),
     @NamedQuery(name = "Customer.findById", query = "SELECT c FROM Customer c WHERE c.id = :id")})
 public class Customer implements Serializable {
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "custId")
+    private List<DeletedAccounts> deletedAccountsList;
     private static final long serialVersionUID = 1L;
     @Basic(optional = false)
     @NotNull
@@ -83,7 +86,7 @@ public class Customer implements Serializable {
     @Size(min = 1, max = 10)
     @Column(name = "PHONE")
     private String phone;
-    // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
+    @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 150)
@@ -282,6 +285,14 @@ public class Customer implements Serializable {
     @Override
     public String toString() {
         return fname + " " +lname;
+    }
+
+    public List<DeletedAccounts> getDeletedAccountsList() {
+        return deletedAccountsList;
+    }
+
+    public void setDeletedAccountsList(List<DeletedAccounts> deletedAccountsList) {
+        this.deletedAccountsList = deletedAccountsList;
     }
     
 }

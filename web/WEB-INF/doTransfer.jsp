@@ -14,7 +14,7 @@
             </div>
             
             <div id="nav">
-                <c:import url="loginMenu.jspf"/>
+                <%@include file="loginMenu.jspf">
             </div>
         <div id="content">
             <div class="flash">    

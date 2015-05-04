@@ -45,6 +45,11 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "Account.findByAccNum", query = "SELECT a FROM Account a WHERE a.accNum = :accNum"),
     @NamedQuery(name = "Account.findById", query = "SELECT a FROM Account a WHERE a.id = :id")})
 public class Account implements Serializable {
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 10)
+    @Column(name = "STATUS")
+    private String status = "ACTIVE";
     private static final long serialVersionUID = 1L;
     @Basic(optional = false)
     @NotNull
@@ -195,6 +200,14 @@ public class Account implements Serializable {
     @Override
     public String toString() {
         return "edu.bank.j2ee.Account[ id=" + id + " ]";
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
     
 }

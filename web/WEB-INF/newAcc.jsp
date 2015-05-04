@@ -13,16 +13,10 @@
                 <h1>... Bank</h1>
             </div>
             <div id="nav">
-                <c:choose>
-            <c:when test="${sessionScope.cust.username!=null}">
                 <%@include file="loginMenu.jspf" %>
-            </c:when>
-        </c:choose>
-            </div>
-            <div class="flash">
-                <h3>${flash}</h3>
             </div>
             <div id="content">
+                <h4 class="flash">${flash}</h4>
                 <form method="POST" action="/bank/newAcc">
                     <table class="center">
                     
