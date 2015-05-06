@@ -45,30 +45,16 @@ public class CloseAccServlet extends HttpServlet {
                 q = em.createQuery("SELECT a FROM Account a WHERE a.id = :id");
                 q.setParameter("id", id[x]);
                 acc = (Account)q.getSingleResult();
-                Date open = acc.getTimeStamp();
-                String type = acc.getType();
-                String description = acc.getDescription();
-                int accNum = acc.getAccNum();
-                Customer custId = acc.getCustId();
-                
-                DeletedAccounts da = new DeletedAccounts();
-                da.setAccNum(accNum);
-                da.setOpenedDate(open);
-                da.setCustId(custId);
-                da.setType(type);
-                da.setDescription(description);
+                acc.setStatus("INACTIVE");
                 
                 em.getTransaction().begin();
-                em.persist(da);
-                em.merge(da);
-                em.remove(acc);
+                em.merge(acc);
                 em.getTransaction().commit();
             }
-            
-            
+                     
             
             request.setAttribute("flash", "You have successfully closed your account(s)");
-            request.getRequestDispatcher("/WEB-INF/home.jsp").forward(request,response);
+            request.getRequestDispatcher("/bank/accounts");
             return;
         } catch(Exception e){
             request.setAttribute("flash", e.getMessage());

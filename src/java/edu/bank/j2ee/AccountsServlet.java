@@ -23,16 +23,18 @@ public class AccountsServlet extends HttpServlet {
             throws ServletException, IOException {
 
         Customer cust = (Customer)request.getSession().getAttribute("cust");
-        
+
         EntityManager em = getEM();
         try{
-            Query q = em.createQuery("SELECT a FROM Account a WHERE a.custId.id = :id ORDER BY a.timeStamp DESC");
+            Query q = em.createQuery("SELECT a FROM Account a WHERE a.custId.id = :id AND a.status = :status ORDER BY a.timeStamp DESC") ;
             q.setParameter("id", cust.getId());
+            q.setParameter("status", "ACTIVE");
             List<Account> accs = q.getResultList();
             request.getSession().setAttribute("accounts", accs);
         } catch(Exception e){
             request.setAttribute("flash", e.getMessage());
         }
+
         request.getRequestDispatcher("/WEB-INF/accounts.jsp").forward(request, response);
     }
     

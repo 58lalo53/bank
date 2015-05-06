@@ -44,8 +44,6 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "Customer.findByPassword", query = "SELECT c FROM Customer c WHERE c.password = :password"),
     @NamedQuery(name = "Customer.findById", query = "SELECT c FROM Customer c WHERE c.id = :id")})
 public class Customer implements Serializable {
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "custId")
-    private List<DeletedAccounts> deletedAccountsList;
     private static final long serialVersionUID = 1L;
     @Basic(optional = false)
     @NotNull
@@ -287,12 +285,5 @@ public class Customer implements Serializable {
         return fname + " " +lname;
     }
 
-    public List<DeletedAccounts> getDeletedAccountsList() {
-        return deletedAccountsList;
-    }
-
-    public void setDeletedAccountsList(List<DeletedAccounts> deletedAccountsList) {
-        this.deletedAccountsList = deletedAccountsList;
-    }
     
 }
