@@ -19,9 +19,9 @@
                     
                 <c:choose>
                     <c:when test="${sessionScope.cust.username != null}">
-                        <div id="nav">
+                        
                         <%@include file ="loginMenu.jspf" %>
-                        </div>
+                        
                         <div id="content">
                             <h5 class="flash">${flash}</h5>
                             <h3>Welcome ${sessionScope.cust.toString()}</h3>
@@ -29,16 +29,16 @@
                         </div>
                     </c:when>
                     <c:otherwise>
-                        <div id="nav">
+                        
                         <c:import url="noLoginMenu.jspf"/>
-                        </div>
+                        
                         <div id="content">
                             <h3>Welcome to ... Bank</h3>
                             <p>To start using our amazing bank, please <a href="/bank/login">login</a> or <a href="/bank/register">register</a></p>
                         </div>
                     </c:otherwise>
                 </c:choose>
-
+                        <%@include file = "footer.jspf" %>
     </div>
     </body>
 </html>

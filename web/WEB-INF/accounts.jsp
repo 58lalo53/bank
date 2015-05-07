@@ -18,13 +18,13 @@
             <div id ="header">
                 <h1>... Bank</h1>
             </div>
-        <div id="nav">
+        
         <c:choose>
             <c:when test = "${sessionScope.cust.username!= null}">
                 <%@include file="menuAcc.jspf"%>
             </c:when>
         </c:choose>
-        </div>
+        
             
         <div id="content">
             <h3 class="flash">${flash}</h3>
@@ -51,6 +51,7 @@
                         </div>
                 </c:forEach>
         </div>
+            <%@include file="footer.jspf" %>
         </div>
                     </body>
 </html>

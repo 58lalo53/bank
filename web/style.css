@@ -45,12 +45,24 @@ h3 {
 
 #wrapper {
      margin: 0 auto;
-     
+     min-height: 400px;
+     height: 550px;
      width: 80%;
      min-width: 850px;
      
     color: #000000;
 }
+
+tr.even {
+    background-color: #68714a;
+    color: white;
+}
+
+tr.odd {
+    background-color: #cccccc;
+    color: black;
+}
+
 
 #nav {
     float: left;
@@ -74,33 +86,20 @@ h3 {
     padding: 1em;
 }
 
-th{
-    height: 40px;
-    background-color: #666666;
-    color: white;
-}
-
-tr.even {
-    background-color: #990000;
-    color: white;
-}
-
-tr.odd {
-    background-color: #cccccc;
-    color: black;
-}
-
-
-
 table, td, th {
     border: 0px;
-    background-color: #cccccc;
-    color: #130101;
+
 }
 
 table {
     width: 50%;
-    height: 50%;
+    ;
+}
+
+th{
+    height: 40px;
+    background-color: #0e0f0e;
+    color: white;
 }
 
 td {
@@ -108,8 +107,13 @@ td {
     height: 25px;
 }
 
+.date{
+    width:150px;
+}
+
 table.main {
     width: 100%;
+    font-size: 14px;
 }
 
 .flash {

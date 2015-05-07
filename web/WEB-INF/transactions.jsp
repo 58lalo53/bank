@@ -23,7 +23,7 @@
         <table class="main">
             <th>Date</th><th>Type</th><th>Amount</th><th>Balance</th><th>Description</th>
         <c:forEach var="trans" items="${trans}" varStatus="loopStatus">    <tr class="${loopStatus.index % 2 == 0 ? "even" : "odd"}">
-                <td>${trans.getTimeStamp()}</td><td>${trans.type}</td><td class="money">${trans.amount}</td><td class="money">${trans.balance}</td><td>${trans.description}</td>
+                <td class="date">${trans.getTimeStamp()}</td><td>${trans.type}</td><td class="money">${trans.amount}</td><td class="money">${trans.balance}</td><td>${trans.description}</td>
             </tr>
         </c:forEach>
         </table>
