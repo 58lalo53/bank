@@ -4,7 +4,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/style.css"
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/style.css"/>
         <title>... Bank Register</title>
     </head>
     <body>
@@ -12,9 +12,9 @@
             <div id="header">
                 <h1>... Bank</h1>
             </div>
-            <div id="nav">
+            
                 <%@include file="loginMenu.jspf" %>
-            </div>
+            
             <div id="content">
                 <h4 class="flash">${flash}</h4>
                 <form method="POST" action="/bank/newAcc">

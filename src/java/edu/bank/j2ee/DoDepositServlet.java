@@ -30,9 +30,20 @@ public class DoDepositServlet extends HttpServlet {
             throws ServletException, IOException {
         String destination = "/WEB-INF/doDeposit.jsp";
         Customer cust = (Customer)request.getSession().getAttribute("cust");
+        EntityManager em = getEM();
         
         if (cust!=null){
             if(request.getMethod().equals("GET")){
+                try{
+            Query q = em.createQuery("SELECT a FROM Account a WHERE a.custId.id = :id AND a.status = :status ORDER BY a.timeStamp DESC") ;
+            q.setParameter("id", cust.getId());
+            q.setParameter("status", "ACTIVE");
+            List<Account> accs = q.getResultList();
+            request.getSession().setAttribute("accounts", accs);
+                }
+            catch(Exception e){
+                    
+                    }
                 request.getRequestDispatcher(destination).forward(request, response);
                 return;
             }
@@ -41,7 +52,6 @@ public class DoDepositServlet extends HttpServlet {
             response.sendRedirect("/bank/login");
             }
         
-        Account accs = (Account)request.getSession().getAttribute("accs");
         String type = request.getParameter("type");
         BigDecimal amount;
         try{
@@ -52,7 +62,7 @@ public class DoDepositServlet extends HttpServlet {
             return;
         }
         int accId = Integer.parseInt(request.getParameter("accId"));
-        EntityManager em = getEM();
+
         Query q = em.createQuery("SELECT a FROM Account a WHERE a.id = :id");
         q.setParameter("id", accId);
         Account acc = (Account)q.getSingleResult();
@@ -68,13 +78,16 @@ public class DoDepositServlet extends HttpServlet {
             em.persist(trans);
             em.merge(trans);
             em.getTransaction().commit();
-            request.setAttribute("trans", trans);    
-            request.getRequestDispatcher("/WEB-INF/deposit.jsp").forward(request, response);
+            
+            
+            request.setAttribute("trans", trans);   
+            
+            request.getRequestDispatcher("/deposit").forward(request, response);
             return;
         } catch(Exception e){
             request.setAttribute("flash", e.getMessage());
           }finally{
-            request.setAttribute("accounts", accs);
+            
         }
         
         request.getRequestDispatcher(destination).forward(request, response);

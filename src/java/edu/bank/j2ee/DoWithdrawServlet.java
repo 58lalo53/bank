@@ -8,6 +8,7 @@ package edu.bank.j2ee;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.math.BigDecimal;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
@@ -28,11 +29,28 @@ public class DoWithdrawServlet extends HttpServlet {
             throws ServletException, IOException {
         
         String destination = "/WEB-INF/doWithdraw.jsp";
+        Customer cust = (Customer)request.getSession().getAttribute("cust");
+        EntityManager em = getEM();
         
-        if (request.getMethod().equals("GET")){
+        if (cust!=null){
+            if(request.getMethod().equals("GET")){
+                try{
+                Query q = em.createQuery("SELECT a FROM Account a WHERE a.custId.id = :id AND a.status = :status ORDER BY a.timeStamp DESC") ;
+                q.setParameter("id", cust.getId());
+                q.setParameter("status", "ACTIVE");
+                List<Account> accs = q.getResultList();
+                request.getSession().setAttribute("accounts", accs);
+            }
+            catch(Exception e){
+                request.setAttribute("flash", e.getMessage());
+            }
             request.getRequestDispatcher(destination).forward(request, response);
             return;
-        }
+            }
+        }else{
+            request.setAttribute("flash", "You are not logged in.");
+            request.getRequestDispatcher("/login").forward(request, response);
+            }
         
        
         Account accs = (Account)request.getSession().getAttribute("accs");
@@ -48,7 +66,7 @@ public class DoWithdrawServlet extends HttpServlet {
         }
             
         int accId = Integer.parseInt(request.getParameter("accId"));
-        EntityManager em = getEM();
+
         Query q = em.createQuery("SELECT a FROM Account a WHERE a.id = :id");
         q.setParameter("id", accId);
         Account acc = (Account)q.getSingleResult();

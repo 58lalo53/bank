@@ -5,16 +5,17 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <link rel="stylesheet" type="text/css" href='${pageContext.request.contextPath}/style.css'/>
+        <title>...EditInfo</title>
     </head>
     <body>
         <div id="wrapper">
             <div id="header">
                 <h1>... Bank</h1>
             </div>
-            <div id="nav">
+            
                 <%@include file="loginMenu.jspf" %>
-            </div>
+            
             <div id="content">
                 <h4 class="flash">${flash}</h4>
                    

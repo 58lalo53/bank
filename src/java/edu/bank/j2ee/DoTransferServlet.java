@@ -8,6 +8,7 @@ package edu.bank.j2ee;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.math.BigDecimal;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
@@ -29,24 +30,42 @@ public class DoTransferServlet extends HttpServlet {
         String destination="/WEB-INF/doTransfer.jsp";
         
         Customer cust = (Customer)request.getSession().getAttribute("cust");
+        EntityManager em = getEM();
         
-                if (cust!=null){
+        if (cust!=null){
             if(request.getMethod().equals("GET")){
-                request.getRequestDispatcher(destination).forward(request, response);
-                return;
+                try{
+                Query q = em.createQuery("SELECT a FROM Account a WHERE a.custId.id = :id AND a.status = :status ORDER BY a.timeStamp DESC") ;
+                q.setParameter("id", cust.getId());
+                q.setParameter("status", "ACTIVE");
+                List<Account> accs = q.getResultList();
+                request.getSession().setAttribute("accounts", accs);
+            }
+            catch(Exception e){
+                request.setAttribute("flash", e.getMessage());
+            }
+            request.getRequestDispatcher(destination).forward(request, response);
+            return;
             }
         }else{
             request.setAttribute("flash", "You are not logged in.");
-            response.sendRedirect("/bank/login");
+            request.getRequestDispatcher("/login").forward(request, response);
             }
+        
         
         int faccNum = Integer.parseInt(request.getParameter("facc"));
         int taccNum = Integer.parseInt(request.getParameter("tacc"));
-        BigDecimal amount = new BigDecimal(request.getParameter("amount"));
+        BigDecimal amount = null;
+        try{
+            amount = new BigDecimal(request.getParameter("amount"));
+        }catch(NumberFormatException nfe){
+            request.setAttribute("flash", "Please enter a numerical value as an amount");
+            request.getRequestDispatcher(destination).forward(request, response);
+            return;
+        }
         String type = request.getParameter("type");
         String description = request.getParameter("description");
         
-        EntityManager em = getEM();
         
         try{
             Query q = em.createQuery("SELECT a FROM Account a WHERE a.id = :id");
@@ -62,16 +81,17 @@ public class DoTransferServlet extends HttpServlet {
             BigDecimal taccNewBal = taccBal.add(amount);
             
             int res = amount.compareTo(faccBal);
-            if (res==1){
-                request.setAttribute("flash", "You don't have sufficient funds");
-                request.getRequestDispatcher(destination).forward(request, response);
-                return;
-            }
             if (faccNum==taccNum){
                 request.setAttribute("flash", "You cannot transfer to the same account");
                 request.getRequestDispatcher(destination).forward(request, response);
                 return;
             }
+            if (res==1){
+                request.setAttribute("flash", "You don't have sufficient funds");
+                request.getRequestDispatcher(destination).forward(request, response);
+                return;
+            }
+            
 
             facc.setBalance(faccNewBal);
             facc.setBeginBal(faccBal);

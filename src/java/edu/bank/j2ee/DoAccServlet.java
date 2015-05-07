@@ -7,6 +7,7 @@ package edu.bank.j2ee;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -22,6 +23,8 @@ public class DoAccServlet extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        List<Account> accs = (List<Account>) request.getSession().getAttribute("accs");
+        request.setAttribute("accounts", accs);
         request.getRequestDispatcher("/WEB-INF/doAcc.jsp").forward(request, response);
     }
 

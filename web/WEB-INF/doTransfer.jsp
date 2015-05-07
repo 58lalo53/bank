@@ -14,7 +14,7 @@
             </div>
             
             <div id="nav">
-                <%@include file="loginMenu.jspf">
+                <%@include file="loginMenu.jspf"%>
             </div>
         <div id="content">
             <div class="flash">    

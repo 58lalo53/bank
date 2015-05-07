@@ -31,7 +31,7 @@
                     <c:forEach var="acc" items="${accounts}">
                         <c:choose>
                             <c:when test="${sessionScope.cust.username!=null}">
-                                <option value="${acc.id}">Acc: ${acc.accNum}&nbspBal:&nbsp${acc.balance}</option>
+                                <option value="${acc.id}">Acc: ${acc.accNum}&nbspBal:&nbsp$${acc.balance}</option>
                             </c:when>
                             <c:otherwise>
                                 <option value="null">No accounts available</option>

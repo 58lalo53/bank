@@ -54,7 +54,7 @@ public class CloseAccServlet extends HttpServlet {
                      
             
             request.setAttribute("flash", "You have successfully closed your account(s)");
-            request.getRequestDispatcher("/bank/accounts");
+            request.getRequestDispatcher("/accounts").forward(request, response);
             return;
         } catch(Exception e){
             request.setAttribute("flash", e.getMessage());

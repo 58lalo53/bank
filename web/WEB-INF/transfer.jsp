@@ -18,7 +18,8 @@
             <div id="content">
                 <h3>Thank You</h3>
                 <div class="flash">${flash}</div>
-            <p>You have successfully transfered <c:out value="${trans1.amount}"/> from acc #<c:out value="${facc.accNum}"/> to acc #<c:out value="${tacc.accNum}"/><br/>
+            <p>You have successfully transfered $<c:out value="${trans1.amount}"/> from acc #<c:out value="${facc.accNum}"/> to acc #<c:out value="${tacc.accNum}"/><br/>
+            <hr/>
                 Click <a href="/bank/home">here</a> to go home.
                 
             </div>

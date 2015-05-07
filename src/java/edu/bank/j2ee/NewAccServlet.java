@@ -57,7 +57,7 @@ public class NewAccServlet extends HttpServlet {
             response.sendRedirect(destination);
             return;
             }	
-        response.sendRedirect("/bank/doAcc");
+        request.getRequestDispatcher("/doAcc").forward(request,response);
             
     }
     
