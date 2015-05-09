@@ -1,9 +1,3 @@
-<%-- 
-    Document   : index
-    Created on : Mar 31, 2015, 3:43:44 PM
-    Author     : 58lalo53
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>

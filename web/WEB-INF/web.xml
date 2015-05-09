@@ -6,7 +6,7 @@
         <description>ServletContextListener</description>
         <listener-class>edu.bank.j2ee.EMListener</listener-class>
     </listener>
-        <error-page>
+    <error-page>
         <error-code>500</error-code>
         <location>/WEB-INF/500error.jsp</location>
     </error-page>
@@ -14,7 +14,6 @@
         <error-code>404</error-code>
         <location>/WEB-INF/404error.jsp</location>
     </error-page>
-
     <session-config>
         <session-timeout>2</session-timeout>
     </session-config>

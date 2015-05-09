@@ -1,9 +1,3 @@
-<%-- 
-    Document   : register
-    Created on : Apr 2, 2015, 12:52:13 PM
-    Author     : 58lalo53
---%>
-
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
 <!DOCTYPE html>
@@ -19,9 +13,8 @@
                 <h1>... Bank</h1>
             </div>
             
-            <div id="nav">
-                <%@include file="noLoginMenu.jspf"%>
-            </div>
+           <%@include file="noLoginMenu.jspf"%>
+           
             <div id="content">
                 <div class="flash">
                 <h4>${flash}</h4>
@@ -122,6 +115,7 @@
             </table>
         </form>
             </div>
+                <%@include file="footer.jspf" %>
         </div>
     </body>
 </html>

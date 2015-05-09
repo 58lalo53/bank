@@ -25,7 +25,7 @@
 
         <form method="POST" action="/bank/doDeposit">
             <table class="center">
-                <input type="hidden" name="type" value="deposit">
+                
                 <tr><td>Select Account: </td><td><select name="accId">
                     <c:forEach var="acc" items="${accounts}">
                         <c:choose>
@@ -42,8 +42,10 @@
                 <tr><td>Description: </td><td><textarea name="description" rows="3" cols="80"></textarea></td></tr>
                 <tr><td colspan="2" align='center'><input type="submit" value="Make Deposit"></td></tr>
             </table>
+                <input type="hidden" name="type" value="deposit">
         </form>
             </div>
+                <%@include file="footer.jspf" %>
         </div>
     </body>
 </html>

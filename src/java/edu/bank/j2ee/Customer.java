@@ -44,6 +44,11 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "Customer.findByPassword", query = "SELECT c FROM Customer c WHERE c.password = :password"),
     @NamedQuery(name = "Customer.findById", query = "SELECT c FROM Customer c WHERE c.id = :id")})
 public class Customer implements Serializable {
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 15)
+    @Column(name = "ROLE")
+    private String role = "customer";
     private static final long serialVersionUID = 1L;
     @Basic(optional = false)
     @NotNull
@@ -283,6 +288,14 @@ public class Customer implements Serializable {
     @Override
     public String toString() {
         return fname + " " +lname;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 
     
