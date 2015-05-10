@@ -14,7 +14,7 @@
             </div>
             <%@include file="adminMenu.jspf" %>
             <div id="content">
-                
+                <h4 class="flash">${flash}</h4>
             </div>
             <%@include file="footer.jspf" %>
         </div>

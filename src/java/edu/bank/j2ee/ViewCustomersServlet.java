@@ -5,6 +5,7 @@ import java.io.PrintWriter;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.Query;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -28,16 +29,54 @@ public class ViewCustomersServlet extends HttpServlet {
     }
     
     private String viewCust(HttpServletRequest request){
+        
+        Customer cust = (Customer)request.getSession().getAttribute("cust");
+        if (cust.getRole().equals("customer")){
+            request.setAttribute("flash", "You do not have access");
+            return "/home";
+        }
         EntityManagerFactory emf = (EntityManagerFactory)getServletContext().getAttribute("emf");
         EntityManager em = emf.createEntityManager();
         
+        
+        String order = request.getParameter("order");
+            if (order==null)
+                order = "id";
+        String orderBy = "";
+            switch (order){
+                case "id":
+                    orderBy = "ORDER BY c.id";
+                    break;
+                case "null":
+                    orderBy = "";
+                    break;
+                case "fname":
+                    orderBy="ORDER BY c.fname";
+                    break;
+                case "lname":
+                    orderBy = "ORDER BY c.lname";
+                    break;
+                case "mname":
+                    orderBy = "ORDER BY c.mname";
+                    break;
+            
+        }
+        
+        
         try{
-            List<Customer> custs = em.createNamedQuery("Customer.findAll").getResultList();
+            
+            String query = "SELECT c FROM Customer c WHERE c.role = :role "+orderBy;
+            Query q = em.createQuery(query);
+            q.setParameter("role", "customer");
+            List<Customer> custs = q.getResultList();
+            
             request.setAttribute("custs", custs);
             
         }catch(Exception e){
             request.setAttribute("flash", e.getMessage());
+            return "/adminHome";
         }
+
         return "/WEB-INF/viewCust.jsp";
     }
 

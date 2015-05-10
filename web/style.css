@@ -4,7 +4,7 @@ html, body {
     background-color: #FFFFFF;
     background: linear-gradient(#FFFFFF, #c1c1c1);
     font-family: Verdana, Arial, sans-serif;
-    height: 650px;
+    min-height: 100%;
 }
 
 a {
@@ -12,11 +12,9 @@ a {
     font-size: 15px;
 }
 
-
-
 h1 {
     font-family: Papyrus, fantasy;
-    font-size: 200;
+    font-size: 200%;
     font-style: normal;
     font-variant: normal;
     font-weight: 500;
@@ -44,12 +42,10 @@ h3 {
 }
 
 #wrapper {
-     margin: 0 auto;
-     min-height: 550px;
-
-     width: 80%;
-     min-width: 850px;
-     
+    margin: 0 auto;
+    min-height: 550px;
+    width: 80%;
+    min-width: 850px;
     color: #000000;
 }
 
@@ -86,14 +82,13 @@ tr.odd {
     padding: 1em;
 }
 
-table, td, th {
+table{
     border: 0px;
-
+    width: 50%;
 }
 
-table {
-    width: 50%;
-    ;
+th, td {
+    width:100px;
 }
 
 th{
@@ -103,7 +98,7 @@ th{
 }
 
 td {
-    width: 50px;
+    width: 100px;
     height: 25px;
 }
 
@@ -116,12 +111,9 @@ table.main {
     font-size: 14px;
 }
 
+
 .flash {
     color:#cc3300;
-}
-
-th {
-    text-align: left;
 }
 
 td.money{

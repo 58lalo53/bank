@@ -19,6 +19,7 @@ public class ViewAccountsServlet extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
         String destination = viewAccounts(request);
         request.getRequestDispatcher(destination).forward(request, response);
     }
@@ -26,6 +27,12 @@ public class ViewAccountsServlet extends HttpServlet {
     private String viewAccounts(HttpServletRequest request) {
         EntityManagerFactory emf = (EntityManagerFactory)getServletContext().getAttribute("emf");
         EntityManager em = emf.createEntityManager();
+        
+        Customer cust = (Customer)request.getSession().getAttribute("cust");
+        if (cust.getRole().equals("customer")){
+            request.setAttribute("flash", "You do not have access");
+            return "/home";
+        }
         
         try{
             List<Account> accs = em.createNamedQuery("Account.findAll").getResultList();

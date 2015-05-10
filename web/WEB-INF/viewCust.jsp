@@ -14,6 +14,7 @@
             </div>
             <%@include file="adminMenu.jspf" %>
             <div id="content">
+                <h4 class="flash">${flash}</h4>
                 <c:set var="counter" value="0"/>
                 <table class="main">
                     <tr><th>Role</th><th>First Name</th><th>Last Name</th><th>Middle Name</th><th>Street</th><th>City</th><th>State</th><th>Zip</th><th>Email</th><th>Phone</th></tr>
