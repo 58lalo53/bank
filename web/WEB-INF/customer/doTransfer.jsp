@@ -14,7 +14,7 @@
             </div>
             
             <div id="nav">
-                <%@include file="loginMenu.jspf"%>
+                <%@include file="menuAcc.jspf"%>
             </div>
         <div id="content">
              
@@ -45,7 +45,7 @@
             <input type="hidden" name="type" value="transfer"/>
         </form>
         </div>
-                <%@include file="footer.jspf" %>
+                <%@include file="../footer.jspf" %>
         </div>
     </body>
 </html>

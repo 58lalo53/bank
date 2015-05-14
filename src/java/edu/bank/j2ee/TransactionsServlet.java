@@ -21,12 +21,23 @@ public class TransactionsServlet extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String destination = "/WEB-INF/transactions.jsp";
+        String destination = transaction(request);
+    }
+    
+    private String transaction(HttpServletRequest request){
+        String destination = "/WEB-INF/customer/transactions.jsp";
         
         Customer cust = (Customer)request.getSession().getAttribute("cust");
+        
+        if (cust==null){
+            request.setAttribute("flash", "You are not logged in");
+            return "../login.jsp";
+        }
                 
         int accId = Integer.parseInt(request.getParameter("accId"));
-        EntityManager em = getEM();
+        
+        EntityManagerFactory emf = (EntityManagerFactory)getServletContext().getAttribute("emf");
+        EntityManager em = emf.createEntityManager();
         
         
         try{
@@ -42,13 +53,9 @@ public class TransactionsServlet extends HttpServlet {
             request.setAttribute("flash", e.getMessage());
         }
         
-        request.getRequestDispatcher(destination).forward(request, response);
+        return destination;
     }
-    
-    private EntityManager getEM(){
-        EntityManagerFactory emf = (EntityManagerFactory)getServletContext().getAttribute("emf");
-        return emf.createEntityManager();
-    }
+
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

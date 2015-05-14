@@ -40,7 +40,7 @@ public class ViewAccountsServlet extends HttpServlet {
         }catch(Exception e){
             request.setAttribute("flash", e.getMessage());
         }
-        return "/WEB-INF/viewAccount.jsp";
+        return "/WEB-INF/admin/viewAccount.jsp";
     }
     
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

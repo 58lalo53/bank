@@ -13,15 +13,22 @@
                 <h1>... Bank</h1>
             </div>
             <div id="nav">
-                <%@include file="loginMenu.jspf"%>
+                <c:choose>
+                    <c:when test="${sessionScope.cust.username!=null}">
+                        <%@include file="menuAcc.jspf" %>
+                    </c:when>
+                </c:choose>
             </div>
             <div id="content">
-                <h3>Thank You</h3>
-                <div class="flash">${flash}</div>
-            <p>You have successfully transfered $<c:out value="${trans1.amount}"/> from acc #<c:out value="${facc.accNum}"/> to acc #<c:out value="${tacc.accNum}"/><br/>
-            <hr/>
-                Click <a href="/bank/home">here</a> to go home.
-                
+        <h3>${flash}</h3>
+        <c:choose>
+            <c:when test="${trans!=null}">
+                You successfully deposited $<c:out value="${trans.getAmount()}"/>
+            </c:when>
+            <c:otherwise>
+                To make a deposit, click <a href="/bank/doDeposit">here</a>
+            </c:otherwise>
+        </c:choose>
             </div>
         </div>
     </body>

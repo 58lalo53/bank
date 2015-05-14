@@ -13,7 +13,7 @@
                 <h1>... Bank</h1>
             </div>
             
-           <%@include file="noLoginMenu.jspf"%>
+           <%@include file="../noLoginMenu.jspf"%>
            
             <div id="content">
                 <div class="flash">
@@ -22,19 +22,19 @@
         <form method="POST" action="/bank/register">
             <table class="center">
                 <tr>
-                    <td>First Name: </td><td><input type="text" name="fname" /></td>
+                    <td>First Name: </td><td><input type="text" name="fname" value="<c:out value="${param.fname}"/>"/></td>
                 </tr>
                 <tr>
-                    <td>Middle Name: </td><td><input type="text" name="mname" /></td>
+                    <td>Middle Name: </td><td><input type="text" name="mname" value="<c:out value="${param.mname}"/>"/></td>
                 </tr>
                 <tr>
-                    <td>Last Name: </td><td><input type="text" name="lname" /></td>
+                    <td>Last Name: </td><td><input type="text" name="lname" value="<c:out value="${param.lname}"/>"/></td>
                 </tr>                
                 <tr>
-                    <td>Street: </td><td><input type="text" name="street" /></td>
+                    <td>Street: </td><td><input type="text" name="street" value="<c:out value="${param.street}"/>"/></td>
                 </tr>                
                 <tr>
-                    <td>City: </td><td><input type="text" name="city" /></td>
+                    <td>City: </td><td><input type="text" name="city" value="<c:out value="${param.city}"/>"/></td>
                 </tr>                
                 <tr>
                     <td>State: </td><td><select name="state">
@@ -89,16 +89,17 @@
 		<option value="WV">West Virginia</option>
 		<option value="WI">Wisconsin</option>
 		<option value="WY">Wyoming</option>
+                <option value="${param.state}" selected><c:out value="${param.state}"/></option>
 		</select></td>
                 </tr>
                 <tr>
-                    <td>Zip:  </td><td><input type="text" name="zip" /></td>
+                    <td>Zip:  </td><td><input type="text" name="zip" value="<c:out value="${param.zip}"/>"/></td>
                 </tr>
                 <tr>
-                    <td>Phone </td><td><input type="text" name="phone" /></td>
+                    <td>Phone </td><td><input type="text" name="phone" value="<c:out value="${param.phone}"/>"/></td>
                 </tr>                
                 <tr>
-                    <td>Email </td><td><input type="email" name="email" /></td>
+                    <td>Email </td><td><input type="email" name="email" value="<c:out value="${param.email}"/>"/></td>
                 </tr>                
                 <tr>
                     <td>Username: </td><td><input type="text" name="username" /></td>
@@ -115,7 +116,7 @@
             </table>
         </form>
             </div>
-                <%@include file="footer.jspf" %>
+                <%@include file="../footer.jspf" %>
         </div>
     </body>
 </html>

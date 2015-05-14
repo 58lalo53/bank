@@ -5,20 +5,16 @@
     <head>
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/style.css" />
         <title>... Bank</title>
-        
     </head>
     <body>
         <div id="wrapper">
             <div id="header">
                 <h1>Welcome to ... Bank</h1>
             </div>
-
                 <%@include file = "noLoginMenu.jspf" %>
-       
         <div id="content">
             <h4 class="flash"><c:out value="${flash}"/></h4>
-        <form method="POST" action="/bank/login">
-                
+        <form method="POST" action="/bank/login"> 
             <table class="center">
                     <tr>
                         <td>User Name: </td>

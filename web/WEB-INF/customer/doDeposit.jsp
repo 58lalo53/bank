@@ -12,19 +12,18 @@
             <div id="header">
                 <h1>... Bank</h1>
             </div>
-            
             <div id="nav">
                 <c:choose>
                     <c:when test="${sessionScope.cust.username!=null}">
-                        <%@include file="loginMenu.jspf" %>
+                        <%@include file="menuAcc.jspf" %>
                     </c:when>
                 </c:choose>
             </div>
             <div id="content">
-                <h3>Make a Withdraw</h3>
-                <h4 class="flash">${flash}</h4>
-            
-        <form method="POST" action="/bank/doWithdraw">
+                <h3>Make a Deposit</h3>
+                <h4>${flash}</h4>
+
+        <form method="POST" action="/bank/doDeposit">
             <table class="center">
                 
                 <tr><td>Select Account: </td><td><select name="accId">
@@ -39,14 +38,14 @@
                         </c:choose>
                     </c:forEach>
                     </td></tr>
-                <tr><td>Amount: </td><td><input type="text" name="amount" >${aflash}</td></tr>
+                <tr><td>Amount: </td><td><input type="text" name="amount">${aflash}</td></tr>
                 <tr><td>Description: </td><td><textarea name="description" rows="3" cols="80"></textarea></td></tr>
-                <tr><td colspan="2" align='center'><input type="submit" value="Make Withdraw"></td></tr>
+                <tr><td colspan="2" align='center'><input type="submit" value="Make Deposit"></td></tr>
             </table>
-                <input type="hidden" name="type" value="withdraw">
+                <input type="hidden" name="type" value="deposit">
         </form>
             </div>
-                <%@include file="footer.jspf" %>
+                <%@include file="../footer.jspf" %>
         </div>
     </body>
 </html>

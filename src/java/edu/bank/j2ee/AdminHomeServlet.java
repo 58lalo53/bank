@@ -65,7 +65,7 @@ public class AdminHomeServlet extends HttpServlet {
         Customer cust = (Customer)request.getSession().getAttribute("cust");
         
         if (cust.getRole().equals("admin"))
-            return "/WEB-INF/adminHome.jsp";
+            return "/WEB-INF/admin/adminHome.jsp";
         else{ 
             request.setAttribute("flash", "You do not have access");
             return "/login";

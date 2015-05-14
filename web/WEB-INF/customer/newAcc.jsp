@@ -13,7 +13,7 @@
                 <h1>... Bank</h1>
             </div>
             
-                <%@include file="loginMenu.jspf" %>
+                <%@include file="menuAcc.jspf" %>
             
             <div id="content">
                 <h4 class="flash">${flash}</h4>

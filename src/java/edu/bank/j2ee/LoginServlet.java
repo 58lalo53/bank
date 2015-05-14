@@ -9,9 +9,7 @@ import java.io.IOException;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import javax.persistence.Query;
-import javax.servlet.RequestDispatcher;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -30,12 +28,13 @@ public class LoginServlet extends HttpServlet {
 
     private String login(HttpServletRequest request) {
                 if (request.getMethod().equals("GET")){ 
-            return "/WEB-INF/login.jsp";
+                    return "/WEB-INF/login.jsp";
         }
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         
-        EntityManager em = getEM();
+        EntityManagerFactory emf = (EntityManagerFactory)getServletContext().getAttribute("emf");
+        EntityManager em = emf.createEntityManager();
         try {
             Customer cust = (Customer)em.createNamedQuery("Customer.findByUsername")
                     .setParameter("username", username)
@@ -55,17 +54,8 @@ public class LoginServlet extends HttpServlet {
            
         }
     }
-
-
-    
-
-
         
 
-        EntityManager getEM() {
-            EntityManagerFactory emf = (EntityManagerFactory)getServletContext().getAttribute("emf");
-            return emf.createEntityManager();
-        }
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.

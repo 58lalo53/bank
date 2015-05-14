@@ -1,5 +1,3 @@
-
-
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -17,7 +15,7 @@
         <div id="nav">
             <c:choose>
             <c:when test = "${sessionScope.cust.username!= null}">
-                <%@include file="loginMenu.jspf" %>
+                <%@include file="menuAcc.jspf" %>
             </c:when>
         </c:choose>
         </div>
@@ -28,6 +26,7 @@
         <a href="/bank/home">Return to Home Page</a>
         <p>${sessionScope.account.getBalance()}</p>
         </div>
+        <%@include file="../footer.jspf" %>
         </div>
     </body>
 

@@ -19,7 +19,8 @@ public class LogoutServlet extends HttpServlet {
             throws ServletException, IOException {
         
         request.getSession().removeAttribute("cust");
-        response.sendRedirect("/bank/home");
+        request.setAttribute("flash", "You have successfully logged off!");
+        request.getRequestDispatcher("/home").forward(request,response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

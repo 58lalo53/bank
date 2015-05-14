@@ -27,10 +27,16 @@ public class DoWithdrawServlet extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        String destination = "/WEB-INF/doWithdraw.jsp";
+        String destination = doWithdraw(request);
+        request.getRequestDispatcher(destination).forward(request, response);
+    }
+    
+    private String doWithdraw(HttpServletRequest request){
+        String destination = "/WEB-INF/customer/doWithdraw.jsp";
         Customer cust = (Customer)request.getSession().getAttribute("cust");
-        EntityManager em = getEM();
+        
+        EntityManagerFactory emf = (EntityManagerFactory)getServletContext().getAttribute("emf");
+        EntityManager em = emf.createEntityManager();
         
         if (cust!=null){
             if(request.getMethod().equals("GET")){
@@ -44,12 +50,11 @@ public class DoWithdrawServlet extends HttpServlet {
             catch(Exception e){
                 request.setAttribute("flash", e.getMessage());
             }
-            request.getRequestDispatcher(destination).forward(request, response);
-            return;
+            return destination;
             }
         }else{
             request.setAttribute("flash", "You are not logged in.");
-            request.getRequestDispatcher("/login").forward(request, response);
+            return "/login";
             }
         
        
@@ -61,8 +66,7 @@ public class DoWithdrawServlet extends HttpServlet {
             amount = new BigDecimal(request.getParameter("amount"));
         } catch(NumberFormatException nfe){
             request.setAttribute("aflash", "Please enter the amount to withdraw");
-            request.getRequestDispatcher(destination).forward(request, response);
-            return;
+            return destination;
         }
             
         int accId = Integer.parseInt(request.getParameter("accId"));
@@ -75,8 +79,7 @@ public class DoWithdrawServlet extends HttpServlet {
         
         if (amount.compareTo(balance)==1){
             request.setAttribute("flash", "You do not have sufficient funds.");
-            request.getRequestDispatcher(destination).forward(request, response);
-            return;
+            return destination;
         }
         String description = request.getParameter("description");
         BigDecimal newBal = balance.subtract(amount);
@@ -91,20 +94,15 @@ public class DoWithdrawServlet extends HttpServlet {
             em.merge(trans);
             em.getTransaction().commit();
             request.getSession().setAttribute("trans", trans);
-            request.getRequestDispatcher("/WEB-INF/withdraw.jsp").forward(request, response);
-            return;
+            return "/WEB-INF/customer/withdraw.jsp";
         }catch(Exception e){
             request.setAttribute("flash", e.getMessage());
         }finally{
             request.setAttribute("accounts", accs);
         }
-        request.getRequestDispatcher(destination).forward(request,response);
+        return destination;
     }
-    
-    private EntityManager getEM(){
-        EntityManagerFactory emf = (EntityManagerFactory)getServletContext().getAttribute("emf");
-        return emf.createEntityManager();
-    }
+   
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

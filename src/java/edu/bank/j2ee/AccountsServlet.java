@@ -24,7 +24,8 @@ public class AccountsServlet extends HttpServlet {
 
         Customer cust = (Customer)request.getSession().getAttribute("cust");
 
-        EntityManager em = getEM();
+        EntityManagerFactory emf = (EntityManagerFactory)getServletContext().getAttribute("emf");
+        EntityManager em = emf.createEntityManager();
         try{
             Query q = em.createQuery("SELECT a FROM Account a WHERE a.custId.id = :id AND a.status = :status ORDER BY a.timeStamp DESC") ;
             q.setParameter("id", cust.getId());
@@ -35,13 +36,8 @@ public class AccountsServlet extends HttpServlet {
             request.setAttribute("flash", e.getMessage());
         }
 
-        request.getRequestDispatcher("/WEB-INF/accounts.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/customer/accounts.jsp").forward(request, response);
     }
-    
-    EntityManager getEM() {
-            EntityManagerFactory emf = (EntityManagerFactory)getServletContext().getAttribute("emf");
-            return emf.createEntityManager();
-        }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

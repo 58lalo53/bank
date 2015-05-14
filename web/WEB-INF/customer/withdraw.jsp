@@ -20,7 +20,7 @@
             </div>
         <h3>${flash}</h3>
 
-            <%@include file="loginMenu.jspf"%>
+            <%@include file="menuAcc.jspf"%>
 
             <c:choose>
             <c:when test="${trans!=null}">

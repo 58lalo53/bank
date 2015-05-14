@@ -1,0 +1,14 @@
+<div id="nav">
+<ul>
+    <li><a href="/bank/home">Home</a></li>
+    <li><a href="/bank/accounts">Accounts</a><span class="darrow">&#9660;</span>
+        <ul class="sub">
+            <li><a class="nav sub" href="/bank/newAcc">Open a new Account</a></li>
+            <li><a class="sub" href="/bank/closeAcc">Close an Account</a></li>
+        </ul>
+    <li><a href="/bank/doDeposit?type=deposit">Deposit</a></li>
+    <li><a href="/bank/doWithdraw?type=withdraw">Withdraw</a></li>
+    <li><a href="/bank/doTransfer">Transfer</a></li>
+    <li><a href="/bank/logout">Logout</a></li>
+</ul>
+</div>

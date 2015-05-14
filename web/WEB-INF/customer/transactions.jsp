@@ -15,7 +15,7 @@
         <h3>Transactions</h3>
         <div id="nav">
             
-                    <%@include file = "loginMenu.jspf"%>
+                    <%@include file = "menuAcc.jspf"%>
                 
         </div>
         <h5>${flash}</h5>

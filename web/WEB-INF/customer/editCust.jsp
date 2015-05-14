@@ -13,14 +13,14 @@
                 <h1>... Bank</h1>
             </div>
             
-                <%@include file="loginMenu.jspf" %>
+                <%@include file="menuAcc.jspf" %>
             
             <div id="content">
                 <h4 class="flash">${flash}</h4>
                    
         
         <form method="POST" action="/bank/editCust">
-            <table>
+            <table class="center">
                 <tr><td>Customer: </td><td><input type="text" value="<c:out value="${sessionScope.cust.toString()}"/>" readonly></td></tr>
                 <tr>
                     <td>Street: </td><td><input type="text" name="street" value="<c:out value="${sessionScope.cust.getStreet()}"/>"></td>
@@ -102,16 +102,20 @@
                 <tr>
                     <td>Confirm Password: </td><td><input type="password" name="password2" value="<c:out value="${sessionScope.cust.getPassword()}"/>"></td>
                 </tr>
+                <tr><td></td><td><input type="file" name="pic" id="pic" value="Change profile pic"/></td></tr>
+                                <tr><td></td><td><input type="submit" value="Upload"/></td></tr>   
                 <tr>
                 <input type="hidden" name="fname" value="<c:out value="${sessionScope.cust.getFname()}"/>">
                 <input type="hidden" name="lname" value="<c:out value="${sessionScope.cust.getLname()}"/>">
                 <input type="hidden" name="mname" value="<c:out value="${sessionScope.cust.getMname()}"/>">
-                    <td><input type="submit" value="Make Changes"</td>
+                <td></td><td><input type="submit" value="Make Changes"/></td>
                 </tr>
+                
             </table>
             
         </form>
             </div>
+                <%@include file="../footer.jspf" %>
         </div>
         </body>
 </html>

@@ -18,12 +18,13 @@
                 <table class="main">
                     <tr><th>Type</th><th>Account Number</th><th>Balance</th><th>Owner</th><th>Date Opened</th><th>Description</th></tr>
                 <c:forEach var="acc" items="${accs}" varStatus="loopStatus">
-                    <tr><td>${acc.type}</td><td><a href="/bank/transactions?accId=${acc.id}">${acc.accNum}</a></td><td>${acc.balance}</td><td>${acc.custId.toString()}</td><td>${acc.timeStamp}</td><td>${acc.description}</td></tr>
+                    <tr class="${loopStatus.index % 2 == 0 ? "even" : "odd"}"><td>${acc.type}</td><td><a href="/bank/transactions?accId=${acc.id}">${acc.accNum}</a></td>
+                        <td>${acc.balance}</td><td>${acc.custId.toString()}</td><td>${acc.timeStamp}</td><td>${acc.description}</td></tr>
                     <c:set var="counter" value="${counter+1}"/>  
                 </c:forEach>
                 </table>
             </div>
-            <%@include file="footer.jspf" %>
+            <%@include file="../footer.jspf" %>
         </div>
     </body>
 </html>

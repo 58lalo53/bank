@@ -25,7 +25,7 @@ public class DoAccServlet extends HttpServlet {
             throws ServletException, IOException {
         List<Account> accs = (List<Account>) request.getSession().getAttribute("accs");
         request.setAttribute("accounts", accs);
-        request.getRequestDispatcher("/WEB-INF/doAcc.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/customer/doAcc.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

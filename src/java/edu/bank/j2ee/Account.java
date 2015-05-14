@@ -40,7 +40,6 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "Account.findByDescription", query = "SELECT a FROM Account a WHERE a.description = :description"),
     @NamedQuery(name = "Account.findByBalance", query = "SELECT a FROM Account a WHERE a.balance = :balance"),
     @NamedQuery(name = "Account.findByBeginBal", query = "SELECT a FROM Account a WHERE a.beginBal = :beginBal"),
-    @NamedQuery(name = "Account.findByCreditLim", query = "SELECT a FROM Account a WHERE a.creditLim = :creditLim"),
     @NamedQuery(name = "Account.findByTimeStamp", query = "SELECT a FROM Account a WHERE a.timeStamp = :timeStamp"),
     @NamedQuery(name = "Account.findByAccNum", query = "SELECT a FROM Account a WHERE a.accNum = :accNum"),
     @NamedQuery(name = "Account.findById", query = "SELECT a FROM Account a WHERE a.id = :id")})
@@ -64,8 +63,6 @@ public class Account implements Serializable {
     private BigDecimal balance = BigDecimal.ZERO;
     @Column(name = "BEGIN_BAL")
     private BigDecimal beginBal;
-    @Column(name = "CREDIT_LIM")
-    private BigDecimal creditLim;
     @Column(name = "TIME_STAMP")
     @Temporal(TemporalType.TIMESTAMP)
     private Date timeStamp = CurDate.now();
@@ -127,14 +124,6 @@ public class Account implements Serializable {
 
     public void setBeginBal(BigDecimal beginBal) {
         this.beginBal = beginBal;
-    }
-
-    public BigDecimal getCreditLim() {
-        return creditLim;
-    }
-
-    public void setCreditLim(BigDecimal creditLim) {
-        this.creditLim = creditLim;
     }
 
     public Date getTimeStamp() {

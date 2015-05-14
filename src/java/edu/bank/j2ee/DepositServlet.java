@@ -32,7 +32,7 @@ public class DepositServlet extends HttpServlet {
         EntityManager em = getEM();
         if (cust!=null){
             request.setAttribute("flash", "Success!");
-            request.getRequestDispatcher("/WEB-INF/deposit.jsp").forward(request,response);
+            request.getRequestDispatcher("/WEB-INF/customer/deposit.jsp").forward(request,response);
             
             
         }else{

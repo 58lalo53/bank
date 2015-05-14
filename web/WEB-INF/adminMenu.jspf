@@ -1,9 +1,0 @@
-<div id="nav">
-<li>
-    <ul><a href="/bank/adminHome">Home</a></ul>
-    <ul><a href="/bank/viewAccounts">View Accounts</a></ul>
-    <ul><a href="/bank/viewCust">View Customers</a></ul>
-    <ul><a href="/bank/doTransfer">Transfer</a></ul>
-    <ul><a href="/bank/logout">Logout</a></ul>
-</li>
-</div>

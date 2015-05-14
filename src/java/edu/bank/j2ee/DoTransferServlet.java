@@ -27,10 +27,17 @@ public class DoTransferServlet extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String destination="/WEB-INF/doTransfer.jsp";
+        String destination = doTransfer(request);
+        request.getRequestDispatcher(destination).forward(request, response);
+    }
+    
+    private String doTransfer(HttpServletRequest request){
+        String destination="/WEB-INF/customer/doTransfer.jsp";
         
         Customer cust = (Customer)request.getSession().getAttribute("cust");
-        EntityManager em = getEM();
+        
+        EntityManagerFactory emf = (EntityManagerFactory)getServletContext().getAttribute("emf");
+        EntityManager em = emf.createEntityManager();
         
         if (cust!=null){
             if(request.getMethod().equals("GET")){
@@ -44,12 +51,11 @@ public class DoTransferServlet extends HttpServlet {
             catch(Exception e){
                 request.setAttribute("flash", e.getMessage());
             }
-            request.getRequestDispatcher(destination).forward(request, response);
-            return;
+            return destination;
             }
         }else{
             request.setAttribute("flash", "You are not logged in.");
-            request.getRequestDispatcher("/login").forward(request, response);
+            return "/login";
             }
         
         
@@ -60,8 +66,7 @@ public class DoTransferServlet extends HttpServlet {
             amount = new BigDecimal(request.getParameter("amount"));
         }catch(NumberFormatException nfe){
             request.setAttribute("flash", "Please enter a numerical value as an amount");
-            request.getRequestDispatcher(destination).forward(request, response);
-            return;
+            return destination;
         }
         String type = request.getParameter("type");
         String description = request.getParameter("description");
@@ -83,13 +88,11 @@ public class DoTransferServlet extends HttpServlet {
             int res = amount.compareTo(faccBal);
             if (faccNum==taccNum){
                 request.setAttribute("flash", "You cannot transfer to the same account");
-                request.getRequestDispatcher(destination).forward(request, response);
-                return;
+                return destination;
             }
             if (res==1){
                 request.setAttribute("flash", "You don't have sufficient funds");
-                request.getRequestDispatcher(destination).forward(request, response);
-                return;
+                return destination;
             }
             
 
@@ -111,20 +114,14 @@ public class DoTransferServlet extends HttpServlet {
                 request.setAttribute("trans1", trans1);    
                 request.setAttribute("tacc", tacc);
                 request.setAttribute("facc", facc);
-                request.getRequestDispatcher("/WEB-INF/transfer.jsp").forward(request, response);
-                return;
+                return "/WEB-INF/customer/transfer.jsp";
             }catch (Exception e){
                 request.setAttribute("flash", e.getMessage());
             }
         }catch (Exception e){
             request.setAttribute("flash", e.getMessage());
         }
-        request.getRequestDispatcher(destination).forward(request, response);
-    }
-    
-    private EntityManager getEM() {
-        EntityManagerFactory emf = (EntityManagerFactory)getServletContext().getAttribute("emf");
-        return emf.createEntityManager();
+        return destination;
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

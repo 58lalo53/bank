@@ -28,7 +28,7 @@ public class DoDepositServlet extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String destination = "/WEB-INF/doDeposit.jsp";
+        String destination = "/WEB-INF/customer/doDeposit.jsp";
         Customer cust = (Customer)request.getSession().getAttribute("cust");
         EntityManager em = getEM();
         

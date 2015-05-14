@@ -20,7 +20,7 @@ public class EditCustServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        String destination = "/WEB-INF/editCust.jsp";
+        String destination = "/WEB-INF/customer/editCust.jsp";
         
         if (request.getMethod().equals("GET")){
             request.getRequestDispatcher(destination).forward(request, response);

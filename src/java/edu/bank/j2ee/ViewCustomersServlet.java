@@ -77,7 +77,7 @@ public class ViewCustomersServlet extends HttpServlet {
             return "/adminHome";
         }
 
-        return "/WEB-INF/viewCust.jsp";
+        return "/WEB-INF/admin/viewCust.jsp";
     }
 
 

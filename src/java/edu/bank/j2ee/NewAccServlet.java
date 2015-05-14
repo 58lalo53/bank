@@ -24,47 +24,46 @@ public class NewAccServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        String destination = "/WEB-INF/newAcc.jsp";
-        int rnd = (int)(Math.random()*999999999)+111111111;
-        Customer cust = (Customer)request.getSession().getAttribute("cust");
-        if (cust == null){
-            request.setAttribute("flash", "You are not logged in!");
-            request.getRequestDispatcher("/WEB-INF/home.jsp").forward(request,response);
-            return;
-        }
-        if (request.getMethod().equals("GET")){
-            request.getRequestDispatcher(destination).forward(request, response);
-            return;
-        }
-        String type = request.getParameter("type");
-        String description = request.getParameter("description");
-        Account acc = new Account();
-        acc.setAccNum(rnd);
-        acc.setCustId(cust);
-        acc.setDescription(description);
-        acc.setType(type);
+        String destination = newAccServlet(request);
+        request.getRequestDispatcher(destination).forward(request, response);
+        
+    }
+        private String newAccServlet(HttpServletRequest request){
+            String destination = "/WEB-INF/customer/newAcc.jsp";
+            int rnd = (int)(Math.random()*999999999)+111111111;
+            Customer cust = (Customer)request.getSession().getAttribute("cust");
+            if (cust == null){
+                request.setAttribute("flash", "You are not logged in!");
+                return destination;
+            }
+            if (request.getMethod().equals("GET"))
+                return destination;
 
-        EntityManager em = getEM();
-        try {
-            em.getTransaction().begin();
-            em.persist(acc);
-            em.merge(acc);
-            em.getTransaction().commit();
-            request.getSession().setAttribute("acc", acc);
-            
-        } catch (Exception e) {
-            request.setAttribute("flash", e.getMessage());
-            response.sendRedirect(destination);
-            return;
-            }	
-        request.getRequestDispatcher("/doAcc").forward(request,response);
+            String type = request.getParameter("type");
+            String description = request.getParameter("description");
+            Account acc = new Account();
+            acc.setAccNum(rnd);
+            acc.setCustId(cust);
+            acc.setDescription(description);
+            acc.setType(type);
+
+            EntityManagerFactory emf = (EntityManagerFactory)getServletContext().getAttribute("emf");
+            EntityManager em = emf.createEntityManager();
+            try {
+                em.getTransaction().begin();
+                em.persist(acc);
+                em.merge(acc);
+                em.getTransaction().commit();
+                request.getSession().setAttribute("acc", acc);
+
+            } catch (Exception e) {
+                request.setAttribute("flash", e.getMessage());  
+                return destination;
+                }	
+            return "/doAcc";
             
     }
-    
-    EntityManager getEM(){
-        EntityManagerFactory emf = (EntityManagerFactory)getServletContext().getAttribute("emf");
-        return emf.createEntityManager();
-    }
+
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

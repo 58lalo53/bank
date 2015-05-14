@@ -1,8 +1,6 @@
 package edu.bank.j2ee;
 
 import java.io.IOException;
-import java.util.Date;
-import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
@@ -35,16 +33,16 @@ public class CloseAccServlet extends HttpServlet {
             id[i]=Integer.parseInt(str.trim());
             i++;
         }
-        EntityManager em = getEM();
-        Query q = null;
-        Account acc = null;
-        List<Account> accs = null;
+        
+        EntityManagerFactory emf = (EntityManagerFactory)getServletContext().getAttribute("emf");
+        EntityManager em = emf.createEntityManager();
+
         try{
             for(int x = 0; x<id.length; x++){
                 
-                q = em.createQuery("SELECT a FROM Account a WHERE a.id = :id");
+                Query q = em.createQuery("SELECT a FROM Account a WHERE a.id = :id");
                 q.setParameter("id", id[x]);
-                acc = (Account)q.getSingleResult();
+                Account acc = (Account)q.getSingleResult();
                 acc.setStatus("INACTIVE");
                 
                 em.getTransaction().begin();
@@ -100,10 +98,5 @@ public class CloseAccServlet extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
-    private EntityManager getEM() {
-        EntityManagerFactory emf = (EntityManagerFactory)getServletContext().getAttribute("emf");
-        return emf.createEntityManager();
-    }
 
 }
