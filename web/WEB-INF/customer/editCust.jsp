@@ -19,9 +19,11 @@
                 <h4 class="flash">${flash}</h4>
                    
         
-        <form method="POST" action="/bank/editCust">
+                <form method="POST" action="/bank/editCust" enctype="multipart/form-data">
             <table class="center">
-                <tr><td>Customer: </td><td><input type="text" value="<c:out value="${sessionScope.cust.toString()}"/>" readonly></td></tr>
+                <tr><td rowspan="11"><img src="/bank/image?for=${cust.username}"</td></tr>
+                <tr>
+                <td>Customer: </td><td><input type="text" value="<c:out value="${sessionScope.cust.toString()}"/>" readonly></td></tr>
                 <tr>
                     <td>Street: </td><td><input type="text" name="street" value="<c:out value="${sessionScope.cust.getStreet()}"/>"></td>
                 </tr>                
@@ -102,8 +104,8 @@
                 <tr>
                     <td>Confirm Password: </td><td><input type="password" name="password2" value="<c:out value="${sessionScope.cust.getPassword()}"/>"></td>
                 </tr>
-                <tr><td></td><td><input type="file" name="pic" id="pic" value="Change profile pic"/></td></tr>
-                                <tr><td></td><td><input type="submit" value="Upload"/></td></tr>   
+                <tr><td>Change account pic: </td><td><input type="file" name="pic" id="pic" value="Change profile pic"/></td></tr>
+                                 
                 <tr>
                 <input type="hidden" name="fname" value="<c:out value="${sessionScope.cust.getFname()}"/>">
                 <input type="hidden" name="lname" value="<c:out value="${sessionScope.cust.getLname()}"/>">

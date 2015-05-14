@@ -15,6 +15,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -105,6 +106,12 @@ public class Customer implements Serializable {
     @Size(min = 1, max = 15)
     @Column(name = "PASSWORD")
     private String password;
+    @Lob
+    @Column(name = "PICTURE")
+    private Serializable picture;
+    @Size(max = 30)
+    @Column(name = "PICTYPE")
+    private String pictype;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
@@ -247,6 +254,22 @@ public class Customer implements Serializable {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+    
+    public Serializable getPicture() {
+        return picture;
+    }
+
+    public void setPicture(Serializable picture) {
+        this.picture = picture;
+    }
+
+    public String getPictype() {
+        return pictype;
+    }
+
+    public void setPictype(String pictype) {
+        this.pictype = pictype;
     }
 
     public Integer getId() {

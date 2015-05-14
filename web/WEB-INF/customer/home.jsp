@@ -27,16 +27,16 @@
                             <marquee><h3>Welcome to ...Bank</h3></marquee>
                             <a href="/bank/editCust">Edit personal info.</a>
                             <table class="center">
-                                <tr><td rowspan="2" align="center"><c:choose>
-                                <c:when test="${user.profile.picture != null}">
-                                    <img src="eindex?action=image&for=${user.username}" align="center"/>
+                                <tr><td rowspan="3"><c:choose>
+                                <c:when test="${cust.picture != null}">
+                                    <img class="accPic" src="/bank/image?for=${cust.username}"/>
                                 </c:when>
                                 <c:otherwise>
-                                    <img src="images/demo.jpg"/>
+                                    <img class="accPic" src="images/demo.jpg"/>
                                 </c:otherwise>
                             </c:choose>
-                        </td>
-                                <td><c:out value="${sessionScope.cust.toString()}"/></td></tr>
+                                    </td></tr>
+                                <tr><td>Welcome <c:out value="${sessionScope.cust.toString()}"/></td></tr>
                                 <c:set var="count" value="0"/>
                                 <c:forEach var="acc" items="${accounts}">
                                     <c:set var="count" value="${count+1}"/>

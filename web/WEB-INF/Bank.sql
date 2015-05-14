@@ -16,6 +16,8 @@ email VARCHAR(150) NOT NULL,
 username VARCHAR(10) NOT NULL UNIQUE,
 password VARCHAR(15) NOT NULL,
 role VARCHAR(15) NOT NULL,
+picture BLOB(200K),
+pictype VARCHAR(30),
 id int GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1) PRIMARY KEY
 );
 
@@ -48,3 +50,5 @@ ALTER TABLE TRANSACTIONS ADD FOREIGN KEY (acc_Id) REFERENCES ACCOUNT (id) ON DEL
 
 INSERT INTO CUSTOMER (fname, lname, street, city, state, zip, phone, email, username, password, role) VALUES
     ('Eduardo', 'Lopez', '3210 Caleb DR', 'Austin', 'TX', '78725', '5129144856', 'lpz_lalo@yahoo.com', 'admin', 'admin', 'admin');
+INSERT INTO CUSTOMER (fname, mname, lname, street, city, state, zip, phone, email, username, password, role) VALUES
+    ('Ashley', 'Ann', 'Hernandez', '3210 Caleb DR', 'Austin', 'TX', '78725', '5125696006', 'ahernandez0203@gmail.com', 'alopez', 'Ah1260418', 'customer');

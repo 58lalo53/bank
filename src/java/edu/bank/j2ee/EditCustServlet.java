@@ -1,30 +1,40 @@
 package edu.bank.j2ee;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.InputStream;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 
 /**
  *
  * @author Eduardo
  */
+@MultipartConfig
 @WebServlet(name = "EditCustServlet", urlPatterns = {"/editCust"})
 public class EditCustServlet extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
+        String destination = editCust(request);
+        request.getRequestDispatcher(destination).forward(request, response);
+    }
+        
+    private String editCust(HttpServletRequest request) throws IOException, ServletException{
         String destination = "/WEB-INF/customer/editCust.jsp";
         
+        Customer cust = (Customer)request.getSession().getAttribute("cust");
+        
         if (request.getMethod().equals("GET")){
-            request.getRequestDispatcher(destination).forward(request, response);
-            return;
+            return destination;
         }
         
         String fname=request.getParameter("fname");
@@ -40,24 +50,36 @@ public class EditCustServlet extends HttpServlet {
         String password = request.getParameter("password");
         String password2 = request.getParameter("password2");
         
+        final Part filePart = request.getPart("pic");
+        String filename = filePart.getSubmittedFileName();
+        String filetype = filePart.getContentType();
+        if (!filetype.contains("image")) {
+                request.setAttribute("flash", "The uploaded file is not an image!");
+                return destination;
+        }
+        InputStream imgdata = filePart.getInputStream();
+        byte[] pixels = readImage(imgdata);     
+        
+        
         if (username.length()>10 || username.length()<=0 || password.length()>10 || password.length()<=0){
             request.setAttribute("flash", "Username and password must be between 1 and 10 characters");
-            request.getRequestDispatcher(destination).forward(request, response);
+            return destination;
         }
         
         if (!password.equals(password2)){
             request.setAttribute("flash", "Passwords don't match");
-            request.getRequestDispatcher(destination).forward(request,response);
+            return destination;
             
         }
         
-        Customer cust = (Customer)request.getSession().getAttribute("cust");
                  cust.setStreet(street);
                  cust.setCity(city);
                  cust.setState(state);
                  cust.setZip(zip);
                  cust.setPhone(phone);
                  cust.setEmail(email);
+                 cust.setPicture(pixels);
+                 cust.setPictype(filetype);
         /*if (!mname.equals("null"))
             cust = new Customer(fname, lname, mname, street, city, state, zip, phone, email, username, password);
         else
@@ -71,14 +93,25 @@ public class EditCustServlet extends HttpServlet {
             em.getTransaction().commit();
             request.getSession().setAttribute("cust", cust);
             request.setAttribute("flash", "Your info has been updated");
-            request.getRequestDispatcher("/WEB-INF/home.jsp").forward(request, response);
-            return;
+            return "/home";
         } catch (Exception e){
             request.setAttribute("flash", e.getMessage());
         }
-        request.getRequestDispatcher(destination).forward(request, response);
+        return destination;
         
     }
+    
+    
+    
+    private byte[] readImage(InputStream imgdata) throws IOException {
+        ByteArrayOutputStream os = new ByteArrayOutputStream();
+        byte[] buffer = new byte[0xFFFF];
+        for (int len; (len = imgdata.read(buffer)) != -1;)
+            os.write(buffer, 0, len);
+        os.flush();
+        return os.toByteArray();        
+    }
+
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
