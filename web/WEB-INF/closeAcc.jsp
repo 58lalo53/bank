@@ -13,7 +13,7 @@
                 <h1>... Bank</h1>
             </div>
             <div id="nav">
-                <%@include file="/WEB-INF/loginMenu.jspf" %>
+                <%@include file="jspf/menuAcc.jspf" %>
             </div>
             <div id="content">
                 <h4 class="flash">${flash}</h4>
@@ -27,6 +27,7 @@
                         <span><input type="submit" value="Close Account"/></span>
                 </form>
             </div>
+                <%@include file="jspf/footer.jspf" %>
         </div>
     </body>
 </html>

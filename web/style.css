@@ -68,9 +68,13 @@ tr.odd {
     height: 100%;
 }
 
-table{
-    border: 0px;
-    width: 75%;
+.pagination{
+    border-collapse: collapse;
+}
+
+.pagination td{
+    width: 20px;
+    text-align: center;
 }
 
 th, td {
@@ -95,6 +99,7 @@ td {
 table.main {
     width: 100%;
     font-size: 14px;
+    border-collapse: collapse;
 }
 
 

@@ -15,9 +15,9 @@
         <location>/WEB-INF/404error.jsp</location>
     </error-page>
     <session-config>
-        <session-timeout>2</session-timeout>
+        <session-timeout>1</session-timeout>
     </session-config>
     <welcome-file-list>
-        <welcome-file>/WEB-INF/login.jsp</welcome-file>
+        <welcome-file>/WEB-INF/customer/home.jsp</welcome-file>
     </welcome-file-list>
 </web-app>

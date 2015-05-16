@@ -64,3 +64,19 @@ INSERT INTO CUSTOMER (fname, lname, street, city, state, zip, phone, email, user
     ('Echo', 'Eclipse', '3210 Caleb DR', 'Austin', 'TX', '78725', '5129144856', 'lpz_lalo@yahoo.com', '63lalo59', 'lalo57', 'customer');
 INSERT INTO CUSTOMER (fname, mname, lname, street, city, state, zip, phone, email, username, password, role) VALUES
     ('Foxtrot', 'Fox', 'Fisher', '3210 Caleb DR', 'Austin', 'TX', '78725', '5125696006', 'ahernandez0203@gmail.com', '62lalo58', 'lalo58', 'customer');
+INSERT INTO CUSTOMER (fname, lname, street, city, state, zip, phone, email, username, password, role) VALUES
+    ('Golf', 'Lopez', '3210 Caleb DR', 'Austin', 'TX', '78725', '5129144856', 'lpz_lalo@yahoo.com', '64lalo59', 'lalo59', 'admin');
+INSERT INTO CUSTOMER (fname, mname, lname, street, city, state, zip, phone, email, username, password, role) VALUES
+    ('Hotel', 'Ann', 'Lopez', '3210 Caleb DR', 'Austin', 'TX', '78725', '5125696006', 'ahernandez0203@gmail.com', '65lalo60', 'Ah1260418', 'customer');
+INSERT INTO CUSTOMER (fname, lname, street, city, state, zip, phone, email, username, password, role) VALUES
+    ('Indea', 'Alpine', '3210 Caleb DR', 'Austin', 'TX', '78725', '5129144856', 'lpz_lalo@yahoo.com', '66lalo61', 'lalo53', 'customer');
+INSERT INTO CUSTOMER (fname, mname, lname, street, city, state, zip, phone, email, username, password, role) VALUES
+    ('Juliet', 'A', 'Bates', '3210 Caleb DR', 'Austin', 'TX', '78725', '5125696006', 'ahernandez0203@gmail.com', '67lalo62', 'lalo54', 'customer');
+INSERT INTO CUSTOMER (fname, lname, street, city, state, zip, phone, email, username, password, role) VALUES
+    ('Kilo', 'Charles', '3210 Caleb DR', 'Austin', 'TX', '78725', '5129144856', 'lpz_lalo@yahoo.com', '68lalo63', 'lalo55', 'customer');
+INSERT INTO CUSTOMER (fname, mname, lname, street, city, state, zip, phone, email, username, password, role) VALUES
+    ('Lima', 'D', 'Dell', '3210 Caleb DR', 'Austin', 'TX', '78725', '5125696006', 'ahernandez0203@gmail.com', '69lalo64', 'lalo56', 'customer');
+INSERT INTO CUSTOMER (fname, lname, street, city, state, zip, phone, email, username, password, role) VALUES
+    ('Mike', 'Eclipse', '3210 Caleb DR', 'Austin', 'TX', '78725', '5129144856', 'lpz_lalo@yahoo.com', '70lalo65', 'lalo57', 'customer');
+INSERT INTO CUSTOMER (fname, mname, lname, street, city, state, zip, phone, email, username, password, role) VALUES
+    ('November', 'Fox', 'Fisher', '3210 Caleb DR', 'Austin', 'TX', '78725', '5125696006', 'ahernandez0203@gmail.com', '71lalo66', 'lalo58', 'customer');

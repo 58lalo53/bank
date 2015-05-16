@@ -12,11 +12,11 @@
             <div id="header">
                 <h1>... Bank</h1>
             </div>
-            <%@include file="adminMenu.jspf" %>
+            <%@include file="../jspf/adminMenu.jspf" %>
             <div id="content">
                 <h4 class="flash">${flash}</h4>
             </div>
-            <%@include file="../footer.jspf" %>
+            <%@include file="../jspf/footer.jspf" %>
         </div>
     </body>
 </html>

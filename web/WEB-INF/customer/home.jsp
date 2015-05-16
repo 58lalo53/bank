@@ -14,27 +14,21 @@
             </div>
                 <c:choose>
                     <c:when test="${sessionScope.cust.username == null}">
-                        <%@include file="../noLoginMenu.jspf" %>
+                        <%@include file="../jspf/noLoginMenu.jspf" %>
                         <div id="content">
                             <h3>Welcome to ... Bank</h3>
                             <p>To start using our amazing bank, please <a href="/bank/login">login</a> or <a href="/bank/register">register</a></p>
                         </div>
                     </c:when>
                     <c:otherwise>
-            <%@include file="menuAcc.jspf" %>
+            <%@include file="../jspf/menuAcc.jspf" %>
                         <div id="content">
                             <h5 class="flash">${flash}</h5>
                             <marquee><h3>Welcome to ...Bank</h3></marquee>
                             <a href="/bank/editCust">Edit personal info.</a>
                             <table class="center">
-                                <tr><td rowspan="3"><c:choose>
-                                <c:when test="${cust.picture != null}">
-                                    <img class="accPic" src="/bank/image?for=${cust.username}"/>
-                                </c:when>
-                                <c:otherwise>
-                                    <img class="accPic" src="images/demo.jpg"/>
-                                </c:otherwise>
-                            </c:choose>
+                                <tr><td rowspan="3">
+                                        <%@include file="../jspf/image.jspf" %>
                                     </td></tr>
                                 <tr><td>Welcome <c:out value="${sessionScope.cust.toString()}"/></td></tr>
                                 <c:set var="count" value="0"/>
@@ -47,7 +41,7 @@
                         </div>
                             </c:otherwise>
                 </c:choose>
-                        <%@include file = "../footer.jspf" %>
+                        <%@include file = "../jspf/footer.jspf" %>
     </div>
     </body>
 </html>

@@ -53,7 +53,7 @@ public class EditCustServlet extends HttpServlet {
         final Part filePart = request.getPart("pic");
         String filename = filePart.getSubmittedFileName();
         String filetype = filePart.getContentType();
-        if (!filetype.contains("image")) {
+        if (!filetype.contains("image")&& filetype==null) {
                 request.setAttribute("flash", "The uploaded file is not an image!");
                 return destination;
         }

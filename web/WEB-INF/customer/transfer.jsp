@@ -13,16 +13,16 @@
                 <h1>... Bank</h1>
             </div>
             <div id="nav">
-                <%@include file="menuAcc.jspf"%>
+                <%@include file="../jspf/menuAcc.jspf"%>
             </div>
             <div id="content">
                 <h3>Thank You</h3>
                 <div class="flash">${flash}</div>
             <p>You have successfully transfered $<c:out value="${trans1.amount}"/> from acc #<c:out value="${facc.accNum}"/> to acc #<c:out value="${tacc.accNum}"/><br/>
             <hr/>
-                Click <a href="/bank/home">here</a> to go home.
-                
+            Click <a href="/bank/home">here</a> to go home or <a href="/bank/doTransfer">here to make another transfer.
             </div>
+            <%@include file="../jspf/footer.jspf" %>
         </div>
     </body>
 </html>

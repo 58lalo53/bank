@@ -13,7 +13,7 @@
                 <h1>... Bank</h1>
             </div>
             
-                <%@include file="menuAcc.jspf" %>
+                <%@include file="../jspf/menuAcc.jspf" %>
             
             <div id="content">
                 <h4 class="flash">${flash}</h4>
@@ -36,6 +36,7 @@
             </table>
         </form>
             </div>
+                <%@include file="../jspf/footer.jspf" %>
         </div>
     </body>
 </html>

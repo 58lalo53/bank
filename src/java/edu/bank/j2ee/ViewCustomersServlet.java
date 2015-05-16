@@ -31,10 +31,14 @@ public class ViewCustomersServlet extends HttpServlet {
     private String viewCust(HttpServletRequest request){
         
         Customer cust = (Customer)request.getSession().getAttribute("cust");
+        String destination = "/WEB-INF/admin/viewCust.jsp";
+        int page = 1;
+        
         if (cust.getRole().equals("customer")){
             request.setAttribute("flash", "You do not have access");
             return "/home";
         }
+        
         EntityManagerFactory emf = (EntityManagerFactory)getServletContext().getAttribute("emf");
         EntityManager em = emf.createEntityManager();
         
@@ -62,25 +66,24 @@ public class ViewCustomersServlet extends HttpServlet {
             
         }
             
-            int page = 1;
-            int custPerPage = 5;
             
-            if(request.getParameter("page")!=null)
-                page = Integer.parseInt(request.getParameter("page"));
+        int custPerPage = 5;
+
+        if(request.getParameter("page")!=null)
+            page = Integer.parseInt(request.getParameter("page"));
             
-            int numOfCusts;
+        int numOfCusts;
 
         try{
             
             String query = "SELECT c FROM Customer c WHERE c.role = :role "+orderBy;
             Query q = em.createQuery(query);
             q.setParameter("role", "customer");
+            numOfCusts = q.getResultList().size();
             q.setFirstResult((page-1)*custPerPage);
             q.setMaxResults(custPerPage);
             
-            
             List<Customer> custs = q.getResultList();
-            numOfCusts = q.getResultList().size();  
                 
             int numOfPages = (int)Math.ceil(numOfCusts * 1.0/custPerPage);
             
@@ -93,8 +96,8 @@ public class ViewCustomersServlet extends HttpServlet {
             request.setAttribute("flash", e.getMessage());
             return "/adminHome";
         }
-
-        return "/WEB-INF/admin/viewCust.jsp";
+        return destination;
+        
     }
 
 

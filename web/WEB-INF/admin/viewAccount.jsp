@@ -12,7 +12,7 @@
             <div id="header">
                 <h1>... Bank</h1>
             </div>
-            <%@include file="adminMenu.jspf" %>
+            <%@include file="../jspf/adminMenu.jspf" %>
             <div id="content">
                 <c:set var="counter" value="0"/>
                 <table class="main">
@@ -24,7 +24,7 @@
                 </c:forEach>
                 </table>
             </div>
-            <%@include file="../footer.jspf" %>
+            <%@include file="../jspf/footer.jspf" %>
         </div>
     </body>
 </html>

@@ -18,10 +18,9 @@
             <div id="header">
                 <h1>... Bank</h1>
             </div>
-        <h3>${flash}</h3>
-
-            <%@include file="menuAcc.jspf"%>
-
+            <%@include file="../jspf/menuAcc.jspf"%>
+            <div id="content">
+                <h3>${flash}</h3>
             <c:choose>
             <c:when test="${trans!=null}">
                 <p>You have successfully withdrawn $<c:out value="${trans.amount}"/></p>
@@ -30,6 +29,8 @@
                 <p>To make a withdrawal click <a href="/bank/doWithdraw">here</a>
             </c:otherwise>
         </c:choose>
+        </div>
+                <%@include file="../jspf/footer.jspf" %>
         </div>
     </body>
 </html>

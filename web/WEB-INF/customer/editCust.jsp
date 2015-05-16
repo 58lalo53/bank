@@ -13,7 +13,7 @@
                 <h1>... Bank</h1>
             </div>
             
-                <%@include file="menuAcc.jspf" %>
+                <%@include file="../jspf/menuAcc.jspf" %>
             
             <div id="content">
                 <h4 class="flash">${flash}</h4>
@@ -21,7 +21,7 @@
         
                 <form method="POST" action="/bank/editCust" enctype="multipart/form-data">
             <table class="center">
-                <tr><td rowspan="11"><img src="/bank/image?for=${cust.username}"</td></tr>
+                <tr><td rowspan="11"><%@include file="../jspf/image.jspf"%></td></tr>
                 <tr>
                 <td>Customer: </td><td><input type="text" value="<c:out value="${sessionScope.cust.toString()}"/>" readonly></td></tr>
                 <tr>
@@ -117,7 +117,7 @@
             
         </form>
             </div>
-                <%@include file="../footer.jspf" %>
+                <%@include file="../jspf/footer.jspf" %>
         </div>
         </body>
 </html>

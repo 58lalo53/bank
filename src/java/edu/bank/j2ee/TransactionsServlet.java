@@ -22,12 +22,19 @@ public class TransactionsServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String destination = transaction(request);
+        request.getRequestDispatcher(destination).forward(request, response);
     }
     
     private String transaction(HttpServletRequest request){
         String destination = "/WEB-INF/customer/transactions.jsp";
         
         Customer cust = (Customer)request.getSession().getAttribute("cust");
+        
+        int page = 1;
+        int transPerPage = 6;
+        
+        if (request.getParameter("page")!=null)
+            page = Integer.parseInt(request.getParameter("page"));
         
         if (cust==null){
             request.setAttribute("flash", "You are not logged in");
@@ -46,9 +53,18 @@ public class TransactionsServlet extends HttpServlet {
             Account acc1 = (Account)q1.getSingleResult();
             Query q2 = em.createQuery("SELECT t FROM Transactions t WHERE t.accId = :id ORDER BY t.timeStamp DESC");
             q2.setParameter("id", acc1);
+            int numOfTrans = q2.getResultList().size();
+            q2.setFirstResult((page-1)*transPerPage);
+            q2.setMaxResults(transPerPage);
             List<Transactions> trans = q2.getResultList();
+            
+            int numOfPages = (int)Math.ceil(numOfTrans*1.0/transPerPage);
             //request.setAttribute("acc", acc1.getId());
-            request.getSession().setAttribute("trans", trans);
+            request.setAttribute("accId", accId);
+            request.setAttribute("curPage", page);
+            request.setAttribute("numOfTrans", numOfTrans);
+            request.setAttribute("numOfPages", numOfPages);
+            request.setAttribute("trans", trans);
         }catch(Exception e){
             request.setAttribute("flash", e.getMessage());
         }

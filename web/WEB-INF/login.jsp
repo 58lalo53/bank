@@ -11,7 +11,7 @@
             <div id="header">
                 <h1>Welcome to ... Bank</h1>
             </div>
-                <%@include file = "noLoginMenu.jspf" %>
+                <%@include file = "jspf/noLoginMenu.jspf" %>
         <div id="content">
             <h4 class="flash"><c:out value="${flash}"/></h4>
         <form method="POST" action="/bank/login"> 
@@ -30,7 +30,7 @@
                 </table>
             </form>
         </div>
-            <%@include file="footer.jspf" %>
+            <%@include file="jspf/footer.jspf" %>
             
         </div>
     </body>

@@ -15,7 +15,7 @@
             <div id="nav">
                 <c:choose>
                     <c:when test="${sessionScope.cust.username!=null}">
-                        <%@include file="menuAcc.jspf" %>
+                        <%@include file="../jspf/menuAcc.jspf" %>
                     </c:when>
                 </c:choose>
             </div>
@@ -30,6 +30,7 @@
             </c:otherwise>
         </c:choose>
             </div>
+        <%@include file="../jspf/footer.jspf" %>
         </div>
     </body>
 </html>

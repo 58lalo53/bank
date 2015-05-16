@@ -12,10 +12,10 @@
             <div id="header">
                 <h1>... Bank</h1>
             </div>
-            <%@include file="adminMenu.jspf" %>
+            <%@include file="../jspf/adminMenu.jspf" %>
             <div id="content">
                 <h4 class="flash">${flash}</h4>
-                
+                <p>There are ${numOfCusts} customers.</p>
                 <a href="/bank/viewCust?order=fname">Order By First Name</a> | <a href="/bank/viewCust?order=lname">Order By Last Name</a>
                 <table class="main">
                     <tr><th>Role</th><th>First Name</th><th>Last Name</th><th>Middle Name</th>
@@ -26,33 +26,33 @@
                             <td>${cust.zip}</td><td>${cust.email}</td><td>${cust.phone}</td></tr>
                    </c:forEach>
                 </table>
-                
-                <c:if test="${curPage !=1}">
-                    <td><a href="/bank/viewCust?page=${curPage - 1}">Previous</a></td>
-                    
-                                    <%--Display page numbs --%>
-                    <table>
-                        <tr>
-                            <c:forEach begin="1" end="${numOfPages}" var="i">
-                                <c:choose>
-                                    <c:when test="${curPage eq i}">
-                                        <td>${i}</td>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <td><a href="/bank/viewCust?page=${curPage + 1}">${i}</a></td>
-                                    </c:otherwise>
-                                </c:choose>
-                            </c:forEach>
-                        </tr>
-                    </table>
-                </c:if>
-                                    <%--Display next link --%>
-                                    <c:if test="${curPage lt numOfPages}">
-                                        <td><a href="/bank/viewCust?page=${curPage + 1}">Next</a></td>
-                                    </c:if>
-                There are ${numOfCusts} customers.
+                <table class="pagination">
+    <tr>
+    <%--For displaying Previous link except for the 1st page --%>
+        <c:if test="${curPage != 1}">
+            <td><a href="/bank/viewCust?page=${curPage - 1}">Prev</a></td>
+        </c:if>
+
+        <%--For displaying Page numbers. 
+        The when condition does not display a link for the current page--%>
+        <c:forEach begin="1" end="${numOfPages}" var="i">
+            <c:choose>
+                <c:when test="${curPage == i}">
+                    <td>${i}</td>
+                </c:when>
+                <c:otherwise>
+                    <td><a href="/bank/viewCust?page=${i}">${i}</a></td>
+                </c:otherwise>
+            </c:choose>
+        </c:forEach>
+        <%--For displaying Next link --%>
+        <c:if test="${curPage lt numOfPages}">
+            <td><a href="/bank/viewCust?page=${curPage + 1}">Next</a></td>
+        </c:if>
+    </tr>
+</table>  
             </div>
-                <%@include file="../footer.jspf" %>
+                <%@include file="../jspf/footer.jspf" %>
         </div>
     </body>
 </html>

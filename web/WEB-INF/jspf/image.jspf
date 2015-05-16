@@ -1,0 +1,8 @@
+<c:choose>
+    <c:when test="${cust.picture != null}">
+        <img class="accPic" src="/bank/image?for=${cust.username}"/>
+    </c:when>
+    <c:otherwise>
+        <img class="accPic" src="images/demo.jpg"/>
+    </c:otherwise>
+</c:choose>

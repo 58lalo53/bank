@@ -24,13 +24,25 @@ public class AccountsServlet extends HttpServlet {
 
         Customer cust = (Customer)request.getSession().getAttribute("cust");
 
+        int page=1;
+        if (request.getParameter("page")!=null)
+            page = Integer.parseInt(request.getParameter("page"));
+        int accPerPage = 5;
+        int numOfAccs;
         EntityManagerFactory emf = (EntityManagerFactory)getServletContext().getAttribute("emf");
         EntityManager em = emf.createEntityManager();
         try{
             Query q = em.createQuery("SELECT a FROM Account a WHERE a.custId.id = :id AND a.status = :status ORDER BY a.timeStamp DESC") ;
             q.setParameter("id", cust.getId());
             q.setParameter("status", "ACTIVE");
+            numOfAccs = q.getResultList().size();
+            q.setFirstResult((page-1)*accPerPage);
+            q.setMaxResults(accPerPage);
             List<Account> accs = q.getResultList();
+            int numOfPages = (int)Math.ceil(numOfAccs*1.0/accPerPage);
+            request.setAttribute("numOfPages", numOfPages);
+            request.setAttribute("numOfAccs", numOfAccs);
+            request.setAttribute("curPage", page);
             request.getSession().setAttribute("accounts", accs);
         } catch(Exception e){
             request.setAttribute("flash", e.getMessage());
