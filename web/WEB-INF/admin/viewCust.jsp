@@ -15,7 +15,7 @@
             <%@include file="adminMenu.jspf" %>
             <div id="content">
                 <h4 class="flash">${flash}</h4>
-                <c:set var="counter" value="0"/>
+                
                 <a href="/bank/viewCust?order=fname">Order By First Name</a> | <a href="/bank/viewCust?order=lname">Order By Last Name</a>
                 <table class="main">
                     <tr><th>Role</th><th>First Name</th><th>Last Name</th><th>Middle Name</th>
@@ -24,10 +24,33 @@
                     <c:forEach var="cust" items="${custs}" varStatus="loopStatus">
                         <tr class="${loopStatus.index % 2 == 0 ? "even" : "odd"}"><td>${cust.role}</td><td>${cust.fname}</td><td>${cust.lname}</td><td>${cust.mname}</td><td class="date">${cust.street}</td><td>${cust.city}</td><td>${cust.state}</td>
                             <td>${cust.zip}</td><td>${cust.email}</td><td>${cust.phone}</td></tr>
-                        <c:set var="counter" value="${counter + 1}"/>
-                    </c:forEach>
+                   </c:forEach>
                 </table>
-                There are ${counter} customers.
+                
+                <c:if test="${curPage !=1}">
+                    <td><a href="/bank/viewCust?page=${curPage - 1}">Previous</a></td>
+                    
+                                    <%--Display page numbs --%>
+                    <table>
+                        <tr>
+                            <c:forEach begin="1" end="${numOfPages}" var="i">
+                                <c:choose>
+                                    <c:when test="${curPage eq i}">
+                                        <td>${i}</td>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <td><a href="/bank/viewCust?page=${curPage + 1}">${i}</a></td>
+                                    </c:otherwise>
+                                </c:choose>
+                            </c:forEach>
+                        </tr>
+                    </table>
+                </c:if>
+                                    <%--Display next link --%>
+                                    <c:if test="${curPage lt numOfPages}">
+                                        <td><a href="/bank/viewCust?page=${curPage + 1}">Next</a></td>
+                                    </c:if>
+                There are ${numOfCusts} customers.
             </div>
                 <%@include file="../footer.jspf" %>
         </div>

@@ -51,4 +51,16 @@ ALTER TABLE TRANSACTIONS ADD FOREIGN KEY (acc_Id) REFERENCES ACCOUNT (id) ON DEL
 INSERT INTO CUSTOMER (fname, lname, street, city, state, zip, phone, email, username, password, role) VALUES
     ('Eduardo', 'Lopez', '3210 Caleb DR', 'Austin', 'TX', '78725', '5129144856', 'lpz_lalo@yahoo.com', 'admin', 'admin', 'admin');
 INSERT INTO CUSTOMER (fname, mname, lname, street, city, state, zip, phone, email, username, password, role) VALUES
-    ('Ashley', 'Ann', 'Hernandez', '3210 Caleb DR', 'Austin', 'TX', '78725', '5125696006', 'ahernandez0203@gmail.com', 'alopez', 'Ah1260418', 'customer');
+    ('Ashley', 'Ann', 'Lopez', '3210 Caleb DR', 'Austin', 'TX', '78725', '5125696006', 'ahernandez0203@gmail.com', 'alopez', 'Ah1260418', 'customer');
+INSERT INTO CUSTOMER (fname, lname, street, city, state, zip, phone, email, username, password, role) VALUES
+    ('Alpha', 'Alpine', '3210 Caleb DR', 'Austin', 'TX', '78725', '5129144856', 'lpz_lalo@yahoo.com', '58lalo53', 'lalo53', 'customer');
+INSERT INTO CUSTOMER (fname, mname, lname, street, city, state, zip, phone, email, username, password, role) VALUES
+    ('Bravo', 'A', 'Bates', '3210 Caleb DR', 'Austin', 'TX', '78725', '5125696006', 'ahernandez0203@gmail.com', '59lalo54', 'lalo54', 'customer');
+INSERT INTO CUSTOMER (fname, lname, street, city, state, zip, phone, email, username, password, role) VALUES
+    ('Charlie', 'Charles', '3210 Caleb DR', 'Austin', 'TX', '78725', '5129144856', 'lpz_lalo@yahoo.com', '60lalo55', 'lalo55', 'customer');
+INSERT INTO CUSTOMER (fname, mname, lname, street, city, state, zip, phone, email, username, password, role) VALUES
+    ('Delta', 'D', 'Dell', '3210 Caleb DR', 'Austin', 'TX', '78725', '5125696006', 'ahernandez0203@gmail.com', '61lalo56', 'lalo56', 'customer');
+INSERT INTO CUSTOMER (fname, lname, street, city, state, zip, phone, email, username, password, role) VALUES
+    ('Echo', 'Eclipse', '3210 Caleb DR', 'Austin', 'TX', '78725', '5129144856', 'lpz_lalo@yahoo.com', '63lalo59', 'lalo57', 'customer');
+INSERT INTO CUSTOMER (fname, mname, lname, street, city, state, zip, phone, email, username, password, role) VALUES
+    ('Foxtrot', 'Fox', 'Fisher', '3210 Caleb DR', 'Austin', 'TX', '78725', '5125696006', 'ahernandez0203@gmail.com', '62lalo58', 'lalo58', 'customer');

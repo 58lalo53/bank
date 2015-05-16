@@ -61,15 +61,32 @@ public class ViewCustomersServlet extends HttpServlet {
                     break;
             
         }
-        
-        
+            
+            int page = 1;
+            int custPerPage = 5;
+            
+            if(request.getParameter("page")!=null)
+                page = Integer.parseInt(request.getParameter("page"));
+            
+            int numOfCusts;
+
         try{
             
             String query = "SELECT c FROM Customer c WHERE c.role = :role "+orderBy;
             Query q = em.createQuery(query);
             q.setParameter("role", "customer");
-            List<Customer> custs = q.getResultList();
+            q.setFirstResult((page-1)*custPerPage);
+            q.setMaxResults(custPerPage);
             
+            
+            List<Customer> custs = q.getResultList();
+            numOfCusts = q.getResultList().size();  
+                
+            int numOfPages = (int)Math.ceil(numOfCusts * 1.0/custPerPage);
+            
+            request.setAttribute("numOfCusts", numOfCusts);
+            request.setAttribute("numOfPages", numOfPages);
+            request.setAttribute("curPage", page);
             request.setAttribute("custs", custs);
             
         }catch(Exception e){
