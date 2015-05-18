@@ -114,7 +114,7 @@ public class DoTransferServlet extends HttpServlet {
                 request.setAttribute("trans1", trans1);    
                 request.setAttribute("tacc", tacc);
                 request.setAttribute("facc", facc);
-                return "/WEB-INF/customer/transfer.jsp";
+                return "/WEB-INF/customer/transaction.jsp";
             }catch (Exception e){
                 request.setAttribute("flash", e.getMessage());
             }

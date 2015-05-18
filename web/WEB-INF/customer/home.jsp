@@ -15,7 +15,7 @@
                 <c:choose>
                     <c:when test="${sessionScope.cust.username == null}">
                         <%@include file="../jspf/noLoginMenu.jspf" %>
-                        <div id="content">
+                        <div id="content">                            
                             <h3>Welcome to ... Bank</h3>
                             <p>To start using our amazing bank, please <a href="/bank/login">login</a> or <a href="/bank/register">register</a></p>
                         </div>

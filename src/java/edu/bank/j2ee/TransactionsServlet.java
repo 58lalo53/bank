@@ -65,6 +65,7 @@ public class TransactionsServlet extends HttpServlet {
             request.setAttribute("numOfTrans", numOfTrans);
             request.setAttribute("numOfPages", numOfPages);
             request.setAttribute("trans", trans);
+            request.setAttribute("acc", acc1);
         }catch(Exception e){
             request.setAttribute("flash", e.getMessage());
         }

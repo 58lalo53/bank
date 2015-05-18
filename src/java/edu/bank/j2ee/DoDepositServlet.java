@@ -30,7 +30,9 @@ public class DoDepositServlet extends HttpServlet {
             throws ServletException, IOException {
         String destination = "/WEB-INF/customer/doDeposit.jsp";
         Customer cust = (Customer)request.getSession().getAttribute("cust");
-        EntityManager em = getEM();
+        
+        EntityManagerFactory emf = (EntityManagerFactory)getServletContext().getAttribute("emf");
+        EntityManager em = emf.createEntityManager();
         
         if (cust!=null){
             if(request.getMethod().equals("GET")){
@@ -92,13 +94,6 @@ public class DoDepositServlet extends HttpServlet {
         
         request.getRequestDispatcher(destination).forward(request, response);
     }
-
-    
-    private EntityManager getEM(){
-        EntityManagerFactory emf = (EntityManagerFactory)getServletContext().getAttribute("emf");
-        return emf.createEntityManager();
-    }
-
    
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)

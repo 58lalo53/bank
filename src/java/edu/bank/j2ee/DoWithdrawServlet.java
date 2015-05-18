@@ -94,7 +94,7 @@ public class DoWithdrawServlet extends HttpServlet {
             em.merge(trans);
             em.getTransaction().commit();
             request.getSession().setAttribute("trans", trans);
-            return "/WEB-INF/customer/withdraw.jsp";
+            return "/WEB-INF/customer/transaction.jsp";
         }catch(Exception e){
             request.setAttribute("flash", e.getMessage());
         }finally{

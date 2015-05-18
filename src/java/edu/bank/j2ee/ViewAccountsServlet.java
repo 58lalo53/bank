@@ -29,6 +29,7 @@ public class ViewAccountsServlet extends HttpServlet {
         EntityManager em = emf.createEntityManager();
         
         Customer cust = (Customer)request.getSession().getAttribute("cust");
+        
         if (cust.getRole().equals("customer")){
             request.setAttribute("flash", "You do not have access");
             return "/home";

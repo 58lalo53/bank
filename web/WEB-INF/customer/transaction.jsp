@@ -21,14 +21,20 @@
             </div>
             <div id="content">
         <h3>${flash}</h3>
-        <c:choose>
-            <c:when test="${trans!=null}">
-                You successfully deposited $<c:out value="${trans.getAmount()}"/>
-            </c:when>
-            <c:otherwise>
-                To make a deposit, click <a href="/bank/doDeposit">here</a>
-            </c:otherwise>
-        </c:choose>
+            <c:if test="${trans.type == 'deposit'}">
+                You successfully deposited $<c:out value="${trans.getAmount()}"/><br/>
+                To make another deposit, click <a href="/bank/doDeposit">here</a>
+            </c:if>
+            <c:if test="${trans.type == 'withdraw'}">
+                You successfully withdrawn $<c:out value="${trans.getAmount()}"/><br/>
+                To make another withdraw, click <a href="/bank/doWithdraw">here</a>
+            </c:if>
+            <c:if test="${trans.type == 'transfer'}">
+                <p>You have successfully transfered $<c:out value="${trans1.amount}"/> from acc #<c:out value="${facc.accNum}"/> to acc #<c:out value="${tacc.accNum}"/><br/>
+                <hr/>
+                Click <a href="/bank/home">here</a> to go home or <a href="/bank/doTransfer">here to make another transfer.
+            </c:if>
+
             </div>
         <%@include file="../jspf/footer.jspf" %>
         </div>

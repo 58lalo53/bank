@@ -21,6 +21,7 @@
         <h5>${flash}</h5>
         <div id="content">
             <h3>Transactions</h3>
+            <p>Your current balance is ${acc.balance}</p>
         <table class="main">
             <th>Date</th><th>Type</th><th>Amount</th><th>Balance</th><th>Description</th>
         <c:forEach var="trans" items="${trans}" varStatus="loopStatus">    <tr class="${loopStatus.index % 2 == 0 ? "even" : "odd"}">
