@@ -1,7 +1,6 @@
 package edu.bank.j2ee;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -20,7 +19,7 @@ public class LogoutServlet extends HttpServlet {
         
         request.getSession().removeAttribute("cust");
         request.setAttribute("flash", "You have successfully logged off!");
-        request.getRequestDispatcher("/home").forward(request,response);
+        response.sendRedirect("/bank");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

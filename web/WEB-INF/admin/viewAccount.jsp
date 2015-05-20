@@ -16,13 +16,12 @@
             <%@include file="../jspf/adminMenu.jspf" %>
             <div id="content">
                 <c:set var="counter" value="0"/>
-                <c:if test="${fn:length(acc) eq 0}">
-                        No accounts available
+                <c:if test="${fn:length(accs) eq 0}">
+                    <p>No accounts available</p>
                     </c:if>
                 <table class="main">
                     <tr><th>Type</th><th>Status</th><th>Account Number</th><th>Balance</th><th>Owner</th><th>Date Opened</th><th>Description</th></tr>
                 <c:forEach var="acc" items="${accs}" varStatus="loopStatus">
-                    
                         <tr class="${loopStatus.index % 2 == 0 ? "even" : "odd"}"><td>${acc.type}</td><td>${acc.status}</td><td><a href="/bank/transactions?accId=${acc.id}">${acc.accNum}</a></td>
                         <td>${acc.balance}</td><td>${acc.custId.toString()}</td><td>${acc.timeStamp}</td><td>${acc.description}</td></tr>
                     <c:set var="counter" value="${counter+1}"/>  

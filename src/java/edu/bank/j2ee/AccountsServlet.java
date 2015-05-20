@@ -23,6 +23,11 @@ public class AccountsServlet extends HttpServlet {
             throws ServletException, IOException {
 
         Customer cust = (Customer)request.getSession().getAttribute("cust");
+        
+        if (cust == null){
+            request.setAttribute("flash", "You are not logged in");
+            request.getRequestDispatcher("/home").forward(request, response);
+        }
 
         int page=1;
         if (request.getParameter("page")!=null)

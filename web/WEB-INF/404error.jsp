@@ -12,14 +12,15 @@
             <div id="header">
                 <h1>... Bank</h1>
             </div>
+            <c:choose>
             <c:when test="${sessionScope.cust.username!=null}">
-                <c:choose>
-                    <%@include file="loginMenu.jspf" %>
-                </c:choose>
-                <c:otherwise>
-                    <%@include file="noLoginMenu.jspf" %>
-                </c:otherwise>
+                
+                    <%@include file="/WEB-INF/jspf/menuAcc.jspf" %>
             </c:when>
+                <c:otherwise>
+                    <%@include file="/WEB-INF/jspf/noLoginMenu.jspf" %>
+                </c:otherwise>
+            </c:choose>
             <div id="content">
                 <p>Oops! The resource you were looking for was not found</p>
             </div>

@@ -22,13 +22,11 @@ public class LoginServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        String destination = login(request);
-        request.getRequestDispatcher(destination).forward(request,response);
-    }
+        String destination = "/WEB-INF/login.jsp";
 
-    private String login(HttpServletRequest request) {
-                if (request.getMethod().equals("GET")){ 
-                    return "/WEB-INF/login.jsp";
+        if (request.getMethod().equals("GET")){ 
+            request.getRequestDispatcher(destination).forward(request, response);
+            return;
         }
         String username = request.getParameter("username");
         String password = request.getParameter("password");
@@ -45,12 +43,12 @@ public class LoginServlet extends HttpServlet {
             request.getSession().setAttribute("custId",cust.getId());
             request.setAttribute("flash", "Login was successfull");
             if (cust.getRole().equals("admin")){
-                return "/adminHome";
+                response.sendRedirect("/bank/adminHome");
             }else
-                return "/home";
+                response.sendRedirect("/bank/home");
        } catch (Exception e) {
             request.setAttribute("flash", e.getMessage());
-            return "/WEB-INF/login.jsp";
+            request.getRequestDispatcher(destination);
            
         }
     }

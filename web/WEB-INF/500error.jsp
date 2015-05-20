@@ -17,10 +17,10 @@
             <c:choose>
                 <c:when test="${sessionScope.cust.role=='customer'} && ${sessionScope.cust!=null}">
                 
-                    <%@include file="loginMenu.jspf" %>
+                    <%@include file="/WEB-INF/jspf/menuAcc.jspf" %>
             </c:when>
                 <c:otherwise>
-                    <%@include file="adminMenu.jspf" %>
+                    <%@include file="/WEB-INF/jspf/adminMenu.jspf" %>
                 </c:otherwise>
             
             </c:choose>

@@ -28,6 +28,12 @@ public class HomeServlet extends HttpServlet {
             throws ServletException, IOException {
         Customer cust = (Customer)request.getSession().getAttribute("cust");
         
+        if (request.getMethod().equals("GET")){
+            response.sendRedirect("/bank/home");
+            return;
+        }
+            
+        
         EntityManagerFactory emf = (EntityManagerFactory)getServletContext().getAttribute("emf");
         EntityManager em = emf.createEntityManager();
     try{

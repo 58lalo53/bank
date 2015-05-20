@@ -13,7 +13,6 @@
             </div>
                 <%@include file = "jspf/noLoginMenu.jspf" %>
         <div id="content">
-            <h4 class="flash"><c:out value="${flash}"/></h4>
         <form method="POST" action="/bank/login"> 
             <table class="center">
                     <tr>

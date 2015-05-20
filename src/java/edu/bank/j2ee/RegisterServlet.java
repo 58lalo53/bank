@@ -21,6 +21,11 @@ public class RegisterServlet extends HttpServlet {
             throws ServletException, IOException {
         
         String destination = register(request);
+        if (destination.equals("/home")){
+            response.sendRedirect(destination);
+            return;
+        }
+        
         request.getRequestDispatcher(destination).forward(request, response);
         
     }
@@ -73,7 +78,7 @@ public class RegisterServlet extends HttpServlet {
                 em.merge(cust);
                 em.getTransaction().commit();
                 request.getSession().setAttribute("cust", cust);
-                return "/WEB-INF/customer/home.jsp";
+                return "/bank/home";
         }catch(Exception e){
                 request.setAttribute("efname", fname);
                 request.setAttribute("flash", e.getMessage());

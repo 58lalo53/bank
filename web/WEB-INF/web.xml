@@ -2,10 +2,15 @@
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
     <description>Banking System</description>
     <display-name>... Bank</display-name>
-    <listener>
-        <description>ServletContextListener</description>
-        <listener-class>edu.bank.j2ee.EMListener</listener-class>
-    </listener>
+    <filter>
+        <filter-name>LoginFilter</filter-name>
+        <filter-class>edu.bank.j2ee.LoginFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>LoginFilter</filter-name>
+        <url-pattern>/bank</url-pattern>
+    </filter-mapping>
+ 
     <error-page>
         <error-code>500</error-code>
         <location>/WEB-INF/500error.jsp</location>

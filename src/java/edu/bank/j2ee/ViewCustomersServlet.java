@@ -29,8 +29,14 @@ public class ViewCustomersServlet extends HttpServlet {
     }
     
     private String viewCust(HttpServletRequest request){
+        Customer cust = new Customer();
         
-        Customer cust = (Customer)request.getSession().getAttribute("cust");
+        if (request.getSession().getAttribute("cust")!=null){
+            cust = (Customer)request.getSession().getAttribute("cust");
+        } else {
+            request.setAttribute("flash", "You are not logged in");
+            return "";
+        }
         String destination = "/WEB-INF/admin/viewCust.jsp";
         int page = 1;
         

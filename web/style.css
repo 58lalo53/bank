@@ -50,11 +50,13 @@ h3 {
 tr.even {
     background-color: #68714a;
     color: white;
+    border: 1px solid black;
 }
 
 tr.odd {
     background-color: #cccccc;
     color: black;
+    border: 1px solid black;
 }
 
 #content {
@@ -93,7 +95,7 @@ th{
 td {
     width: 100px;
     height: 25px;
-    border: 1px solid black;
+
 }
 
 .date{
@@ -104,7 +106,10 @@ table.main {
     width: 100%;
     font-size: 14px;
     border-collapse: collapse;
-    
+}
+
+table.main >td{
+    border: 1px solid black;
 }
 
 
@@ -117,7 +122,7 @@ td.money{
 }
 
 
-table.center > td {
+table.center {
     margin-left: auto;
     margin-right: auto;
     border-collapse: collapse;
