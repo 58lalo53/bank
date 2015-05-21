@@ -29,13 +29,9 @@
                             <table class="center">
                                 <tr><td rowspan="3">
                                         <%@include file="../jspf/image.jspf" %>
-                                    </td></tr>
-                                <tr><td>Welcome <c:out value="${sessionScope.cust.toString()}"/></td></tr>
-                                <c:set var="count" value="0"/>
-                                <c:forEach var="acc" items="${accounts}">
-                                    <c:set var="count" value="${count+1}"/>
-                                </c:forEach>
-                                <tr><td>Number of opened accounts:&nbsp;${count}</td></tr>
+                                    </td>
+                                    <td colspan="3">Welcome <c:out value="${sessionScope.cust.toString()}"/> <br/><hr>
+                                Number of opened accounts:&nbsp;${numAcc}</td></tr>
                                   
                 </table>
                         </div>

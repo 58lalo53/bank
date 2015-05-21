@@ -9,6 +9,11 @@ import java.io.IOException;
 import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.util.Enumeration;
+import java.util.Hashtable;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Set;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -18,14 +23,19 @@ import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author lpz_l_000
  */
-@WebFilter(filterName = "AdminFIlter", urlPatterns = {"/"})
-public class AdminFIlter implements Filter {
+
+@WebFilter("/home*")
+public class LoggedInFilter implements Filter {
     
+    @Override
+    public void init(FilterConfig filterConfig) throws ServletException{}
+
     @Override
     public void doFilter(ServletRequest req, ServletResponse res,
             FilterChain chain)
@@ -34,24 +44,20 @@ public class AdminFIlter implements Filter {
         HttpServletRequest request = (HttpServletRequest)req;
         HttpServletResponse response = (HttpServletResponse)res;
         
-        Customer cust = (Customer)request.getSession().getAttribute("cust");
-        
-        if (cust.getRole().equals("admin"))
-            response.sendRedirect("bank/adminHome");
-        else
-                chain.doFilter(request, response);
+        HttpSession session = request.getSession(false);
+        if (session == null || session.getAttribute("cust")== null){
+            response.sendRedirect("/bank/login");
+        } else{
+            chain.doFilter(req, res);
+        }
         
         
         
     }
-        
-    @Override
-    public void destroy() {        
-    }
-
-    @Override
-    public void init(FilterConfig filterConfig) {}
-        
     
+    @Override
+    public void destroy(){}
+
+
     
 }

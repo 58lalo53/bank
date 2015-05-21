@@ -42,9 +42,7 @@ public class LoginServlet extends HttpServlet {
             request.getSession().setAttribute("cust",cust);
             request.getSession().setAttribute("custId",cust.getId());
             request.setAttribute("flash", "Login was successfull");
-            if (cust.getRole().equals("admin")){
-                response.sendRedirect("/bank/adminHome");
-            }else
+            
                 response.sendRedirect("/bank/home");
        } catch (Exception e) {
             request.setAttribute("flash", e.getMessage());

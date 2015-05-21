@@ -19,7 +19,7 @@ public class LogoutServlet extends HttpServlet {
         
         request.getSession().removeAttribute("cust");
         request.setAttribute("flash", "You have successfully logged off!");
-        response.sendRedirect("/bank");
+        response.sendRedirect("/bank/login");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

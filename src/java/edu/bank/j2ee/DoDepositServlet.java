@@ -84,7 +84,7 @@ public class DoDepositServlet extends HttpServlet {
             
             request.setAttribute("trans", trans);   
             
-            request.getRequestDispatcher("/deposit").forward(request, response);
+            request.getRequestDispatcher("/WEB-INF/customer/transaction.jsp").forward(request, response);
             return;
         } catch(Exception e){
             request.setAttribute("flash", e.getMessage());

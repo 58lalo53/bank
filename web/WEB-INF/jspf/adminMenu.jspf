@@ -3,7 +3,6 @@
     <li><a href="/bank/adminHome">Home</a></li>
     <li><a href="/bank/viewAccounts">View Accounts</a></li>
     <li><a href="/bank/viewCust">View Customers</a></li>
-    <li><a href="/bank/doTransfer">Transfer</a></li>
     <li><a href="/bank/logout">Logout</a></li>
 </ul>
 </div>

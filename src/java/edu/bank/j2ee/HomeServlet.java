@@ -6,7 +6,6 @@
 package edu.bank.j2ee;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -21,26 +20,37 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Eduardo
  */
-@WebServlet(name = "HomeServlet", urlPatterns = {"/home"})
+@WebServlet(name = "HomeServlet", urlPatterns = {"/index.html","/home"})
 public class HomeServlet extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
         Customer cust = (Customer)request.getSession().getAttribute("cust");
         
+        
         if (request.getMethod().equals("GET")){
-            response.sendRedirect("/bank/home");
+            if (cust!=null){
+                if (cust.getRole().equals("admin")){
+                response.sendRedirect("/bank/adminHome");
+                return;
+            } else{
+            request.getRequestDispatcher("/WEB-INF/customer/home.jsp").forward(request, response);
             return;
+            }
+            }
         }
-            
+        
+        
         
         EntityManagerFactory emf = (EntityManagerFactory)getServletContext().getAttribute("emf");
         EntityManager em = emf.createEntityManager();
     try{
-            Query q = em.createQuery("SELECT a FROM Account a WHERE a.custId.id = :id ORDER BY a.timeStamp DESC");
-            q.setParameter("id", cust.getId());
-            List<Account> accs = q.getResultList();
-            request.getSession().setAttribute("accounts", accs);
+            Query q = em.createQuery("SELECT a FROM Account a WHERE a.custId.id = :id AND a.status = :status ORDER BY a.timeStamp DESC");
+            q.setParameter("id", request.getSession().getAttribute("custId"));
+            q.setParameter("status", "ACTIVE");
+            int accs = q.getResultList().size();
+            request.setAttribute("numAcc", accs);
             
         } catch(Exception e){
             request.setAttribute("flash", e.getMessage());

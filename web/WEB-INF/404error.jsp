@@ -15,7 +15,7 @@
             <c:choose>
             <c:when test="${sessionScope.cust.username!=null}">
                 
-                    <%@include file="/WEB-INF/jspf/menuAcc.jspf" %>
+                    <%@include file="/WEB-INF/jspf/errorMenu.jspf" %>
             </c:when>
                 <c:otherwise>
                     <%@include file="/WEB-INF/jspf/noLoginMenu.jspf" %>
