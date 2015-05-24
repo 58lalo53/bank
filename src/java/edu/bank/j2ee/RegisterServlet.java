@@ -21,7 +21,7 @@ public class RegisterServlet extends HttpServlet {
             throws ServletException, IOException {
         
         String destination = register(request);
-        if (destination.equals("/home")){
+        if (destination.equals("/bank/home")){
             response.sendRedirect(destination);
             return;
         }

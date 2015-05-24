@@ -27,9 +27,29 @@ public class HomeServlet extends HttpServlet {
             throws ServletException, IOException {
         
         Customer cust = (Customer)request.getSession().getAttribute("cust");
+        String destination = "/WEB-INF/customer/home.jsp";
         
+        
+        EntityManagerFactory emf = (EntityManagerFactory)getServletContext().getAttribute("emf");
+        EntityManager em = emf.createEntityManager();
         
         if (request.getMethod().equals("GET")){
+            try{
+                if (cust!=null){
+                Query q = em.createQuery("SELECT a FROM Account a WHERE a.custId.id = :id AND a.status = :status ORDER BY a.timeStamp DESC");
+                q.setParameter("id", cust.getId());
+                q.setParameter("status", "ACTIVE");
+                int accs = q.getResultList().size();
+                request.setAttribute("numAcc", accs);
+                request.getRequestDispatcher(destination).forward(request, response);
+                return;
+            }
+            else
+            request.getRequestDispatcher(destination).forward(request, response);
+            } catch(Exception e){
+            request.setAttribute("flash", e.getMessage());
+        }
+        
             if (cust!=null){
                 if (cust.getRole().equals("admin")){
                 response.sendRedirect("/bank/adminHome");
@@ -37,14 +57,12 @@ public class HomeServlet extends HttpServlet {
             } else{
             request.getRequestDispatcher("/WEB-INF/customer/home.jsp").forward(request, response);
             return;
+                }
             }
-            }
+            
         }
         
         
-        
-        EntityManagerFactory emf = (EntityManagerFactory)getServletContext().getAttribute("emf");
-        EntityManager em = emf.createEntityManager();
     try{
             Query q = em.createQuery("SELECT a FROM Account a WHERE a.custId.id = :id AND a.status = :status ORDER BY a.timeStamp DESC");
             q.setParameter("id", request.getSession().getAttribute("custId"));

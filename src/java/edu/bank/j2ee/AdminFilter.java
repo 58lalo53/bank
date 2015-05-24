@@ -15,19 +15,14 @@ import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author lpz_l_000
  */
-
-@WebFilter("/bank/*")
-public class LoggedInFilter implements Filter {
+@WebFilter(filterName = "AdminFilter", urlPatterns = {"/home"})
+public class AdminFilter implements Filter {
     
-    @Override
-    public void init(FilterConfig filterConfig) throws ServletException{}
-
     @Override
     public void doFilter(ServletRequest req, ServletResponse res,
             FilterChain chain)
@@ -36,20 +31,30 @@ public class LoggedInFilter implements Filter {
         HttpServletRequest request = (HttpServletRequest)req;
         HttpServletResponse response = (HttpServletResponse)res;
         
-        HttpSession session = request.getSession(false);
-        if (session == null || session.getAttribute("cust")== null){
-            response.sendRedirect("/bank/home");
-        } else{
-            chain.doFilter(req, res);
-        }
+        Customer cust = (Customer)request.getSession().getAttribute("cust");
+           
+
+        try{
+            if (cust.getRole().equals("admin"))
+            response.sendRedirect("/bank/adminHome");
+            else
+                chain.doFilter(req, res);
+                
+       }catch(NullPointerException npe){
+            response.sendRedirect("/");
+       }
         
         
         
     }
-    
+        
     @Override
-    public void destroy(){}
+    public void destroy() {        
+    }
 
-
+    @Override
+    public void init(FilterConfig filterConfig) {}
+        
+    
     
 }

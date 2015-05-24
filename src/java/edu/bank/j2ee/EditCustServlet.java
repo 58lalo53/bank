@@ -53,13 +53,16 @@ public class EditCustServlet extends HttpServlet {
         final Part filePart = request.getPart("pic");
         String filename = filePart.getSubmittedFileName();
         String filetype = filePart.getContentType();
-        if (!filetype.contains("image")&& filetype==null) {
+        
+        InputStream imgdata = filePart.getInputStream();
+        byte[] pixels = readImage(imgdata);   
+
+        
+
+        if (!filetype.contains("image")&& filePart == null) {
                 request.setAttribute("flash", "The uploaded file is not an image!");
                 return destination;
         }
-        InputStream imgdata = filePart.getInputStream();
-        byte[] pixels = readImage(imgdata);     
-        
         
         if (username.length()>10 || username.length()<=0 || password.length()>10 || password.length()<=0){
             request.setAttribute("flash", "Username and password must be between 1 and 10 characters");
@@ -71,15 +74,20 @@ public class EditCustServlet extends HttpServlet {
             return destination;
             
         }
+        cust.setStreet(street);
+        cust.setCity(city);
+        cust.setState(state);
+        cust.setZip(zip);
+        cust.setPhone(phone);
+        cust.setEmail(email);
+        if (!request.getParameter("pic").isEmpty() && request.getParameter("pic")!=null){
+            cust.setPicture(pixels);
+            cust.setPictype(filetype);
+        }
         
-                 cust.setStreet(street);
-                 cust.setCity(city);
-                 cust.setState(state);
-                 cust.setZip(zip);
-                 cust.setPhone(phone);
-                 cust.setEmail(email);
-                 cust.setPicture(pixels);
-                 cust.setPictype(filetype);
+                 
+                 
+                 
         /*if (!mname.equals("null"))
             cust = new Customer(fname, lname, mname, street, city, state, zip, phone, email, username, password);
         else

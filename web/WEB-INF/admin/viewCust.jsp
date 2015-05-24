@@ -16,14 +16,14 @@
             <div id="content">
                 <h4 class="flash">${flash}</h4>
                 <p>There are ${numOfCusts} customers.</p>
-                <a href="/bank/viewCust?order=fname">Order By First Name</a> | <a href="/bank/viewCust?order=lname">Order By Last Name</a>
+                <a href="/bank/viewCust?order=fname">Order By First Name</a> | <a href="/bank/viewCust?order=lname">Order By Last Name</a> | <a href="/bank/viewCust?order=mname">Order By Middle Name</a>
                 <table class="main">
                     <tr><th>First Name</th><th>Last Name</th><th>Middle Name</th>
                         <th>Street</th><th>City</th><th>State</th><th>Zip</th><th>Email</th><th>Phone</th></tr>
                     
                     <c:forEach var="cust" items="${custs}" varStatus="loopStatus">
-                        <tr class="${loopStatus.index % 2 == 0 ? "even" : "odd"}"><td>${cust.fname}</td><td>${cust.lname}</td><td>${cust.mname}</td><td class="date">${cust.street}</td><td>${cust.city}</td><td>${cust.state}</td>
-                            <td>${cust.zip}</td><td>${cust.email}</td><td>${cust.phone}</td></tr>
+                        <tr class="${loopStatus.index % 2 == 0 ? "even" : "odd"}"><td><c:out value="${cust.fname}"/></td><td><c:out value="${cust.lname}"/></td><td><c:out value="${cust.mname}"/></td><td class="date"><c:out value="${cust.street}"/></td><td><c:out value="${cust.city}"/></td><td><c:out value="${cust.state}"/></td>
+                            <td><c:out value="${cust.zip}"/></td><td><c:out value="${cust.email}"/></td><td><c:out value="${cust.phone}"/></td></tr>
                    </c:forEach>
                 </table>
                 <table class="pagination">

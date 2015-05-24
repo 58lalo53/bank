@@ -6,7 +6,6 @@
 package edu.bank.j2ee;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.math.BigDecimal;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -28,6 +27,10 @@ public class DoWithdrawServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String destination = doWithdraw(request);
+        if (destination.equals("/bank/login")){
+            response.sendRedirect(destination);
+        return;
+            }
         request.getRequestDispatcher(destination).forward(request, response);
     }
     
@@ -54,7 +57,7 @@ public class DoWithdrawServlet extends HttpServlet {
             }
         }else{
             request.setAttribute("flash", "You are not logged in.");
-            return "/login";
+            return "/bank/login";
             }
         
        

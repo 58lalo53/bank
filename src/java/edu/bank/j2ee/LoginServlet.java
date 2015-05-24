@@ -41,7 +41,6 @@ public class LoginServlet extends HttpServlet {
                 throw new Exception("Access Denied");
             request.getSession().setAttribute("cust",cust);
             request.getSession().setAttribute("custId",cust.getId());
-            request.setAttribute("flash", "Login was successfull");
             
                 response.sendRedirect("/bank/home");
        } catch (Exception e) {

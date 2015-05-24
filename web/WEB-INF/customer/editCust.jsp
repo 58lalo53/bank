@@ -104,7 +104,7 @@
                 <tr>
                     <td>Confirm Password: </td><td><input type="password" name="password2" value="<c:out value="${sessionScope.cust.getPassword()}"/>"></td>
                 </tr>
-                <tr><td>Change account pic: </td><td><input type="file" name="pic" id="pic" value="Change profile pic"/></td></tr>
+                <tr><td>Change account pic: </td><td><input type="file" name="pic" id="pic"/></td></tr>
                                  
                 <tr>
                 <input type="hidden" name="fname" value="<c:out value="${sessionScope.cust.getFname()}"/>">
