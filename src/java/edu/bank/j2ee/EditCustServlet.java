@@ -51,6 +51,7 @@ public class EditCustServlet extends HttpServlet {
         String password2 = request.getParameter("password2");
         
         final Part filePart = request.getPart("pic");
+        long size = filePart.getSize();
         String filename = filePart.getSubmittedFileName();
         String filetype = filePart.getContentType();
         
@@ -59,7 +60,7 @@ public class EditCustServlet extends HttpServlet {
 
         
 
-        if (!filetype.contains("image")&& filePart == null) {
+        if (!filetype.contains("image")&& !request.getParameter("pic").isEmpty()) {
                 request.setAttribute("flash", "The uploaded file is not an image!");
                 return destination;
         }
@@ -80,7 +81,7 @@ public class EditCustServlet extends HttpServlet {
         cust.setZip(zip);
         cust.setPhone(phone);
         cust.setEmail(email);
-        if (!request.getParameter("pic").isEmpty() && request.getParameter("pic")!=null){
+        if (size!=0){
             cust.setPicture(pixels);
             cust.setPictype(filetype);
         }
