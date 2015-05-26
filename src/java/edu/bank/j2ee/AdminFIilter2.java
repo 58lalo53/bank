@@ -23,7 +23,7 @@ import javax.servlet.http.HttpServletResponse;
 @WebFilter(filterName = "AdminFIilter2", urlPatterns = {"/adminHome","/viewCust", "/viewAccounts"})
 public class AdminFIilter2 implements Filter {
     
-   
+   @Override
     public void doFilter(ServletRequest req, ServletResponse res,
             FilterChain chain)
             throws IOException, ServletException {
@@ -31,7 +31,11 @@ public class AdminFIilter2 implements Filter {
         HttpServletRequest request = (HttpServletRequest)req;
         HttpServletResponse response = (HttpServletResponse)res;
         
-        Customer cust = (Customer)request.getSession().getAttribute("cust");
+        Customer cust = new Customer();
+        
+        if (request.getSession().getAttribute("cust")!=null)
+            cust = (Customer)request.getSession().getAttribute("cust");
+
         if (!cust.getRole().equals("admin") )
             response.sendRedirect("/bank/home");
         else

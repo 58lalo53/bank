@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.bank.j2ee;
+package edu.bank.j2ee.customer;
 
+import edu.bank.j2ee.Account;
 import java.io.IOException;
 import java.util.List;
 import javax.servlet.ServletException;

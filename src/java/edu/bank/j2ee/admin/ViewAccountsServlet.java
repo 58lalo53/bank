@@ -1,7 +1,8 @@
-package edu.bank.j2ee;
+package edu.bank.j2ee.admin;
 
+import edu.bank.j2ee.Account;
+import edu.bank.j2ee.Customer;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -14,48 +15,54 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author Eduardo
+ * @author lpz_l_000
  */
-@WebServlet(name = "AccountsServlet", urlPatterns = {"/accounts"})
-public class AccountsServlet extends HttpServlet {
+@WebServlet(name = "ViewAccountsServlet", urlPatterns = {"/viewAccounts"})
+public class ViewAccountsServlet extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
+        String destination = viewAccounts(request);
+        request.getRequestDispatcher(destination).forward(request, response);
+    }
 
+    private String viewAccounts(HttpServletRequest request) {
+        EntityManagerFactory emf = (EntityManagerFactory)getServletContext().getAttribute("emf");
+        EntityManager em = emf.createEntityManager();
+        
         Customer cust = (Customer)request.getSession().getAttribute("cust");
         
-        if (cust == null){
-            request.setAttribute("flash", "You are not logged in");
-            request.getRequestDispatcher("/home").forward(request, response);
-        }
-
-        int page=1;
-        if (request.getParameter("page")!=null)
+        int page = 1;
+        if(request.getParameter("page")!=null)
             page = Integer.parseInt(request.getParameter("page"));
         int accPerPage = 5;
         int numOfAccs;
-        EntityManagerFactory emf = (EntityManagerFactory)getServletContext().getAttribute("emf");
-        EntityManager em = emf.createEntityManager();
+        
+        if (cust.getRole().equals("customer")){
+            request.setAttribute("flash", "You do not have access");
+            return "/home";
+        }
+        
         try{
-            Query q = em.createQuery("SELECT a FROM Account a WHERE a.custId.id = :id AND a.status = :status ORDER BY a.timeStamp DESC") ;
-            q.setParameter("id", cust.getId());
-            q.setParameter("status", "ACTIVE");
+            Query q = em.createNamedQuery("Account.findAll");
             numOfAccs = q.getResultList().size();
             q.setFirstResult((page-1)*accPerPage);
             q.setMaxResults(accPerPage);
+            
             List<Account> accs = q.getResultList();
-            int numOfPages = (int)Math.ceil(numOfAccs*1.0/accPerPage);
-            request.setAttribute("numOfPages", numOfPages);
+            int numOfPages = (int)Math.ceil(numOfAccs * 1.0/accPerPage);
+            
             request.setAttribute("numOfAccs", numOfAccs);
+            request.setAttribute("numOfPages", numOfPages);
             request.setAttribute("curPage", page);
-            request.getSession().setAttribute("accounts", accs);
-        } catch(Exception e){
+            request.getSession().setAttribute("accs", accs);
+        }catch(Exception e){
             request.setAttribute("flash", e.getMessage());
         }
-
-        request.getRequestDispatcher("/WEB-INF/customer/accounts.jsp").forward(request, response);
+        return "/WEB-INF/admin/viewAccount.jsp";
     }
-
+    
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -94,5 +101,6 @@ public class AccountsServlet extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
 
 }

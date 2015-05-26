@@ -40,7 +40,7 @@ public class AdminFilter implements Filter {
             else
                 chain.doFilter(req, res);
        }catch(NullPointerException npe){
-            response.sendRedirect("/login");
+            response.sendRedirect("/bank/login");
        }
         
         

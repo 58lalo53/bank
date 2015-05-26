@@ -1,7 +1,7 @@
-package edu.bank.j2ee;
+package edu.bank.j2ee.admin;
 
+import edu.bank.j2ee.Customer;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -24,18 +24,28 @@ public class ViewCustomersServlet extends HttpServlet {
         
         String destination = viewCust(request);
         
+        if ( destination.equals("/bank/login") || destination.equals("/bank/home")){
+            response.sendRedirect(destination);
+            return;
+        }
         request.getRequestDispatcher(destination).forward(request, response);
         
     }
     
     private String viewCust(HttpServletRequest request){
-        Customer cust = (Customer)request.getSession().getAttribute("cust");
+        
+        Customer cust = new Customer();
+        
+        if (request.getSession().getAttribute("cust")!=null)
+            cust = (Customer)request.getSession().getAttribute("cust");
+        else
+            return "/bank/login";
         
         String destination = "/WEB-INF/admin/viewCust.jsp";
         int page = 1;
         
         if (cust.getRole().equals("customer")){
-            return "/home";
+            return "/bank/home";
         }
         
         EntityManagerFactory emf = (EntityManagerFactory)getServletContext().getAttribute("emf");

@@ -15,6 +15,9 @@
             <%@include file="../jspf/adminMenu.jspf" %>
             <div id="content">
                 <h4 class="flash">${flash}</h4>
+                <h3>Welcome <c:out value="${cust.toString()}"/></h3>
+                <p>There are ${custs} customers registered and <br/>
+                    ${accs} accounts(including inactive).</p>
             </div>
             <%@include file="../jspf/footer.jspf" %>
         </div>

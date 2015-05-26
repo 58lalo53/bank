@@ -1,7 +1,9 @@
-package edu.bank.j2ee;
+package edu.bank.j2ee.admin;
 
 import java.io.IOException;
-import java.io.PrintWriter;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Query;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -17,6 +19,21 @@ public class AdminHomeServlet extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
+        EntityManagerFactory emf = (EntityManagerFactory)getServletContext().getAttribute("emf");
+        EntityManager em = emf.createEntityManager();
+        
+        try{
+            Query q = em.createNamedQuery("Customer.findAll");
+            int custs = q.getResultList().size();
+            Query q1 = em.createNamedQuery("Account.findAll");
+            int accs = q1.getResultList().size();
+            
+            request.setAttribute("custs", custs);
+            request.setAttribute("accs", accs);
+        }catch(Exception e){
+            request.setAttribute("flash", e.getMessage());
+        }
         
         request.getRequestDispatcher("/WEB-INF/admin/adminHome.jsp").forward(request,response);
     }

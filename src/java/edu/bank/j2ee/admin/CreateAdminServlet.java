@@ -1,8 +1,11 @@
-package edu.bank.j2ee;
+package edu.bank.j2ee.admin;
 
+import edu.bank.j2ee.Customer;
 import java.io.IOException;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.NoResultException;
+import javax.persistence.Query;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,26 +14,25 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author Eduardo
+ * @author lpz_l_000
  */
-@WebServlet(name = "RegisterServlet", urlPatterns = {"/register"})
-public class RegisterServlet extends HttpServlet {
+@WebServlet(name = "CreateAdminServlet", urlPatterns = {"/createAdmin"})
+public class CreateAdminServlet extends HttpServlet {
 
-   
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        String destination = register(request);
-        if (destination.equals("/bank/home")){
+        String destination = createAdmin(request);
+        if (destination.equals("/bank/adminHome")){
             response.sendRedirect(destination);
             return;
         }
-        
         request.getRequestDispatcher(destination).forward(request, response);
-        
     }
-    private String register(HttpServletRequest request){
-        String destination="/WEB-INF/customer/register.jsp";
+    
+    private String createAdmin(HttpServletRequest request){
+        String destination = "/WEB-INF/admin/register.jsp";
+        
         if (request.getMethod().equals("GET")) 
             return destination;
         
@@ -49,44 +51,54 @@ public class RegisterServlet extends HttpServlet {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         String password2 = request.getParameter("password2");
-
-        if (username.length()>10 || username.length()<= 0){
-                request.setAttribute("flash", "Username must be between 1 and 10 characters");
-                return destination;
+        String role = "admin";
+        
+        if (username.length()< 6 || username.length() > 10 || password.length() >10 || password.length() < 6){
+            request.setAttribute("flash", "Your username and password must be between 6 and 10 characters");
+            return destination;
         }
-        if (password.length()>10 || password.length()<= 0){
-                request.setAttribute("flash", "Password must be between 1 and 10 characters");
-                return destination;
-        }
-
+        
         if (!password.equals(password2)){
-                request.setAttribute("flash", "Passwords didn't match");
-                return destination;
+            request.setAttribute("flash", "Your passwords don't match");
+            return destination;
         }
-
-         Customer cust;
-        if (!mname.equals("null"))
-            cust = new Customer(fname, lname, mname, street, city, state, zip, phone, email, username, password);
-        else
-            cust = new Customer(fname,lname,street,city,state,zip,phone,email,username,password);
+        
+        Customer cust;
+        
+        if (mname!=null)
+            cust = new Customer(fname,lname,mname,street,city,state,zip,phone,email,username,password, role);
+        else 
+            cust = new Customer(fname,lname,street,city,state,zip,phone,email,username,password, role);
         
         EntityManagerFactory emf = (EntityManagerFactory)getServletContext().getAttribute("emf");
         EntityManager em = emf.createEntityManager();
-        try {
+        
+        Customer cust1;
+        
+        try{
+            try{
+                Query q = em.createNamedQuery("Customer.findByUsername");
+                q.setParameter("username", username);
+                cust1 = (Customer)q.getSingleResult();
+            if (cust1 != null){
+                request.setAttribute("flash", "Username already exists");
+                return destination;
+            }
+            }catch(NoResultException nre){
                 em.getTransaction().begin();
                 em.persist(cust);
                 em.merge(cust);
                 em.getTransaction().commit();
-                request.getSession().setAttribute("cust", cust);
-                return "/bank/home";
+                return "/bank/adminHome";
+            }
+            
         }catch(Exception e){
-                request.setAttribute("efname", fname);
-                request.setAttribute("flash", e.getMessage());
-                return destination;
+            request.setAttribute("flash", e.getMessage());
+            return destination;
         }
-    
-}
-   
+        return destination;
+    }
+
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -127,4 +139,3 @@ public class RegisterServlet extends HttpServlet {
     }// </editor-fold>
 
 }
-

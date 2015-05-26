@@ -3,8 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.bank.j2ee;
+package edu.bank.j2ee.customer;
 
+import edu.bank.j2ee.Account;
+import edu.bank.j2ee.Customer;
+import edu.bank.j2ee.Transactions;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.math.BigDecimal;

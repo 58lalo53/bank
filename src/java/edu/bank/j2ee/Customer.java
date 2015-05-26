@@ -49,7 +49,7 @@ public class Customer implements Serializable {
     @NotNull
     @Size(min = 1, max = 15)
     @Column(name = "ROLE")
-    private String role = "customer";
+    private String role;
     private static final long serialVersionUID = 1L;
     @Basic(optional = false)
     @NotNull
@@ -127,7 +127,7 @@ public class Customer implements Serializable {
         this.id = id;
     }
 
-    public Customer(Integer id, String fname, String lname, String street, String city, String state, String zip, String phone, String email, String username, String password) {
+    public Customer(Integer id, String fname, String lname, String street, String city, String state, String zip, String phone, String email, String username, String password, String role) {
         this.id = id;
         this.fname = fname;
         this.lname = lname;
@@ -139,9 +139,10 @@ public class Customer implements Serializable {
         this.email = email;
         this.username = username;
         this.password = password;
+        this.role = role;
     }
     
-    public Customer(String fname, String lname, String mname, String street, String city, String state, String zip, String phone, String email, String username, String password) {
+    public Customer(String fname, String lname, String mname, String street, String city, String state, String zip, String phone, String email, String username, String password, String role) {
         this.fname = fname;
         this.lname = lname;
         this.mname = mname;
@@ -153,9 +154,10 @@ public class Customer implements Serializable {
         this.email = email;
         this.username = username;
         this.password = password;
+        this.role = role;
     }
     
-    public Customer(String fname, String lname, String street, String city, String state, String zip, String phone, String email, String username, String password) {
+    public Customer(String fname, String lname, String street, String city, String state, String zip, String phone, String email, String username, String password, String role) {
         this.fname = fname;
         this.lname = lname;
         this.street = street;
@@ -166,6 +168,7 @@ public class Customer implements Serializable {
         this.email = email;
         this.username = username;
         this.password = password;
+        this.role = role;
     }
 
     public String getFname() {

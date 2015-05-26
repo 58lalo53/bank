@@ -1,5 +1,8 @@
-package edu.bank.j2ee;
+package edu.bank.j2ee.customer;
 
+import edu.bank.j2ee.Account;
+import edu.bank.j2ee.Customer;
+import edu.bank.j2ee.Transactions;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.List;

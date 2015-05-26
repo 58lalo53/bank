@@ -1,11 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package edu.bank.j2ee;
+package edu.bank.j2ee.customer;
 
+import edu.bank.j2ee.Account;
+import edu.bank.j2ee.Customer;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -20,60 +18,44 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Eduardo
  */
-@WebServlet(name = "HomeServlet", urlPatterns = {"/index.html","/home"})
-public class HomeServlet extends HttpServlet {
+@WebServlet(name = "AccountsServlet", urlPatterns = {"/accounts"})
+public class AccountsServlet extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         Customer cust = (Customer)request.getSession().getAttribute("cust");
-        String destination = "/WEB-INF/customer/home.jsp";
         
-        
+        if (cust == null){
+            request.setAttribute("flash", "You are not logged in");
+            request.getRequestDispatcher("/home").forward(request, response);
+        }
+
+        int page=1;
+        if (request.getParameter("page")!=null)
+            page = Integer.parseInt(request.getParameter("page"));
+        int accPerPage = 5;
+        int numOfAccs;
         EntityManagerFactory emf = (EntityManagerFactory)getServletContext().getAttribute("emf");
         EntityManager em = emf.createEntityManager();
-        
-        if (request.getMethod().equals("GET")){
-            try{
-                if (cust!=null){
-                Query q = em.createQuery("SELECT a FROM Account a WHERE a.custId.id = :id AND a.status = :status ORDER BY a.timeStamp DESC");
-                q.setParameter("id", cust.getId());
-                q.setParameter("status", "ACTIVE");
-                int accs = q.getResultList().size();
-                request.setAttribute("numAcc", accs);
-                request.getRequestDispatcher(destination).forward(request, response);
-                return;
-            }
-            else
-            request.getRequestDispatcher(destination).forward(request, response);
-            } catch(Exception e){
-            request.setAttribute("flash", e.getMessage());
-        }
-        
-            if (cust!=null){
-                if (cust.getRole().equals("admin")){
-                response.sendRedirect("/bank/adminHome");
-                return;
-            } else{
-            request.getRequestDispatcher("/WEB-INF/customer/home.jsp").forward(request, response);
-            return;
-                }
-            }
-            
-        }
-        
-        
-    try{
-            Query q = em.createQuery("SELECT a FROM Account a WHERE a.custId.id = :id AND a.status = :status ORDER BY a.timeStamp DESC");
-            q.setParameter("id", request.getSession().getAttribute("custId"));
+        try{
+            Query q = em.createQuery("SELECT a FROM Account a WHERE a.custId.id = :id AND a.status = :status ORDER BY a.timeStamp DESC") ;
+            q.setParameter("id", cust.getId());
             q.setParameter("status", "ACTIVE");
-            int accs = q.getResultList().size();
-            request.setAttribute("numAcc", accs);
-            
+            numOfAccs = q.getResultList().size();
+            q.setFirstResult((page-1)*accPerPage);
+            q.setMaxResults(accPerPage);
+            List<Account> accs = q.getResultList();
+            int numOfPages = (int)Math.ceil(numOfAccs*1.0/accPerPage);
+            request.setAttribute("numOfPages", numOfPages);
+            request.setAttribute("numOfAccs", numOfAccs);
+            request.setAttribute("curPage", page);
+            request.getSession().setAttribute("accounts", accs);
         } catch(Exception e){
             request.setAttribute("flash", e.getMessage());
         }
-            request.getRequestDispatcher("/WEB-INF/customer/home.jsp").forward(request, response);
+
+        request.getRequestDispatcher("/WEB-INF/customer/accounts.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

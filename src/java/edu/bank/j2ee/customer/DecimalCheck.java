@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.bank.j2ee;
+package edu.bank.j2ee.customer;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
