@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package edu.bank.j2ee;
 
 import java.io.IOException;
@@ -26,7 +21,7 @@ public class DoWithdrawServlet extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String destination = doWithdraw(request);
+        String destination = doWithdraw(request, response);
         if (destination.equals("/bank/login")){
             response.sendRedirect(destination);
         return;
@@ -34,7 +29,7 @@ public class DoWithdrawServlet extends HttpServlet {
         request.getRequestDispatcher(destination).forward(request, response);
     }
     
-    private String doWithdraw(HttpServletRequest request){
+    private String doWithdraw(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
         String destination = "/WEB-INF/customer/doWithdraw.jsp";
         Customer cust = (Customer)request.getSession().getAttribute("cust");
         
@@ -64,6 +59,8 @@ public class DoWithdrawServlet extends HttpServlet {
         Account accs = (Account)request.getSession().getAttribute("accs");
         
         String type = request.getParameter("type");
+        DecimalCheck.checkDecPlace(request, response, destination);
+        
         BigDecimal amount;
         try{
             amount = new BigDecimal(request.getParameter("amount"));

@@ -143,6 +143,7 @@ table.center {
 
 #nav ul{
     list-style-type: none;
+    alignment-adjust: central;
 }
 
 #nav li {
@@ -152,6 +153,8 @@ table.center {
     position:relative;
     float:left;
     margin-right: 3px;
+    display:inline;
+
 }
 
 #nav a{

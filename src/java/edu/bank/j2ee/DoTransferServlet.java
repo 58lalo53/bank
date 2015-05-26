@@ -117,11 +117,13 @@ public class DoTransferServlet extends HttpServlet {
                 return "/WEB-INF/customer/transaction.jsp";
             }catch (Exception e){
                 request.setAttribute("flash", e.getMessage());
+                return destination;
             }
         }catch (Exception e){
             request.setAttribute("flash", e.getMessage());
+            return destination;
         }
-        return destination;
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -55,6 +55,8 @@ public class DoDepositServlet extends HttpServlet {
             }
         
         String type = request.getParameter("type");
+        DecimalCheck.checkDecPlace(request, response, destination);
+        
         BigDecimal amount;
         try{
             amount = new BigDecimal(request.getParameter("amount"));

@@ -39,9 +39,8 @@ public class AdminFilter implements Filter {
             response.sendRedirect("/bank/adminHome");
             else
                 chain.doFilter(req, res);
-                
        }catch(NullPointerException npe){
-            response.sendRedirect("/");
+            response.sendRedirect("/login");
        }
         
         
